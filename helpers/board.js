@@ -1,3 +1,5 @@
+import './vertex.js';
+
 /**
  * @param { int } rows
  * @param { int } columns
@@ -34,3 +36,10 @@ function htmlToElement( html ){
   template.innerHTML = html;
   return template.content.firstChild;
 }
+
+const totalWidth = window.innerWidth;
+const totalHeight = window.innerHeight;
+const headerSize = 0; //TODO: get height of header document.querySelector('header').offsetheight
+export const vertexSize = 24;
+export const columns = Math.floor( ( totalWidth * 0.9 ) / vertexSize );
+export const rows = Math.floor( ( totalHeight * 0.98 - headerSize ) / vertexSize );
