@@ -15,6 +15,7 @@ export function createBoard( rows, columns ){
 
 /**
  * @param { HTMLElement } board
+ * @param { int } vertexSize
  * @param { int } rows
  * @param { int } columns
 */
