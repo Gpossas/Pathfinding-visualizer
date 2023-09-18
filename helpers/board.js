@@ -9,6 +9,16 @@ export function createBoard( rows, columns ){
   }
 }
 
+/**
+ * @param { HTMLElement } board
+ * @param { int } rows
+ * @param { int } columns
+ */
+export function setBoardDimensions( board, vertexSize, rows, columns ){
+  board.style.gridTemplateRows = `${ vertexSize }px `.repeat( rows );
+  board.style.gridTemplateColumns = `${ vertexSize }px `.repeat( columns );
+}
+
 function htmlToElement( html ){
   const template = document.createElement( 'template' );
   html = html.trim();

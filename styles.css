@@ -11,8 +11,6 @@
 
 #board{
   display: grid;
-  grid-template-rows: repeat( 20, var( --vertex-size ) );
-  grid-template-columns: repeat( 66, var( --vertex-size ) );
 }
 
 .container{
@@ -24,7 +22,5 @@
 
 .vertex{
   display: inline-block;
-  height: var( --vertex-size );
-  width: var( --vertex-size );
   border: 0.5px solid;
 }
