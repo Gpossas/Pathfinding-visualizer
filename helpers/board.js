@@ -8,7 +8,7 @@ export function createBoard( rows, columns ){
   for ( let row = 0; row < rows; row++ ){
     for ( let column = 0; column < columns; column++ ){
       const vertex_template = htmlToElement(
-        `<div class="vertex"></div>`
+        `<div id="r${row}c${column}" class="vertex"></div>`
       );
       board.append( vertex_template );
     }
