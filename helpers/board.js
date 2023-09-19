@@ -22,8 +22,8 @@ export function createBoard( rows, columns ){
  * @param { int } columns
 */
 export function setBoardDimensions( board, vertexSize, rows, columns ){
-  board.style.gridTemplateRows = `${ vertexSize }px `.repeat( rows );
-  board.style.gridTemplateColumns = `${ vertexSize }px `.repeat( columns );
+  board.style.setProperty( 'grid-template-rows', `repeat(${ rows }, ${ vertexSize }px)` );
+  board.style.setProperty( 'grid-template-columns', `repeat(${ columns }, ${ vertexSize }px)` );
 }
 
 /**
