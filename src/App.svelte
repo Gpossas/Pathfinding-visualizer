@@ -9,7 +9,7 @@
   /**
    * @param { Event } e
    */
-  function addOrRemoveWall(e){
+  function startSelecting(e){
     console.log('pressing...')
     isPressing = true;
   }
@@ -22,7 +22,7 @@
 
 <div class="container">
   <div 
-    on:mousedown|preventDefault={addOrRemoveWall} on:mouseup={stopSelecting}
+    on:mousedown|preventDefault={startSelecting} on:mouseup={stopSelecting}
     id="board" 
     style="grid-template-rows: repeat({ rows }, { vertexSize }px); 
     grid-template-columns: repeat({ columns }, { vertexSize }px);" 
