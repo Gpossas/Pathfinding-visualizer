@@ -1,45 +1,36 @@
-import './vertex.js';
+import Vertex, { vertexSize } from "./vertex";
 
 /**
- * @param { int } rows
- * @param { int } columns
-*/
+ * @param { number } rows max number of rows
+ * @param { number } columns max number of columns
+ * @return {Array<Array<Vertex>>} Matrix containing vertices
+ */
 export function createBoard( rows, columns ){
+  const matrix = [];
   for ( let row = 0; row < rows; row++ ){
+    const rowItems = [];
     for ( let column = 0; column < columns; column++ ){
-      const vertex_template = htmlToElement(
-        `<div id="r${row}c${column}" class="vertex"></div>`
-      );
-      board.append( vertex_template );
+      rowItems.push( new Vertex( [ row, column ] ) );
     }
+    matrix.push( rowItems );
   }
+  return matrix;
 }
 
 /**
  * @param { HTMLElement } board
- * @param { int } vertexSize
- * @param { int } rows
- * @param { int } columns
-*/
+ * @param { number } vertexSize
+ * @param { number } rows
+ * @param { number } columns
+ */
 export function setBoardDimensions( board, vertexSize, rows, columns ){
   board.style.setProperty( 'grid-template-rows', `repeat(${ rows }, ${ vertexSize }px)` );
   board.style.setProperty( 'grid-template-columns', `repeat(${ columns }, ${ vertexSize }px)` );
 }
 
-/**
- * @param { String } html
- * @return { HTMLElement } 
-*/
-function htmlToElement( html ){
-  const template = document.createElement( 'template' );
-  html = html.trim();
-  template.innerHTML = html;
-  return template.content.firstChild;
-}
-
 const totalWidth = window.innerWidth;
 const totalHeight = window.innerHeight;
 const headerSize = 0; //TODO: get height of header document.querySelector('header').offsetheight
-export const vertexSize = 24;
+
 export const columns = Math.floor( ( totalWidth * 0.9 ) / vertexSize );
 export const rows = Math.floor( ( totalHeight * 0.98 - headerSize ) / vertexSize );

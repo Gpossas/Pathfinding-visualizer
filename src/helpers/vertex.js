@@ -14,4 +14,6 @@ class Vertex {
   }
 }
 
+export const vertexSize = 24;
+
 export default Vertex
