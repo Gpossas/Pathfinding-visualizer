@@ -1,26 +1,41 @@
 <script>
   /** @param { Event } e */
-   function selectItems( e ){
-    console.log( e.target );
+   function drawOrRemoveWall( e ){
+     if (!isPressing) return;
+     console.log(e.target);
+    
+    const vertex = graph[row][column];
+    if ( vertex.isWall ){
+      state = '';
+      vertex.isWall = false;
+    } else{
+      state = 'wall';
+      vertex.isWall = true;
+    }
   }
 
   export let row;
   export let column;
   export let isPressing;
+  export let graph;
+
+  let state = '';
 </script>
 
-{ #if isPressing }
-  <div class="vertex" on:mouseenter|once={ selectItems } 
-    id="row:{ row } column:{ column }" 
-    role="cell" tabindex="-1" aria-label="vertex">
-  </div>
-{ :else }
-  <div class="vertex" id="row:{ row } column:{ column }"></div>
-{ /if }
+<div 
+  on:mouseenter={ drawOrRemoveWall }
+  class="vertex { state }"
+  id="row:{ row } column:{ column }" 
+  role="cell" tabindex="-1" aria-label="vertex">
+</div>
 
 <style>
   .vertex{
     display: inline-block;
     border: 0.5px solid;
+  }
+
+  .wall{
+    background-color: black;
   }
 </style>

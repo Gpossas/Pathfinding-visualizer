@@ -7,12 +7,10 @@
 
   /** @param { Event } e */
   function startSelecting( e ){
-    console.log('pressing...')
     isPressing = true;
   }
   /** @param { Event } e */
   function stopSelecting( e ){
-    console.log('stop pressing');
     isPressing = false;
   }
 
@@ -29,7 +27,7 @@
       >
     { #each graph as line, row }
       { #each line as vertex, column }
-        <VertexComponent { isPressing } { row } {column} />
+        <VertexComponent { graph } { isPressing } { row } {column} />
       { /each }
     { /each }
   </div>
