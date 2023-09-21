@@ -4,7 +4,7 @@
      if (!isPressing) return;
      console.log(e.target);
     
-    const vertex = graph[row][column];
+    const vertex = graph[id];
     if ( vertex.isWall ){
       state = '';
       vertex.isWall = false;
@@ -14,8 +14,7 @@
     }
   }
 
-  export let row;
-  export let column;
+  export let id;
   export let isPressing;
   export let graph;
 
@@ -25,7 +24,7 @@
 <div 
   on:mouseenter={ drawOrRemoveWall }
   class="vertex { state }"
-  id="row:{ row } column:{ column }" 
+  id="{ id }" 
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
 
