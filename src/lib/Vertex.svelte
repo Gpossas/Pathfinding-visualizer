@@ -1,14 +1,12 @@
 <script>
-  export let row;
-  export let column;
-  export let isPressing;
-
-  /**
-   * @param { Event } e
-   */
+  /** @param { Event } e */
    function selectItems(e){
     console.log(e.target);
   }
+
+  export let row;
+  export let column;
+  export let isPressing;
 </script>
 
 {#if isPressing}
