@@ -26,7 +26,7 @@
     role="grid" tabindex="-1" aria-label="Board"
       >
     { #each graph as vertex, id }
-      <VertexComponent { graph } { isPressing } { id } />
+      <VertexComponent { vertex } { isPressing } { id } />
     { /each }
   </div>
 </div>

@@ -4,7 +4,6 @@
      if (!isPressing) return;
      console.log(e.target);
     
-    const vertex = graph[id];
     if ( vertex.isWall ){
       state = '';
       vertex.isWall = false;
@@ -16,7 +15,7 @@
 
   export let id;
   export let isPressing;
-  export let graph;
+  export let vertex;
 
   let state = '';
 </script>
