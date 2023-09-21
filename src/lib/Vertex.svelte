@@ -1,7 +1,7 @@
 <script>
   /** @param { Event } e */
-   function selectItems(e){
-    console.log(e.target);
+   function selectItems( e ){
+    console.log( e.target );
   }
 
   export let row;
@@ -9,14 +9,14 @@
   export let isPressing;
 </script>
 
-{#if isPressing}
+{ #if isPressing }
   <div class="vertex" on:mouseenter|once={ selectItems } 
     id="row:{ row } column:{ column }" 
     role="cell" tabindex="-1" aria-label="vertex">
   </div>
-{:else}
+{ :else }
   <div class="vertex" id="row:{ row } column:{ column }"></div>
-{/if}
+{ /if }
 
 <style>
   .vertex{
