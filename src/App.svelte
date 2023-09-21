@@ -25,7 +25,7 @@
     grid-template-columns: repeat({ columns }, { vertexSize }px);" 
     role="grid" tabindex="-1" aria-label="Board"
       >
-    { #each graph as vertex, id }
+    { #each graph as vertex, id ( id ) }
       <VertexComponent { vertex } { isPressing } { id } />
     { /each }
   </div>
