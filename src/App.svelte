@@ -12,7 +12,7 @@
   function startSelecting( e ){
     isPressing = true;
     const vertex = graph[e.target.id];
-    
+
     if ( e.button == leftButton ){
       e.target.classList.add( 'wall' )
       vertex.isWall = true;
@@ -29,7 +29,7 @@
   let isPressing = false;
 </script>
 
-<div class="container" >
+<div class="container" on:contextmenu={(e) => e.preventDefault()} role="main" tabindex="-1" aria-label="Board container">
   <div 
     on:mousedown|preventDefault={ startSelecting } on:mouseup={ stopSelecting }
     id="board" 
