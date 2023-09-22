@@ -3,14 +3,18 @@ import Vertex, { vertexSize } from "./vertex";
 /**
  * @param { number } rows max number of rows
  * @param { number } columns max number of columns
- * @return { Array } Matrix containing vertices
+ * @return { Array<Array<Vertex>> } Matrix containing vertices
  */
 export function createBoard( rows, columns ){
-  const board = [];
-  for ( let index = 0; index < rows * columns; index++ ){
-    board.push( new Vertex( index ) )
+  const matrix = [];
+  for ( let row = 0; row < rows; row++ ){
+    const rowItems = [];
+    for ( let column = 0; column < columns; column++ ){
+      rowItems.push( new Vertex( [ row, column ] ) );
+    }
+    matrix.push( rowItems );
   }
-  return board;
+  return matrix;  
 }
 
 /**

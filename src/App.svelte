@@ -11,13 +11,15 @@
   /** @param { Event } e */
   function startSelecting( e ){
     isPressing = true;
-    const vertex = graph[e.target.id];
+
+    const [ row, column ] = e.target.id.split('_');
+    const vertex = graph[row][column];
 
     if ( e.button == leftButton ){
-      e.target.classList.add( 'wall' )
+      e.target.classList.add( 'wall' );
       vertex.isWall = true;
     } else{
-      e.target.classList.remove( 'wall' )
+      e.target.classList.remove( 'wall' );
       vertex.isWall = false;
     }
   }
@@ -37,8 +39,10 @@
     grid-template-columns: repeat({ columns }, { vertexSize }px);" 
     role="grid" tabindex="-1" aria-label="Board"
       >
-    { #each graph as vertex, id ( id ) }
-      <VertexComponent { vertex } { isPressing } { id } />
+    { #each graph as row, rowIndex }
+      { #each row as vertex, columnIndex }
+        <VertexComponent { vertex } { isPressing } { rowIndex } {columnIndex} />
+      { /each}
     { /each }
   </div>
 </div>

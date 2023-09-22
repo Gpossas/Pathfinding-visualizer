@@ -1,7 +1,6 @@
 <script>
 // @ts-nocheck
 
-  const rightButton = 1
   /** @param { Event } e */
    function drawOrRemoveWall( e ){
     if ( !isPressing ) return;
@@ -15,7 +14,10 @@
     }
   }
 
-  export let id;
+  const rightButton = 1;
+
+  export let rowIndex;
+  export let columnIndex;
   export let isPressing;
   export let vertex;
 
@@ -25,7 +27,7 @@
 <div 
   on:mouseenter={ drawOrRemoveWall }
   class="vertex { state }"
-  id="{ id }" 
+  id="{ rowIndex }_{ columnIndex }" 
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
 
