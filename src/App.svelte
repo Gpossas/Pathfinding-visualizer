@@ -8,6 +8,17 @@
   /** @param { Event } e */
   function startSelecting( e ){
     isPressing = true;
+    // @ts-ignore
+    const vertex = graph[e.target.id];
+    if ( vertex.isWall ){
+      // @ts-ignore
+      e.target.classList.remove( 'wall' )
+      vertex.isWall = false;
+    } else{
+      // @ts-ignore
+      e.target.classList.add( 'wall' )
+      vertex.isWall = true;
+    }
   }
   /** @param { Event } e */
   function stopSelecting( e ){
