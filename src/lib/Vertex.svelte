@@ -1,14 +1,17 @@
 <script>
+// @ts-nocheck
+
+  const rightButton = 1
   /** @param { Event } e */
    function drawOrRemoveWall( e ){
-    if (!isPressing) return;
-    
-    if ( vertex.isWall ){
-      state = '';
-      vertex.isWall = false;
-    } else{
+    if ( !isPressing ) return;
+
+    if ( e.buttons == rightButton ){
       state = 'wall';
       vertex.isWall = true;
+    } else{
+      state = '';
+      vertex.isWall = false;
     }
   }
 

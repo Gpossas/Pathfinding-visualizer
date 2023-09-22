@@ -1,23 +1,24 @@
 <script>
+// @ts-nocheck
+
   import VertexComponent from "./lib/Vertex.svelte";
   import { createBoard, rows, columns } from "./helpers/board.js"
   import { vertexSize } from "./helpers/vertex.js"
 
   const graph = createBoard( rows, columns );
+  const leftButton = 0
 
   /** @param { Event } e */
   function startSelecting( e ){
     isPressing = true;
-    // @ts-ignore
     const vertex = graph[e.target.id];
-    if ( vertex.isWall ){
-      // @ts-ignore
-      e.target.classList.remove( 'wall' )
-      vertex.isWall = false;
-    } else{
-      // @ts-ignore
+    
+    if ( e.button == leftButton ){
       e.target.classList.add( 'wall' )
       vertex.isWall = true;
+    } else{
+      e.target.classList.remove( 'wall' )
+      vertex.isWall = false;
     }
   }
   /** @param { Event } e */
@@ -28,7 +29,7 @@
   let isPressing = false;
 </script>
 
-<div class="container">
+<div class="container" >
   <div 
     on:mousedown|preventDefault={ startSelecting } on:mouseup={ stopSelecting }
     id="board" 
