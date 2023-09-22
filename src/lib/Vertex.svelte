@@ -1,8 +1,7 @@
 <script>
   /** @param { Event } e */
    function drawOrRemoveWall( e ){
-     if (!isPressing) return;
-     console.log(e.target);
+    if (!isPressing) return;
     
     if ( vertex.isWall ){
       state = '';
