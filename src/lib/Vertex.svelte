@@ -4,8 +4,8 @@
   /** @param { Event } mouseEvent */
    function drawOrRemoveWall( mouseEvent ){
     if ( !isPressing ) return;
-
-    if ( mouseEvent.buttons == rightButton ){
+    
+    if ( mouseEvent.buttons == 1 && startEvent.button == 0 ){
       state = 'wall';
       vertex.isWall = true;
     } else{
@@ -14,19 +14,18 @@
     }
   }
 
-  const rightButton = 1;
 
   export let rowIndex;
   export let columnIndex;
   export let isPressing;
   export let vertex;
-  export let isStart;
+  export let startEvent;
 
   let state = '';
   let vertexComponent;
 </script>
 
-{ #key isPressing && isStart === vertexComponent }
+{ #key isPressing && startEvent.target === vertexComponent }
 <div 
   on:mouseenter={ drawOrRemoveWall }
   id="{ rowIndex }_{ columnIndex }" 
