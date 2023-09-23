@@ -7,12 +7,12 @@
 
   const graph = createBoard( rows, columns );  
   let isPressing = false;
-  let isStart;
+  let startEvent;
 
   /** @param { Event } mouseEvent */
   function startSelecting( mouseEvent ){
     isPressing = true;
-    isStart = mouseEvent.target;
+    startEvent = mouseEvent;
   }
 
   function stopSelecting(){
@@ -30,7 +30,7 @@
     >
     { #each graph as row, rowIndex }
       { #each row as vertex, columnIndex }
-        <VertexComponent { vertex } { isStart } { isPressing } { rowIndex } { columnIndex } />
+        <VertexComponent { vertex } { startEvent } { isPressing } { rowIndex } { columnIndex } />
       { /each}
     { /each }
   </div>
