@@ -20,11 +20,12 @@
   export let columnIndex;
   export let isPressing;
   export let vertex;
-
+  export let isStart;
+  
   let state = '';
 </script>
 
-{ #key isPressing }
+{ #key isPressing && isStart === `${ rowIndex }_${ columnIndex }` }
 <div 
   on:mouseenter={ drawOrRemoveWall }
   class="vertex { state }"
