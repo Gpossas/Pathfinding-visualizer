@@ -1,11 +1,11 @@
 <script>
 // @ts-nocheck
 
-  /** @param { Event } e */
-   function drawOrRemoveWall( e ){
+  /** @param { Event } mouseEvent */
+   function drawOrRemoveWall( mouseEvent ){
     if ( !isPressing ) return;
 
-    if ( e.buttons == rightButton ){
+    if ( mouseEvent.buttons == rightButton ){
       state = 'wall';
       vertex.isWall = true;
     } else{
