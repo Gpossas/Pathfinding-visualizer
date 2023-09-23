@@ -24,12 +24,14 @@
   let state = '';
 </script>
 
+{ #key isPressing }
 <div 
   on:mouseenter={ drawOrRemoveWall }
   class="vertex { state }"
   id="{ rowIndex }_{ columnIndex }" 
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
+{ /key }
 
 <style>
   .vertex{

@@ -5,24 +5,12 @@
   import { createBoard, rows, columns } from "./helpers/board.js"
   import { vertexSize } from "./helpers/vertex.js"
 
-  const graph = createBoard( rows, columns );
-  const leftButton = 0;
-  
+  const graph = createBoard( rows, columns );  
   let isPressing = false;
 
   /** @param { Event } mouseEvent */
   function startSelecting( mouseEvent ){
     isPressing = true;
-    const [ row, column ] = mouseEvent.target.id.split('_');
-    const vertex = graph[row][column];
-
-    if ( mouseEvent.button == leftButton ){
-      mouseEvent.target.classList.add( 'wall' );
-      vertex.isWall = true;
-    } else{
-      mouseEvent.target.classList.remove( 'wall' );
-      vertex.isWall = false;
-    }
   }
 
   function stopSelecting(){
