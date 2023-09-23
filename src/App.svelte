@@ -12,7 +12,7 @@
   /** @param { Event } mouseEvent */
   function startSelecting( mouseEvent ){
     isPressing = true;
-    isStart = mouseEvent.target.id;
+    isStart = mouseEvent.target;
   }
 
   function stopSelecting(){

@@ -21,15 +21,17 @@
   export let isPressing;
   export let vertex;
   export let isStart;
-  
+
   let state = '';
+  let vertexComponent;
 </script>
 
-{ #key isPressing && isStart === `${ rowIndex }_${ columnIndex }` }
+{ #key isPressing && isStart === vertexComponent }
 <div 
   on:mouseenter={ drawOrRemoveWall }
-  class="vertex { state }"
   id="{ rowIndex }_{ columnIndex }" 
+  class="vertex { state }"
+  bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
 { /key }
