@@ -29,7 +29,7 @@
 <div 
   on:mouseenter={ drawOrRemoveWall }
   id="{ rowIndex }_{ columnIndex }" 
-  class="vertex { state }"
+  class="vertex { state } { vertex.isStart ? 'start':'' }"
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
@@ -43,5 +43,9 @@
 
   .wall{
     background-color: black;
+  }
+
+  .start{
+    background-color: hsl(155, 100%, 31%);
   }
 </style>
