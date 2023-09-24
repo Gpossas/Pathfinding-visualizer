@@ -3,7 +3,7 @@
 
   /** @param { Event } mouseEvent */
    function drawOrRemoveWall( mouseEvent ){
-    if ( !isPressing ) return;
+    if ( !isPressing || vertex.isStart ) return;
     
     if ( mouseEvent.buttons == 1 && startEvent.button == 0 ){
       vertex.isWall = true;
