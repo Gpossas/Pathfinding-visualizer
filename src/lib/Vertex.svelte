@@ -12,6 +12,18 @@
     }
   }
 
+  /** @param { Event } mouseEvent */
+  function moveToPosition( mouseEvent ){
+    if ( !isPressing ) return;
+    
+    if ( mouseEvent.type === 'mouseenter' ){
+      vertex.isStart = true;
+      if ( vertex.isWall ) vertex.isWall = false;
+    } else{
+      vertex.isStart = false;
+    }
+  }
+
   export let rowIndex;
   export let columnIndex;
   export let isPressing;
@@ -23,7 +35,13 @@
 
 { #key isPressing && startEvent.target === vertexComponent }
 <div 
-  on:mouseenter={ drawOrRemoveWall }
+  on:mouseenter={ 
+    startEvent && startEvent.target.
+    classList.contains('start') 
+    ? moveToPosition 
+    : drawOrRemoveWall  
+  }
+  on:mouseleave={ moveToPosition }
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex { 
     vertex.isStart ? 'start':
