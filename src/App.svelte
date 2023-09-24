@@ -6,6 +6,9 @@
   import { vertexSize } from "./helpers/vertex.js"
 
   const graph = createBoard( rows, columns );  
+  const startVertex = graph[Math.trunc( rows / 2 )][1];
+  startVertex.isStart = true;
+
   let isPressing = false;
   let startEvent;
 
