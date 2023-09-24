@@ -17,8 +17,9 @@
     if ( !isPressing ) return;
     
     if ( mouseEvent.type === 'mouseenter' ){
-      vertex.isStart = true;
       if ( vertex.isWall ) vertex.isWall = false;
+      vertex.isStart = true;
+      startVertex = vertex;
     } else{
       vertex.isStart = false;
     }
@@ -29,6 +30,7 @@
   export let isPressing;
   export let vertex;
   export let startEvent;
+  export let startVertex;
 
   let vertexComponent;
 </script>

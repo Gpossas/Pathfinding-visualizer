@@ -6,7 +6,7 @@
   import { vertexSize } from "./helpers/vertex.js"
 
   const graph = createBoard( rows, columns );  
-  const startVertex = graph[Math.trunc( rows / 2 )][1];
+  let startVertex = graph[Math.trunc( rows / 2 )][1];
   startVertex.isStart = true;
 
   let isPressing = false;
@@ -33,7 +33,9 @@
     >
     { #each graph as row, rowIndex }
       { #each row as vertex, columnIndex }
-        <VertexComponent { vertex } { startEvent } { isPressing } { rowIndex } { columnIndex } />
+        <VertexComponent { vertex } { startEvent } { isPressing } { rowIndex } { columnIndex } 
+          bind:startVertex
+        />
       { /each}
     { /each }
   </div>
