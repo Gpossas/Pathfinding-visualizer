@@ -11,15 +11,19 @@
 
   let isPressing = false;
   let startEvent;
+  let drawOperation = false;
 
   /** @param { Event } mouseEvent */
   function startSelecting( mouseEvent ){
     isPressing = true;
     startEvent = mouseEvent;
+    if ( startEvent.target.classList.contains( 'start' ) )
+      drawOperation = true;
   }
 
   function stopSelecting(){
     isPressing = false;
+    drawOperation = false;
   }
 </script>
 
@@ -33,7 +37,7 @@
     >
     { #each graph as row, rowIndex }
       { #each row as vertex, columnIndex }
-        <VertexComponent { vertex } { startEvent } { isPressing } { rowIndex } { columnIndex } 
+        <VertexComponent { vertex } { startEvent } { drawOperation } { isPressing } { rowIndex } { columnIndex } 
           bind:startVertex
         />
       { /each}

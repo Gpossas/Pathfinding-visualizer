@@ -31,19 +31,15 @@
   export let vertex;
   export let startEvent;
   export let startVertex;
+  export let drawOperation;
 
   let vertexComponent;
 </script>
 
 { #key isPressing && startEvent.target === vertexComponent }
 <div 
-  on:mouseenter={ 
-    startEvent && startEvent.target.
-    classList.contains('start') 
-    ? moveToPosition 
-    : drawOrRemoveWall  
-  }
-  on:mouseleave={ moveToPosition }
+  on:mouseenter={ drawOperation ? moveToPosition : drawOrRemoveWall }
+  on:mouseleave={ drawOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex { 
     vertex.isStart ? 'start':
