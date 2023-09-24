@@ -6,14 +6,11 @@
     if ( !isPressing ) return;
     
     if ( mouseEvent.buttons == 1 && startEvent.button == 0 ){
-      state = 'wall';
       vertex.isWall = true;
     } else{
-      state = '';
       vertex.isWall = false;
     }
   }
-
 
   export let rowIndex;
   export let columnIndex;
@@ -21,7 +18,6 @@
   export let vertex;
   export let startEvent;
 
-  let state = '';
   let vertexComponent;
 </script>
 
@@ -29,7 +25,11 @@
 <div 
   on:mouseenter={ drawOrRemoveWall }
   id="{ rowIndex }_{ columnIndex }" 
-  class="vertex { state } { vertex.isStart ? 'start':'' }"
+  class="vertex { 
+    vertex.isStart ? 'start':
+    vertex.isWall ? 'wall':
+    ''
+  }"
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
