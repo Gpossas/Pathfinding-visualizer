@@ -3,8 +3,8 @@ class Vertex {
   constructor( coordinates ){
     this.coordinates = coordinates;
     this.isWall = false;
-    this.start = false;
-    this.target = false;
+    this.isStart = false;
+    this.isTarget = false;
     this.visited = false;
     this.explored = false;
     this.isShortestPath = false;
