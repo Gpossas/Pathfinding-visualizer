@@ -35,6 +35,6 @@ export function dfs( start, graph ){
   }
 
   const pathTraveled = new Queue();
-  explore( start.coordinates );
+  explore( ...start.coordinates );
   traversePathTraveled();
 }
