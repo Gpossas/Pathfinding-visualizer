@@ -2,8 +2,8 @@
 // @ts-nocheck
 
   import VertexComponent from "./lib/Vertex.svelte";
-  import { createBoard, rows, columns } from "./helpers/board.js"
-  import { vertexSize } from "./helpers/vertex.js"
+  import { createBoard, rows, columns } from "./lib/helpers/board.js"
+  import { vertexSize } from "./lib/helpers/vertex.js"
 
   const graph = createBoard( rows, columns );  
   let startVertex = graph[Math.trunc( rows / 2 )][1];
