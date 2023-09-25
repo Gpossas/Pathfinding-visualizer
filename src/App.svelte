@@ -7,7 +7,9 @@
 
   const graph = createBoard( rows, columns );  
   let startVertex = graph[Math.trunc( rows / 2 )][1];
+  let targetVertex = graph[Math.trunc( rows / 2 )][columns - 2];
   startVertex.isStart = true;
+  targetVertex.isTarget = true;
 
   let isPressing = false;
   let startEvent;
@@ -17,7 +19,7 @@
   function startSelecting( mouseEvent ){
     isPressing = true;
     startEvent = mouseEvent;
-    if ( startEvent.target.classList.contains( 'start' ) )
+    if ( startEvent.target.classList.contains( 'start' ) || startEvent.target.classList.contains( 'target' ) )
       drawOperation = true;
   }
 
@@ -39,6 +41,7 @@
       { #each row as vertex, columnIndex }
         <VertexComponent { vertex } { startEvent } { drawOperation } { isPressing } { rowIndex } { columnIndex } 
           bind:startVertex
+          bind:targetVertex
         />
       { /each}
     { /each }
