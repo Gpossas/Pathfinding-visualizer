@@ -3,7 +3,7 @@
 
   /** @param { Event } mouseEvent */
    function drawOrRemoveWall( mouseEvent ){
-    if ( !isPressing || vertex.isStart ) return;
+    if ( !isPressing || vertex.isStart || vertex.isTarget ) return;
     
     if ( mouseEvent.buttons == 1 && startEvent.button == 0 ){
       vertex.isWall = true;
@@ -16,13 +16,19 @@
   function moveToPosition( mouseEvent ){
     if ( !isPressing ) return;
     
-    if ( mouseEvent.type === 'mouseenter' ){
-      if ( vertex.isWall ) vertex.isWall = false;
+    const isStartVertex = startEvent.target.classList.contains( 'start' );
+
+    if ( mouseEvent.type === 'mouseleave' ){
+      isStartVertex ? vertex.isStart = false : vertex.isTarget = false;
+    } else if ( isStartVertex ){
       vertex.isStart = true;
       startVertex = vertex;
     } else{
-      vertex.isStart = false;
+      vertex.isTarget = true;
+      targetVertex = vertex;
     }
+    if ( vertex.isWall ) 
+      vertex.isWall = false;
   }
 
   export let rowIndex;
@@ -31,6 +37,7 @@
   export let vertex;
   export let startEvent;
   export let startVertex;
+  export let targetVertex;
   export let drawOperation;
 
   let vertexComponent;
@@ -43,6 +50,7 @@
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex { 
     vertex.isStart ? 'start':
+    vertex.isTarget ? 'target':
     vertex.isWall ? 'wall':
     ''
   }"
@@ -63,5 +71,9 @@
 
   .start{
     background-color: hsl(155, 100%, 31%);
+  }
+
+  .target{
+    background-color: hsl(0, 100%, 40%);
   }
 </style>
