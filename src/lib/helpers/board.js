@@ -17,6 +17,15 @@ export function createBoard( rows, columns ){
   return matrix;  
 }
 
+export function isOutOfBounds( row, column ){
+  return (
+    row < 0 ||
+    row >= rows ||
+    column < 0 || 
+    column >= columns
+  );
+}
+
 /**
  * @param { HTMLElement } board
  * @param { number } vertexSize
