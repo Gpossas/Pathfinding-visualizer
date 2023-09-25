@@ -52,6 +52,9 @@
     vertex.isStart ? 'start':
     vertex.isTarget ? 'target':
     vertex.isWall ? 'wall':
+    vertex.isShortestPath ? 'shortestPath':
+    vertex.visited ? 'visited':
+    vertex.explored ? 'explored':
     ''
   }"
   bind:this={ vertexComponent }
@@ -75,5 +78,17 @@
 
   .target{
     background-color: hsl(0, 100%, 40%);
+  }
+
+  .shortestPath{
+    background-color: hsl(56, 100%, 45%);
+  }
+
+  .visited{
+    background-color: hsl(209, 78%, 35%);
+  }
+
+  .explored{
+    background-color: hsl(291, 78%, 35%);
   }
 </style>
