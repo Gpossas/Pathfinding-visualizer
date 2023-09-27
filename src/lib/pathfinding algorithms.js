@@ -1,12 +1,10 @@
 import Vertex from './helpers/vertex.js';
 import { isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
+import { graph } from './helpers/store.js';
 
-/**
- * @param { Vertex } start start vertex
- * @param { Array<Array<Vertex>> } graph graph
- */
-export function dfs( start, graph ){
+/** @param { Vertex } start start vertex */
+export function dfs( start ){
   function traversePathTraveled(){
     while ( !pathTraveled.isEmpty() ){
       const vertex = pathTraveled.dequeue();
