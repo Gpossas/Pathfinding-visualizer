@@ -24,7 +24,7 @@ export function dfs( start ){
     }
 
     pathTraveled.enqueue( get(graph)[row][column] );
-    graph[row][column].explored = true;
+    graph.compute(row, column, 'explored');
     return (
       explore( row - 1, column ) || 
       explore( row, column + 1 ) ||
