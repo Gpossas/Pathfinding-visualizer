@@ -2,6 +2,7 @@ import Vertex from './helpers/vertex.js';
 import { isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
 import { graph } from './helpers/store.js';
+import { get } from 'svelte/store';
 
 /** @param { Vertex } start start vertex */
 export function dfs( start ){
@@ -14,15 +15,15 @@ export function dfs( start ){
   function explore( row, column ){
     if ( 
       isOutOfBounds( row, column ) 
-      || graph[row][column].isWall 
-      || graph[row][column].explored
+      || get(graph)[row][column].isWall 
+      || get(graph)[row][column].explored
     ) return;
 
-    if ( graph[row][column].isTarget ){
+    if ( get(graph)[row][column].isTarget ){
       return true;
     }
 
-    pathTraveled.enqueue( graph[row][column] );
+    pathTraveled.enqueue( get(graph)[row][column] );
     graph[row][column].explored = true;
     return (
       explore( row - 1, column ) || 
