@@ -6,11 +6,12 @@ import { get } from 'svelte/store';
 import { sleep } from './helpers/sleep.js';
 
 /** @param { Vertex } start start vertex */
-export function dfs( start ){
-  function traversePathTraveled(){
+export async function dfs( start ){
+  async function traversePathTraveled(){
     while ( !pathTraveled.isEmpty() ){
       const vertex = pathTraveled.dequeue();
-      vertex.visited = true;
+      graph.compute( ...vertex.coordinates, 'visited' );
+      await sleep(10);
     }
   }
 
@@ -39,6 +40,6 @@ export function dfs( start ){
   }
 
   const pathTraveled = new Queue();
-  explore( ...start.coordinates );
+  await explore( ...start.coordinates );
   traversePathTraveled();
 }
