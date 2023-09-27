@@ -1,10 +1,9 @@
 <script>
   // @ts-nocheck
-  
+    import { graph } from './helpers/store.js';
     import VertexComponent from "./Vertex.svelte";
     import { vertexSize } from "./helpers/vertex.js"
 
-    export let graph;
     export let startVertex;
     export let targetVertex;
     export let rows;
@@ -36,7 +35,7 @@
       grid-template-columns: repeat({ columns }, { vertexSize }px);" 
       role="grid" tabindex="-1" aria-label="Board"
       >
-      { #each graph as row, rowIndex }
+      { #each $graph as row, rowIndex }
         { #each row as vertex, columnIndex }
           <VertexComponent { vertex } { startEvent } { drawOperation } { isPressing } { rowIndex } { columnIndex } 
             bind:startVertex
