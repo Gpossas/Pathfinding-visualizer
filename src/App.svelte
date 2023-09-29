@@ -1,7 +1,7 @@
 <script>
   import Board from './lib/Board.svelte';
   import { rows, columns } from './lib/helpers/board';
-  import { dfs } from './lib/pathfinding algorithms.js';
+  import { dfs, bfs } from './lib/pathfinding algorithms.js';
   import { graph } from './lib/helpers/store.js';
 
   let startVertex = $graph[Math.trunc( rows / 2 )][1];
@@ -12,6 +12,7 @@
 
 <header>
   <button on:click={ () => dfs( startVertex ) } type="submit">DFS</button>
+  <button on:click={ () => bfs( startVertex ) } type="submit">BFS</button>
 </header>
 
 <Board 
