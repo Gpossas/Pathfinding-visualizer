@@ -54,6 +54,9 @@ export async function bfs( start ){
     if ( vertex.isTarget ){
       return buildShortestPath( vertex );
     }
+    if ( vertex.visited ){
+      continue;
+    }
 
     const [row, column] = vertex.coordinates;
     const left = [row, column - 1];
