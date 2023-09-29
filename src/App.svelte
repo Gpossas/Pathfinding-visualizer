@@ -15,10 +15,10 @@
 </header>
 
 <Board 
-  { startVertex } 
-  { targetVertex } 
   { rows }
   { columns }
+  bind:startVertex
+  bind:targetVertex
 />
 
 <style>
