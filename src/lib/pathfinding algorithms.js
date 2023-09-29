@@ -51,7 +51,6 @@ export async function bfs( start ){
 
   while ( !queue.isEmpty() ){
     let vertex = queue.dequeue();
-    
     if ( vertex.isTarget ){
       return buildShortestPath( vertex );
     }
@@ -66,7 +65,7 @@ export async function bfs( start ){
     explore( ...up, vertex );
     explore( ...down, vertex );
 
-    get(graph)[row][column].visited = true;
+    graph.compute( row, column, 'visited' );
     await sleep( 10 );
   }
 
@@ -77,9 +76,9 @@ export async function bfs( start ){
       || get(graph)[row][column].visited 
     ) return;
     
-    get(graph)[row][column].explored = true;
+    graph.compute( row, column, 'explored' );
     queue.enqueue( get(graph)[row][column] );
-    get(graph)[row][column].previous = vertex;
+    graph.compute( row, column, 'previous', vertex );
   }
 
   async function buildShortestPath( vertex ){
@@ -92,7 +91,7 @@ export async function bfs( start ){
     while ( pathStack.length > 0 ){
       vertex = pathStack.pop();
       const [row, column] = vertex.coordinates;
-      get(graph)[row][column].previous = true;
+      graph.compute( row, column, 'isShortestPath' );
       await sleep( 10 );
     }
   }
