@@ -1,4 +1,4 @@
-function heapPush( heap, value ){
+export function heapPush( heap, value ){
   heap.push( value );
   heapifyBottomUp( heap, 0, heap.length - 1 );
 }
@@ -15,7 +15,7 @@ function heapifyBottomUp( heap, rootIndex, childIndex ){
   }
 }
 
-function heapPop( heap ){
+export function heapPop( heap ){
   const last = heap.pop();
   if ( heap.length > 0 ){
     const rootNode = heap.at( 0 );
