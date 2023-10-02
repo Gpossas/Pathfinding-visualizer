@@ -6,7 +6,7 @@ export function heapPush( heap, value ){
 function heapifyBottomUp( heap, rootIndex, childIndex ){
   while ( rootIndex < childIndex ){
     const parentIndex =  ( childIndex - 1 ) >> 1; //Math.trunc( ( childIndex - 1 ) / 2 );
-    if ( heap.at( parentIndex )[0] < heap.at( childIndex )[0] ){
+    if ( heap.at( childIndex )[0] < heap.at( parentIndex )[0] ){
       [ heap[parentIndex], heap[childIndex] ] = [ heap[childIndex], heap[parentIndex] ];
       childIndex = parentIndex;
       continue;
