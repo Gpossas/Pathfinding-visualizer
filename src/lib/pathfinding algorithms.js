@@ -84,21 +84,6 @@ export async function bfs( start ){
     queue.enqueue( get(graph)[row][column] );
     graph.compute( row, column, 'previous', vertex );
   }
-
-  async function buildShortestPath( vertex ){
-    const pathStack = [];
-    while ( vertex ){
-      pathStack.push( vertex );
-      vertex = vertex.previous;
-    }
-
-    while ( pathStack.length > 0 ){
-      vertex = pathStack.pop();
-      const [row, column] = vertex.coordinates;
-      graph.compute( row, column, 'isShortestPath' );
-      await sleep( 10 );
-    }
-  }
 }
 
 /** @param { Vertex } start start vertex */
@@ -146,5 +131,20 @@ export async function dijkstra( start ){
       heapPush( priorityQueue, [ distance, neighbor ] );
       neighbor.previous = vertex;
     }
+  }
+}
+
+async function buildShortestPath( vertex ){
+  const pathStack = [];
+  while ( vertex ){
+    pathStack.push( vertex );
+    vertex = vertex.previous;
+  }
+
+  while ( pathStack.length > 0 ){
+    vertex = pathStack.pop();
+    const [row, column] = vertex.coordinates;
+    graph.compute( row, column, 'isShortestPath' );
+    await sleep( 10 );
   }
 }
