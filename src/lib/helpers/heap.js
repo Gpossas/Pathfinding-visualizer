@@ -10,9 +10,10 @@ function heapifyBottomUp( heap, rootIndex, childIndex ){
       const child = heap.at( childIndex );
       const parent = heap.at( parentIndex );
 
-      for (let index = 0; index < child.length || index < parent.length; index++ ){
+      for ( let index = 0; index < child.length || index < parent.length; index++ ){
         const childValue = child[index];
         const parentValue = parent[index];
+        
         if ( isNaN( childValue ) || isNaN( parentValue ) || childValue === parentValue ) 
           continue;
         else if ( childValue < parentValue ){
