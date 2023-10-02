@@ -2,6 +2,7 @@ class Vertex {
   /** @param { Array } coordinates [x, y] */
   constructor( coordinates ){
     this.coordinates = coordinates;
+    this.value = 1;
     this.isWall = false;
     this.isStart = false;
     this.isTarget = false;
