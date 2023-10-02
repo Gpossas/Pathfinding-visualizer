@@ -1,6 +1,7 @@
 import Vertex from './helpers/vertex.js';
 import { isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
+import { heapPush, heapPop } from './helpers/heap.js';
 import { graph } from './helpers/store.js';
 import { get } from 'svelte/store';
 import { sleep } from './helpers/sleep.js';
@@ -96,6 +97,54 @@ export async function bfs( start ){
       const [row, column] = vertex.coordinates;
       graph.compute( row, column, 'isShortestPath' );
       await sleep( 10 );
+    }
+  }
+}
+
+/** @param { Vertex } start start vertex */
+export async function dijkstra( start ){
+  const shortestDistance = new Map();
+  shortestDistance.set( start, 0 );
+  const priorityQueue = [ [ 0, start ] ];
+
+  while ( priorityQueue.length > 0 ){
+    const vertex = heapPop( priorityQueue );
+
+    if ( vertex.isTarget ){
+      return buildShortestPath( vertex );
+    }
+    if ( vertex.visited ){
+      continue;
+    }
+
+    const [row, column] = vertex.coordinates;
+    const left = [row, column - 1];
+    const right = [row, column + 1];
+    const up = [row - 1, column];
+    const down = [row + 1, column];
+    explore( ...left, vertex, shortestDistance, priorityQueue );
+    explore( ...right, vertex, shortestDistance, priorityQueue );
+    explore( ...up, vertex, shortestDistance, priorityQueue );
+    explore( ...down, vertex, shortestDistance, priorityQueue );
+
+    graph.compute( row, column, 'visited' );
+    await sleep( 10 );
+  }
+
+  function explore( row, column, vertex, shortestDistance, priorityQueue ){
+    if ( 
+      isOutOfBounds( row, column ) 
+      || get(graph)[row][column].isWall
+      || get(graph)[row][column].visited
+    ) return;
+    
+    graph.compute( row, column, 'explored' );
+    const neighbor = get(graph)[row][column];
+    const distance = neighbor.value + ( shortestDistance.get( vertex ) || 0 );
+    if ( !shortestDistance.has( neighbor ) || distance < shortestDistance.get( neighbor ) ){
+      shortestDistance.set( neighbor, distance );
+      heapPush( priorityQueue, [ distance, neighbor ] );
+      neighbor.previous = vertex;
     }
   }
 }
