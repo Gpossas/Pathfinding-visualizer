@@ -4,26 +4,18 @@ export function heapPush( heap, value ){
 }
 
 function heapifyBottomUp( heap, rootIndex, childIndex ){
-  checkingChildIsSmaller: 
-    while ( rootIndex < childIndex ){
-      const parentIndex =  ( childIndex - 1 ) >> 1; //Math.trunc( ( childIndex - 1 ) / 2 );
-      const child = heap.at( childIndex );
-      const parent = heap.at( parentIndex );
-
-      for ( let index = 0; index < child.length || index < parent.length; index++ ){
-        const childValue = child[index];
-        const parentValue = parent[index];
-        
-        if ( isNaN( childValue ) || isNaN( parentValue ) || childValue === parentValue ) 
-          continue;
-        else if ( childValue < parentValue ){
-          [ heap[parentIndex], heap[childIndex] ] = [ heap[childIndex], heap[parentIndex] ];
-          childIndex = parentIndex;
-          continue checkingChildIsSmaller;
-        }
-        break checkingChildIsSmaller;
-      }
+  while ( rootIndex < childIndex ){
+    const parentIndex = ( childIndex - 1 ) >> 1; //Math.trunc( ( childIndex - 1 ) / 2 );
+    const child = heap.at( childIndex );
+    const parent = heap.at( parentIndex );
+      
+    if ( child < parent ){
+      [ heap[parentIndex], heap[childIndex] ] = [ heap[childIndex], heap[parentIndex] ];
+      childIndex = parentIndex;
+      continue;
     }
+    break;
+  }
 }
 
 export function heapPop( heap ){
