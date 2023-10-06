@@ -11,15 +11,13 @@ function heapifyBottomUp( heap, rootIndex, childIndex ){
     const parent = heap.at( parentIndex );
 
     for ( let index = 0; index < child.length && index < parent.length; index++ ){
-      if ( typeof( child[index] ) === 'object' || typeof( parent[index] ) === 'object' || child[index] === parent[index] ){
-        continue
-      }
       if ( child[index] < parent[index] ){
         [ heap[parentIndex], heap[childIndex] ] = [ heap[childIndex], heap[parentIndex] ];
         childIndex = parentIndex;
         continue checkingChildIsSmaller;
-      }
-      break checkingChildIsSmaller;
+      } 
+      else if ( child[index] > parent[index] )
+        break checkingChildIsSmaller;
     }
     break checkingChildIsSmaller;
   }
