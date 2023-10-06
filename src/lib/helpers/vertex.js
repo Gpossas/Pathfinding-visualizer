@@ -10,6 +10,8 @@ class Vertex {
     this.explored = false;
     this.isShortestPath = false;
     this.previous = undefined;
+    this.f = Infinity;
+    this.g = Infinity;
   }
 }
 
