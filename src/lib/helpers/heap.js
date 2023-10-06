@@ -35,9 +35,9 @@ function heapifyTopBottom( heap, parentIndex ){
     const rightChild = leftChild + 1;
     let smallestChild = leftChild;
 
-    if ( rightChild < heap.length && heap.at( rightChild )[0] < heap.at( leftChild )[0] )
+    if ( rightChild < heap.length && hasValueLessThan( heap.at( rightChild ), heap.at( leftChild ) ) )
       smallestChild = rightChild;
-    if ( heap.at( parentIndex )[0] < heap.at( smallestChild )[0] )
+    if ( hasValueLessThan( heap.at( parentIndex ), heap.at( smallestChild ) ) )
       break;
     [ heap[parentIndex], heap[smallestChild] ] = [ heap[smallestChild], heap[parentIndex] ];
     parentIndex = smallestChild;
