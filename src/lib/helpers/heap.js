@@ -69,3 +69,19 @@ function heapify( iterable ){
     heapifyTopBottom( iterable, parentIndex );
   }
 }
+
+/**
+ * @param { Array } first Iterable
+ * @param { Array } second Iterable
+ */
+function areItemsLessThan( first, second ){
+  const firstSize = first.length;
+  const secondSize = second.length;
+  for ( let index = 0; index < firstSize && index < secondSize; index++ ){
+    if ( first[index] < second[index] )
+      return true;
+    else if ( first[index] >= second[index] ) 
+      return false;
+  }
+  return false; // objects will continue the loop and return here
+}
