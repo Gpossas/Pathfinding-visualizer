@@ -76,7 +76,7 @@ function hasValueLessThan( first, second ){
   for ( let index = 0; index < firstSize && index < secondSize; index++ ){
     if ( first[index] < second[index] )
       return true;
-    else if ( first[index] >= second[index] ) 
+    else if ( first[index] > second[index] ) 
       return false;
   }
   return false; // objects will continue the loop and return here
