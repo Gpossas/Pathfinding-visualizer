@@ -4,22 +4,17 @@ export function heapPush( heap, value ){
 }
 
 function heapifyBottomUp( heap, rootIndex, childIndex ){
-  checkingChildIsSmaller: 
   while ( rootIndex < childIndex ){
     const parentIndex = ( childIndex - 1 ) >> 1; //Math.trunc( ( childIndex - 1 ) / 2 );
     const child = heap.at( childIndex );
     const parent = heap.at( parentIndex );
-
-    for ( let index = 0; index < child.length && index < parent.length; index++ ){
-      if ( child[index] < parent[index] ){
-        [ heap[parentIndex], heap[childIndex] ] = [ heap[childIndex], heap[parentIndex] ];
-        childIndex = parentIndex;
-        continue checkingChildIsSmaller;
-      } 
-      else if ( child[index] > parent[index] )
-        break checkingChildIsSmaller;
+    
+    if ( hasValueLessThan( child, parent ) ){
+      [ heap[parentIndex], heap[childIndex] ] = [ heap[childIndex], heap[parentIndex] ];
+      childIndex = parentIndex;
+      continue;
     }
-    break checkingChildIsSmaller;
+    break; 
   }
 }
 
@@ -73,8 +68,9 @@ function heapify( iterable ){
 /**
  * @param { Array } first Iterable
  * @param { Array } second Iterable
+ * @returns return true if the first iterator have at least one item less than second iterator
  */
-function areItemsLessThan( first, second ){
+function hasValueLessThan( first, second ){
   const firstSize = first.length;
   const secondSize = second.length;
   for ( let index = 0; index < firstSize && index < secondSize; index++ ){
