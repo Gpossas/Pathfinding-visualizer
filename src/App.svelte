@@ -1,7 +1,7 @@
 <script>
   import Board from './lib/Board.svelte';
   import { rows, columns } from './lib/helpers/board';
-  import { dfs, bfs, dijkstra } from './lib/pathfinding algorithms.js';
+  import { dfs, bfs, dijkstra, aStar } from './lib/pathfinding algorithms.js';
   import { graph } from './lib/helpers/store.js';
 
   let startVertex = $graph[Math.trunc( rows / 2 )][1];
@@ -14,6 +14,7 @@
   <button on:click={ () => dfs( startVertex ) } type="submit">DFS</button>
   <button on:click={ () => bfs( startVertex ) } type="submit">BFS</button>
   <button on:click={ () => dijkstra( startVertex ) } type="submit">Dijkstra</button>
+  <button on:click={ () => aStar( startVertex, targetVertex ) } type="submit">A*</button>
 </header>
 
 <Board 
