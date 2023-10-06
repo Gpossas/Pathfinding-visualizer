@@ -94,7 +94,7 @@ export async function dijkstra( start ){
 
   while ( priorityQueue.length > 0 ){
     const vertex = heapPop( priorityQueue );
-
+    debugger
     if ( vertex.isTarget ){
       return buildShortestPath( vertex );
     }
@@ -128,9 +128,30 @@ export async function dijkstra( start ){
     const distance = neighbor.value + ( shortestDistance.get( vertex ) || 0 );
     if ( !shortestDistance.has( neighbor ) || distance < shortestDistance.get( neighbor ) ){
       shortestDistance.set( neighbor, distance );
-      heapPush( priorityQueue, [ distance, neighbor ] );
       neighbor.previous = vertex;
+      heapPush( priorityQueue, [ distance, neighbor ] );
     }
+  }
+}
+
+/**
+ * @param { Vertex } start 
+ * @param { Vertex } target 
+ */
+async function aStar( start, target ){
+  start.h = getHeuristic( ...start.coordinates, ...target.coordinates );
+  start.f = start.h;
+
+  // when comparing the priority, if items have the same f value, it will choose the one with the minimum g value
+  // I choose g value instead of h value because the heuristic cannot handle the weights in the path
+  const priorityQueue = [ [ start.f, start.g, start ] ];
+  while ( priorityQueue.length > 0 ){
+    
+  }
+
+  /** {*} @returns manhattan distance */
+  function getHeuristic( x1, y1, x2, y2 ){
+    return Math.abs( x1 - x2 ) + Math.abs( y1 - y2 );
   }
 }
 
