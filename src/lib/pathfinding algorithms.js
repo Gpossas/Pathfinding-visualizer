@@ -2,7 +2,7 @@ import Vertex from './helpers/vertex.js';
 import { isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
 import { heapPush, heapPop } from './helpers/heap.js';
-import { graph } from './helpers/store.js';
+import { graph, rebuildPath } from './helpers/store.js';
 import { get } from 'svelte/store';
 import { sleep } from './helpers/sleep.js';
 
@@ -40,6 +40,7 @@ export async function dfs( start ){
     );
   }
 
+  rebuildPath.set( 'dfs' );
   const pathTraveled = new Queue();
   await explore( ...start.coordinates );
   traversePathTraveled();
@@ -47,6 +48,8 @@ export async function dfs( start ){
 
 /** @param { Vertex } start start vertex */
 export async function bfs( start ){
+  rebuildPath.set( 'bfs' );
+
   const queue = new Queue();
   queue.enqueue( start );
 
@@ -88,6 +91,8 @@ export async function bfs( start ){
 
 /** @param { Vertex } start start vertex */
 export async function dijkstra( start ){
+  rebuildPath.set( 'dijkstra' );
+
   const shortestDistance = new Map();
   shortestDistance.set( start, 0 );
   const priorityQueue = [ [ 0, start ] ];
@@ -139,6 +144,8 @@ export async function dijkstra( start ){
  * @param { Vertex } target 
  */
 export async function aStar( start, target ){
+  rebuildPath.set( 'a*' )
+
   start.g = 0;
   start.f = getHeuristic( ...start.coordinates, ...target.coordinates );
 
