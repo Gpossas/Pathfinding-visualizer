@@ -1,5 +1,8 @@
 <script>
-// @ts-nocheck
+  // @ts-nocheck
+  import { get } from "svelte/store";
+  import { rebuildPath } from "./helpers/store";
+  import { dfs, bfs, dijkstra, aStar } from "./pathfinding algorithms";
 
   /** @param { Event } mouseEvent */
    function drawOrRemoveWall( mouseEvent ){
@@ -20,6 +23,24 @@
 
     if ( mouseEvent.type === 'mouseleave' ){
       isStartVertex ? vertex.isStart = false : vertex.isTarget = false;
+
+      switch( get( rebuildPath ) ){
+        case 'dfs':
+          dfs( startVertex );
+          break;
+        case 'bfs':
+          bfs( startVertex );
+          break;
+        case 'dijkstra':
+          dijkstra( startVertex );
+          break;
+        case 'a*':
+          dijkstra( startVertex, targetVertex );  
+          break;
+        default:
+          break;
+      }
+
     } else if ( isStartVertex ){
       vertex.isStart = true;
       startVertex = vertex;
