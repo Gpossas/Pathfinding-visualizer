@@ -21,7 +21,3 @@
   bind:startVertex
   bind:targetVertex
 />
-
-<style>
-
-</style>
