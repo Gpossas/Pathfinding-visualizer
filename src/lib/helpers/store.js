@@ -13,6 +13,6 @@ function graphStore(){
   }
 }
 
-export let rebuildPath = writable( false );
+export let rebuildPath = writable( '' );
 
 export const graph = graphStore();
