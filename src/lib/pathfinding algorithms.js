@@ -12,7 +12,7 @@ export async function dfs( start ){
     while ( !pathTraveled.isEmpty() ){
       const vertex = pathTraveled.dequeue();
       graph.compute( ...vertex.coordinates, 'visited' );
-      await sleep(10);
+      if ( ! get(rebuildPath) ) await sleep( 10 );
     }
   }
 
@@ -30,7 +30,7 @@ export async function dfs( start ){
     pathTraveled.enqueue( get(graph)[row][column] );
     graph.compute( row, column, 'explored' );
 
-    await sleep( 10 );
+    if ( ! get(rebuildPath) ) await sleep( 10 );
 
     return (
       await explore( row - 1, column ) || 
@@ -73,7 +73,7 @@ export async function bfs( start ){
     explore( ...down, vertex );
 
     graph.compute( row, column, 'visited' );
-    await sleep( 10 );
+    if ( ! get(rebuildPath) ) await sleep( 10 );
   }
 
   function explore( row, column, vertex ){
@@ -118,7 +118,7 @@ export async function dijkstra( start ){
     explore( ...down, vertex, shortestDistance, priorityQueue );
 
     graph.compute( row, column, 'visited' );
-    await sleep( 10 );
+    if ( ! get(rebuildPath) ) await sleep( 10 );
   }
 
   function explore( row, column, vertex, shortestDistance, priorityQueue ){
@@ -173,7 +173,7 @@ export async function aStar( start, target ){
     explore( ...up, vertex, target, priorityQueue );
     explore( ...right, vertex, target, priorityQueue );
     explore( ...down, vertex, target, priorityQueue );
-    await sleep( 10 );
+    if ( ! get(rebuildPath) ) await sleep( 10 );
   }
 
   function explore( row, column, vertex, target, priorityQueue ){
@@ -215,6 +215,6 @@ async function buildShortestPath( vertex ){
     vertex = pathStack.pop();
     const [row, column] = vertex.coordinates;
     graph.compute( row, column, 'isShortestPath' );
-    await sleep( 10 );
+    if ( ! get(rebuildPath) ) await sleep( 10 );
   }
 }
