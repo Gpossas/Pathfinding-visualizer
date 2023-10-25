@@ -50,11 +50,14 @@ export async function dfs( start ){
 export async function bfs( start ){
   const queue = new Queue();
   queue.enqueue( start );
-
+  
   while ( !queue.isEmpty() ){
     let vertex = queue.dequeue();
+
     if ( vertex.isTarget ){
-      return buildShortestPath( vertex );
+      await buildShortestPath( vertex );   
+      rebuildPath.set( 'bfs' );
+      return;
     }
     if ( vertex.visited ){
       continue;
@@ -69,7 +72,7 @@ export async function bfs( start ){
     explore( ...right, vertex );
     explore( ...up, vertex );
     explore( ...down, vertex );
-
+    
     graph.compute( row, column, 'visited' );
     if ( ! get(rebuildPath) ) await sleep( 10 );
   }
@@ -85,8 +88,6 @@ export async function bfs( start ){
     queue.enqueue( get(graph)[row][column] );
     graph.compute( row, column, 'previous', vertex );
   }
-
-  rebuildPath.set( 'bfs' );
 }
 
 /** @param { Vertex } start start vertex */
@@ -99,7 +100,9 @@ export async function dijkstra( start ){
     const vertex = heapPop( priorityQueue );
     
     if ( vertex.isTarget ){
-      return buildShortestPath( vertex );
+      await buildShortestPath( vertex );
+      rebuildPath.set( 'dijkstra' );
+      return;
     }
     if ( vertex.visited ){
       continue;
@@ -118,8 +121,6 @@ export async function dijkstra( start ){
     graph.compute( row, column, 'visited' );
     if ( ! get(rebuildPath) ) await sleep( 10 );
   }
-
-  rebuildPath.set( 'dijkstra' );
 
   function explore( row, column, vertex, shortestDistance, priorityQueue ){
     if ( 
@@ -152,7 +153,9 @@ export async function aStar( start, target ){
     const vertex = heapPop( priorityQueue );
     
     if ( vertex.isTarget ){
-      return buildShortestPath( vertex );
+      await buildShortestPath( vertex );
+      rebuildPath.set( 'a*' );
+      return;
     }
     if ( vertex.visited ){
       continue;
@@ -171,8 +174,6 @@ export async function aStar( start, target ){
     explore( ...down, vertex, target, priorityQueue );
     if ( ! get(rebuildPath) ) await sleep( 10 );
   }
-
-  rebuildPath.set( 'a*' );
 
   function explore( row, column, vertex, target, priorityQueue ){
     if (
