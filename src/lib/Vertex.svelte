@@ -3,6 +3,7 @@
   import { get } from "svelte/store";
   import { rebuildPath } from "./helpers/store";
   import { dfs, bfs, dijkstra, aStar } from "./pathfinding algorithms";
+  import { clearPath } from "./helpers/board";
 
   /** @param { Event } mouseEvent */
    function drawOrRemoveWall( mouseEvent ){
@@ -18,38 +19,32 @@
   /** @param { Event } mouseEvent */
   function moveToPosition( mouseEvent ){
     if ( !isPressing ) return;
-    
+
     const isStartVertex = startEvent.target.classList.contains( 'start' );
 
-    if ( mouseEvent.type === 'mouseleave' ){
-      isStartVertex ? vertex.isStart = false : vertex.isTarget = false;
-
-      switch( get( rebuildPath ) ){
-        case 'dfs':
-          dfs( startVertex );
-          break;
-        case 'bfs':
-          bfs( startVertex );
-          break;
-        case 'dijkstra':
-          dijkstra( startVertex );
-          break;
-        case 'a*':
-          dijkstra( startVertex, targetVertex );  
-          break;
-        default:
-          break;
+    if ( mouseEvent.type ===  'mouseenter' ){
+      if ( isStartVertex ){
+        vertex.isStart = true;
+        startVertex = vertex;
+      } else{
+        vertex.isTarget = true;
+        targetVertex = vertex;
       }
 
-    } else if ( isStartVertex ){
-      vertex.isStart = true;
-      startVertex = vertex;
+      retracePath();
     } else{
-      vertex.isTarget = true;
-      targetVertex = vertex;
+      isStartVertex ? vertex.isStart = false : vertex.isTarget = false;
     }
-    if ( vertex.isWall ) 
-      vertex.isWall = false;
+  }
+
+  function retracePath(){
+    clearPath();
+    switch( get( rebuildPath ) ){
+      case 'dfs': return dfs( startVertex );
+      case 'bfs': return bfs( startVertex );
+      case 'dijkstra': return dijkstra( startVertex );
+      case 'a*': return aStar( startVertex, targetVertex );  
+    }
   }
 
   export let rowIndex;
