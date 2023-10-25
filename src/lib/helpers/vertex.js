@@ -9,7 +9,7 @@ class Vertex {
     this.visited = false;
     this.explored = false;
     this.isShortestPath = false;
-    this.previous = undefined;
+    this.previous = null;
     this.f = Infinity;
     this.g = Infinity;
   }
