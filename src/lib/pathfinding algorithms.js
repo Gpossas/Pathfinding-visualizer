@@ -8,6 +8,47 @@ import { sleep } from './helpers/sleep.js';
 
 /** @param { Vertex } start start vertex */
 export async function dfs( start ){
+  const pathTraveled = new Queue();
+  const stack = [ start ];
+
+  while ( stack ){
+    let vertex = stack.pop();
+
+    if ( vertex.isTarget ){
+      await traversePathTraveled();
+      rebuildPath.set( 'dfs' );
+      return;
+    }
+    if ( vertex.visited ){
+      continue;
+    }
+
+    const [row, column] = vertex.coordinates;
+    const left = [row, column - 1];
+    const right = [row, column + 1];
+    const up = [row - 1, column];
+    const down = [row + 1, column];
+    explore( ...left, vertex );
+    explore( ...down, vertex );
+    explore( ...right, vertex );
+    explore( ...up, vertex );
+
+    graph.compute( row, column, 'visited' );
+    if ( ! get(rebuildPath) ) await sleep( 10 );
+  }
+
+  function explore( row, column, vertex ){
+    if ( 
+      isOutOfBounds( row, column ) 
+      || get(graph)[row][column].isWall 
+      || get(graph)[row][column].visited 
+    ) return;
+    
+    graph.compute( row, column, 'explored' );
+    stack.push( get(graph)[row][column] );
+    graph.compute( row, column, 'previous', vertex );
+  }
+
   async function traversePathTraveled(){
     while ( !pathTraveled.isEmpty() ){
       const vertex = pathTraveled.dequeue();
@@ -15,35 +56,6 @@ export async function dfs( start ){
       if ( ! get(rebuildPath) ) await sleep( 10 );
     }
   }
-
-  async function explore( row, column ){
-    if ( 
-      isOutOfBounds( row, column ) 
-      || get(graph)[row][column].isWall 
-      || get(graph)[row][column].explored
-    ) return;
-
-    if ( get(graph)[row][column].isTarget ){
-      return true;
-    }
-
-    pathTraveled.enqueue( get(graph)[row][column] );
-    graph.compute( row, column, 'explored' );
-
-    if ( ! get(rebuildPath) ) await sleep( 10 );
-
-    return (
-      await explore( row - 1, column ) || 
-      await explore( row, column + 1 ) ||
-      await explore( row + 1, column ) ||
-      await explore( row, column - 1 ) 
-    );
-  }
-
-  const pathTraveled = new Queue();
-  await explore( ...start.coordinates );
-  traversePathTraveled();
-  rebuildPath.set( 'dfs' );
 }
 
 /** @param { Vertex } start start vertex */
