@@ -1,3 +1,5 @@
+import { get } from "svelte/store";
+import { graph } from "./store";
 import Vertex, { vertexSize } from "./vertex";
 
 const totalWidth = window.innerWidth;
@@ -23,6 +25,18 @@ export function createBoard( rows, columns ){
     matrix.push( rowItems );
   }
   return matrix;  
+}
+
+ 
+export function clearPath(){
+  for ( let row of get(graph) ){
+    for ( let vertex of row ){
+      graph.compute( ...vertex.coordinates, 'visited', false );
+      graph.compute( ...vertex.coordinates, 'explored', false );
+      graph.compute( ...vertex.coordinates, 'previous', null );
+      graph.compute( ...vertex.coordinates, 'isShortestPath', false );
+    }
+  }
 }
 
 export function isOutOfBounds( row, column ){
