@@ -31,10 +31,12 @@ export function createBoard( rows, columns ){
 export function clearPath(){
   for ( let row of get(graph) ){
     for ( let vertex of row ){
-      graph.compute( ...vertex.coordinates, 'visited', false );
-      graph.compute( ...vertex.coordinates, 'explored', false );
-      graph.compute( ...vertex.coordinates, 'previous', null );
-      graph.compute( ...vertex.coordinates, 'isShortestPath', false );
+      vertex.visited = false;
+      vertex.explored = false;
+      vertex.isShortestPath = false;
+      vertex.previous = null;
+      vertex.f = Infinity;
+      vertex.g = Infinity;
     }
   }
 }
