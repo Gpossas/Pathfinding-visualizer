@@ -40,16 +40,14 @@ export async function dfs( start ){
     );
   }
 
-  rebuildPath.set( 'dfs' );
   const pathTraveled = new Queue();
   await explore( ...start.coordinates );
   traversePathTraveled();
+  rebuildPath.set( 'dfs' );
 }
 
 /** @param { Vertex } start start vertex */
 export async function bfs( start ){
-  rebuildPath.set( 'bfs' );
-
   const queue = new Queue();
   queue.enqueue( start );
 
@@ -87,12 +85,12 @@ export async function bfs( start ){
     queue.enqueue( get(graph)[row][column] );
     graph.compute( row, column, 'previous', vertex );
   }
+
+  rebuildPath.set( 'bfs' );
 }
 
 /** @param { Vertex } start start vertex */
 export async function dijkstra( start ){
-  rebuildPath.set( 'dijkstra' );
-
   const shortestDistance = new Map();
   shortestDistance.set( start, 0 );
   const priorityQueue = [ [ 0, start ] ];
@@ -121,6 +119,8 @@ export async function dijkstra( start ){
     if ( ! get(rebuildPath) ) await sleep( 10 );
   }
 
+  rebuildPath.set( 'dijkstra' );
+
   function explore( row, column, vertex, shortestDistance, priorityQueue ){
     if ( 
       isOutOfBounds( row, column ) 
@@ -144,8 +144,6 @@ export async function dijkstra( start ){
  * @param { Vertex } target 
  */
 export async function aStar( start, target ){
-  rebuildPath.set( 'a*' )
-
   start.g = 0;
   start.f = getHeuristic( ...start.coordinates, ...target.coordinates );
 
@@ -175,6 +173,8 @@ export async function aStar( start, target ){
     explore( ...down, vertex, target, priorityQueue );
     if ( ! get(rebuildPath) ) await sleep( 10 );
   }
+
+  rebuildPath.set( 'a*' );
 
   function explore( row, column, vertex, target, priorityQueue ){
     if (
