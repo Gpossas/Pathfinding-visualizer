@@ -147,8 +147,6 @@ export async function aStar( start, target ){
   start.g = 0;
   start.f = getHeuristic( ...start.coordinates, ...target.coordinates );
 
-  // when comparing the priority, if items have the same f value, it will choose the one with the minimum g value
-  // I choose g value instead of h value because the heuristic cannot handle the weights in the path
   const priorityQueue = [ [ start.f, start.f, start ] ];
   while ( priorityQueue.length > 0 ){
     const vertex = heapPop( priorityQueue );
