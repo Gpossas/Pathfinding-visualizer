@@ -6,13 +6,17 @@
   import { clearPath } from "./helpers/board";
 
   /** @param { Event } mouseEvent */
-   function drawOrRemoveWall( mouseEvent ){
+   function drawOrRemove( mouseEvent ){
     if ( !isPressing || vertex.isStart || vertex.isTarget ) return;
     
-    if ( mouseEvent.buttons == 1 && startEvent.button == 0 ){
-      vertex.isWall = true;
-    } else{
+    const leftMouseButtonPressed = mouseEvent.buttons == 1 && startEvent.button == 0;
+
+    if ( leftMouseButtonPressed ){
+      vertex.isWall = !startEvent.shiftKey;
+      vertex.value = startEvent.shiftKey ? 15 : 1;
+    } else {
       vertex.isWall = false;
+      vertex.value = 1;
     }
   }
 
@@ -61,7 +65,7 @@
 
 { #key isPressing && startEvent.target === vertexComponent }
 <div 
-  on:mouseenter={ drawOperation ? moveToPosition : drawOrRemoveWall }
+  on:mouseenter={ drawOperation ? moveToPosition : drawOrRemove }
   on:mouseleave={ drawOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex { 
@@ -71,6 +75,7 @@
     vertex.isShortestPath ? 'shortestPath':
     vertex.visited ? 'visited':
     vertex.explored ? 'explored':
+    vertex.value > 1 ? 'weighted':
     ''
   }"
   bind:this={ vertexComponent }
@@ -106,5 +111,9 @@
 
   .explored{
     background-color: hsl(291, 78%, 35%);
+  }
+
+  .weighted{
+    background-color: hsl(26, 100%, 50%);
   }
 </style>
