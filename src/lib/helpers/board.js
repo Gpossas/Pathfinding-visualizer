@@ -41,6 +41,16 @@ export function clearPath(){
   }
 }
 
+export function makeGridFullOfWalls(){
+  for ( let row of get(graph) ){
+    for ( let vertex of row ){
+      if ( !( vertex.isStart || vertex.isTarget ) )
+        graph.compute( ...vertex.coordinates, 'isWall' );
+    }
+  }
+}
+
+
 export function isOutOfBounds( row, column ){
   return (
     row < 0 ||
