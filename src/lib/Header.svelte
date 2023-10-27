@@ -2,6 +2,7 @@
   import { dfs, bfs, dijkstra, aStar } from './pathfinding algorithms.js';
   import { rebuildPath } from './helpers/store.js';
   import { clearPath } from './helpers/board.js';
+  import { randomizedPrims } from './maze_generators.js'
 
   export let startVertex;
   export let targetVertex;
@@ -23,4 +24,6 @@
   <button on:click={ () => run( 'bfs' ) } type="submit">BFS</button>
   <button on:click={ () => run( 'dijkstra' ) } type="submit">Dijkstra</button>
   <button on:click={ () => run( 'a*' ) } type="submit">A*</button>
+
+  <button on:click={ () => randomizedPrims( startVertex ) } type="submit">Randomized Prims</button>
 </header>
