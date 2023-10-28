@@ -49,6 +49,14 @@ export function clearWalls(){
   }
 }
 
+export function clearWeights(){
+  for ( let row of get(graph) ){
+    for ( let vertex of row ){
+      graph.compute( ...vertex.coordinates, 'value', 1 );
+    }
+  }
+}
+
 export function makeGridFullOfWalls(){
   for ( let row of get(graph) ){
     for ( let vertex of row ){
