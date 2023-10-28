@@ -8,9 +8,20 @@
 </div>
 
 <style>
+
+  .legends{
+    padding: 30px;
+  }
+
   li{
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  span{
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
   }
 </style>
