@@ -31,9 +31,9 @@ export function createBoard( rows, columns ){
 export function clearPath(){
   for ( let row of get(graph) ){
     for ( let vertex of row ){
-      vertex.visited = false;
-      vertex.explored = false;
-      vertex.isShortestPath = false;
+      graph.compute( ...vertex.coordinates, 'visited', false );
+      graph.compute( ...vertex.coordinates, 'explored', false );
+      graph.compute( ...vertex.coordinates, 'isShortestPath', false );
       vertex.previous = null;
       vertex.f = Infinity;
       vertex.g = Infinity;
