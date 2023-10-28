@@ -4,6 +4,11 @@
       <img src="../src/assets/person.svg" alt="person, start vertex" width="35px" height="35px">
       <span>start</span>
     </li>
+
+    <li>
+      <img src="../src/assets/target.svg" alt="person, start vertex" width="35px" height="35px">
+      <span>target</span>
+    </li>
   </ul>
 </div>
 
@@ -11,6 +16,11 @@
 
   .legends{
     padding: 30px;
+  }
+
+  ul{
+    display: flex;
+    gap: 20px;
   }
 
   li{
