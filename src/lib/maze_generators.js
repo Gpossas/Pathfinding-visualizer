@@ -29,10 +29,10 @@ export async function randomizedPrims( start ){
     
     const neighbors = new Set();
     const [row, column] = cell.coordinates;
-    const left = isOutOfBounds( row, column - 2 ) || get(graph)[row][column - 2].isWall ? null : get(graph)[row][column - 2];
-    const right = isOutOfBounds( row, column + 2 ) || get(graph)[row][column + 2].isWall ? null : get(graph)[row][column + 2];
-    const up = isOutOfBounds( row - 2, column ) || get(graph)[row - 2][column].isWall ? null : get(graph)[row - 2][column];
-    const down = isOutOfBounds( row + 2, column ) || get(graph)[row + 2][column].isWall ? null : get(graph)[row + 2][column];
+    const left = isPassage( row, column - 2 ) ? get(graph)[row][column - 2] : null;
+    const right =  isPassage( row, column + 2 ) ? get(graph)[row][column + 2] : null;
+    const up =  isPassage( row - 2, column ) ? get(graph)[row - 2][column] : null;
+    const down =  isPassage( row + 2, column ) ? get(graph)[row + 2][column] : null;
     
     if ( left )
       neighbors.add( left );
@@ -50,10 +50,10 @@ export async function randomizedPrims( start ){
     
     const neighbors = new Set();
     const [row, column] = cell.coordinates;
-    const left = isOutOfBounds( row, column - 2 ) || !get(graph)[row][column - 2].isWall ? null : get(graph)[row][column - 2];
-    const right = isOutOfBounds( row, column + 2 ) || !get(graph)[row][column + 2].isWall ? null : get(graph)[row][column + 2];
-    const up = isOutOfBounds( row - 2, column ) || !get(graph)[row - 2][column].isWall ? null : get(graph)[row - 2][column];
-    const down = isOutOfBounds( row + 2, column ) || !get(graph)[row + 2][column].isWall ? null : get(graph)[row + 2][column];
+    const left = isFrontier( row, column - 2 ) ? get(graph)[row][column - 2] : null;
+    const right =  isFrontier( row, column + 2 ) ? get(graph)[row][column + 2] : null;
+    const up =  isFrontier( row - 2, column ) ? get(graph)[row - 2][column] : null;
+    const down =  isFrontier( row + 2, column ) ? get(graph)[row + 2][column] : null;
 
     if ( left )
       neighbors.add( left );
@@ -74,6 +74,14 @@ export async function randomizedPrims( start ){
 
     graph.compute( wallX, wallY, 'isWall', false );
     graph.compute( x, y, 'isWall', false );
+  }
+
+  function isPassage( row, column ){
+    return !( isOutOfBounds( row, column ) || get(graph)[row][column].isWall || get(graph)[row][column].isTarget );
+  }
+
+  function isFrontier( row, column ){
+    return !isOutOfBounds( row, column ) && ( get(graph)[row][column].isWall || get(graph)[row][column].isTarget );
   }
 
   function getRandomKey( collection ) {
