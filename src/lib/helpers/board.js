@@ -41,6 +41,14 @@ export function clearPath(){
   }
 }
 
+export function clearWalls(){
+  for ( let row of get(graph) ){
+    for ( let vertex of row ){
+      graph.compute( ...vertex.coordinates, 'isWall', false );
+    }
+  }
+}
+
 export function makeGridFullOfWalls(){
   for ( let row of get(graph) ){
     for ( let vertex of row ){
