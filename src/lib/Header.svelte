@@ -87,7 +87,6 @@
   }
 
   ul{
-    list-style: none;
     display: flex;
     gap: 20px;
   }
