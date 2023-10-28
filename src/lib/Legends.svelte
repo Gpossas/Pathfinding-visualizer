@@ -9,6 +9,11 @@
       <img src="../src/assets/target.svg" alt="person, start vertex" width="35px" height="35px">
       <span>target</span>
     </li>
+
+    <li>
+      <img src="../src/assets/weight.svg" alt="person, start vertex" width="35px" height="35px">
+      <span>weights</span>
+    </li>
   </ul>
 </div>
 
