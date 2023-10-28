@@ -1,6 +1,7 @@
 <script>
   import Board from './lib/Board.svelte';
   import Header from './lib/Header.svelte';
+  import Legends from './lib/Legends.svelte';
   import { rows, columns } from './lib/helpers/board';
   import { graph } from './lib/helpers/store.js';
 
@@ -14,6 +15,8 @@
   { startVertex }
   { targetVertex }
 />
+
+<Legends></Legends>
 
 <Board 
   { rows }
