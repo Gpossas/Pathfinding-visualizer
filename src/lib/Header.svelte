@@ -19,6 +19,12 @@
       case 'a*': return aStar( startVertex, targetVertex );
     }  
   }
+
+  function generateMaze(){
+    clearPath();
+    clearWalls();
+    randomizedPrims( startVertex );
+  }
 </script>
 
 <header>
@@ -47,7 +53,7 @@
       <li class="select">
         <button>Generate Maze ⠀⠀⠀▼</button>
         <ul class="dropdown">
-          <li> <button on:click={ () => randomizedPrims( startVertex ) } type="submit">Randomized Prims</button> </li>
+          <li> <button on:click={ () => generateMaze() } type="submit">Randomized Prims</button> </li>
         </ul>
       </li>
 
