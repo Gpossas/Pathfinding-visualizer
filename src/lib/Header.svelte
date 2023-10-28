@@ -72,7 +72,7 @@
     background-color: var( --secondary );
     display: flex;
     align-items: center;
-    height: 91px;
+    height: 81px;
     padding-left: 20px;
   }
 
