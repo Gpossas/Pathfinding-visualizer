@@ -121,7 +121,7 @@
     padding: 10px 20px;
     color: white;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 12px;
     background-color: var( --background );
     border: none;
     border-radius: 7px;
