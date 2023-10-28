@@ -5,4 +5,7 @@
 
 :root {
   --vertex-size: 24px;
+  --primary: #F1812D;
+  --background: #101524;
+  --secondary: #1F2947;
 }
