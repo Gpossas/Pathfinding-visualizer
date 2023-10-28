@@ -86,6 +86,8 @@
     gap: 20px;
   }
 
+  /* List items */
+
   .dropdown{
     border-top: 7px solid var( --secondary );
 
