@@ -26,7 +26,7 @@
   <h1>Pathfinding Visualizer</h1>
   <nav>
     <ul class="action_buttons">
-      <li>
+      <li class="select">
         <button>Algorithms ⠀⠀⠀▼</button>
         <ul class="dropdown">
           <li>
@@ -44,7 +44,7 @@
         </ul>
       </li>
       
-      <li>
+      <li class="select">
         <button>Generate Maze ⠀⠀⠀▼</button>
         <ul class="dropdown">
           <li> <button on:click={ () => randomizedPrims( startVertex ) } type="submit">Randomized Prims</button> </li>
@@ -52,9 +52,9 @@
       </li>
 
       {#if algorithm }
-        <li> <button on:click={ () => run( algorithm ) } type="submit">Visualize { algorithm }</button> </li>
+        <li> <button on:click={ () => run( algorithm ) } type="submit" class="primaryButton">Visualize { algorithm }</button> </li>
       {:else }
-        <li> <button disabled>Visualize</button> </li>
+        <li> <button disabled class="primaryButton">Choose an Algorithm</button> </li>
       {/if }
 
       <li> <button on:click={ () => clearPath() } type="submit">Clear Path</button> </li>
@@ -82,21 +82,8 @@
 
   ul{
     list-style: none;
-  }
-
-  .action_buttons{
     display: flex;
     gap: 20px;
-  }
-
-  ul li{
-    display: inline-block;
-    position: relative; 
-  }
-
-  li .dropdown{
-    padding: 5px;
-    width: 100%; 
   }
 
   .dropdown{
@@ -109,13 +96,20 @@
     display: none;
   }
 
+  li .dropdown{
+    padding: 5px;
+    width: 100%; 
+  }
   li:hover .dropdown{
     display: block;
   }
 
-  .dropdown li{
-    width: 100%;
+  .select{
+    display: inline-block;
+    position: relative; 
   }
+
+  /* ===== BUTTONS ===== */
 
   button{
     padding: 10px 20px;
@@ -134,4 +128,7 @@
     background-color: var( --primary );
   }
 
+  .primaryButton{
+    background-color: var( --primary );
+  }
 </style>
