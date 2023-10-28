@@ -11,6 +11,7 @@
   --primary: #F1812D;
   --background: #101524;
   --secondary: #1F2947;
+  background-color: var( --background );
 }
 
 ul{
