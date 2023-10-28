@@ -12,3 +12,7 @@
   --background: #101524;
   --secondary: #1F2947;
 }
+
+ul{
+  list-style: none;
+}
