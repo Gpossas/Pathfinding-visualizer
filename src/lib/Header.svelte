@@ -1,7 +1,7 @@
 <script>
   import { dfs, bfs, dijkstra, aStar } from './pathfinding algorithms.js';
   import { rebuildPath } from './helpers/store.js';
-  import { clearPath } from './helpers/board.js';
+  import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
   import { randomizedPrims } from './maze_generators.js'
 
   export let startVertex;
@@ -47,18 +47,21 @@
       <li>
         <button>Generate Maze ⠀⠀⠀▼</button>
         <ul class="dropdown">
-          <li> <button on:click={ () => randomizedPrims( startVertex ) } type="submit">Randomized Prims</button>  </li>
+          <li> <button on:click={ () => randomizedPrims( startVertex ) } type="submit">Randomized Prims</button> </li>
         </ul>
       </li>
 
       {#if algorithm }
-        <li> <button on:click={ () => run( algorithm ) } type="submit">Visualize { algorithm }</button>  </li>
+        <li> <button on:click={ () => run( algorithm ) } type="submit">Visualize { algorithm }</button> </li>
       {:else }
         <li> <button disabled>Visualize</button> </li>
       {/if }
 
-      <li> <button on:click={ () => clearPath() } type="submit">Clear Path</button>  </li>
-       
+      <li> <button on:click={ () => clearPath() } type="submit">Clear Path</button> </li>
+      
+      <li> <button on:click={ () => clearWalls() } type="submit">Clear Walls</button> </li>
+
+      <li> <button on:click={ () => clearWeights() } type="submit">Clear Weights</button> </li>
     </ul>
   </nav>
 </header>
