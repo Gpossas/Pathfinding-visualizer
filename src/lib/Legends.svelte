@@ -26,6 +26,11 @@
     </li>
     
     <li>
+      <img src="../src/assets/shortestpath.svg" alt="person, start vertex" width="35px" height="35px">
+      <span>shortest path</span>
+    </li>
+    
+    <li>
       <img src="../src/assets/wall.svg" alt="person, start vertex" width="35px" height="35px">
       <span>walls</span>
     </li>
