@@ -21,6 +21,11 @@
     </li>
     
     <li>
+      <img src="../src/assets/explored.svg" alt="person, start vertex" width="35px" height="35px">
+      <span>explored(stored)</span>
+    </li>
+    
+    <li>
       <img src="../src/assets/wall.svg" alt="person, start vertex" width="35px" height="35px">
       <span>walls</span>
     </li>
