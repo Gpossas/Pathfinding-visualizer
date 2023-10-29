@@ -68,9 +68,11 @@
   on:mouseenter={ drawOperation ? moveToPosition : drawOrRemove }
   on:mouseleave={ drawOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
-  class="vertex { vertex.value > 1 ? 'weighted':'' } { 
-    vertex.isStart ? 'start':
-    vertex.isTarget ? 'target':
+  class="vertex 
+  { vertex.value > 1 ? 'weighted':'' } 
+  { vertex.isStart ? 'start':'' } 
+  { vertex.isTarget ? 'target':'' } 
+  { 
     vertex.isWall ? 'wall':
     vertex.isShortestPath ? 'shortestPath':
     vertex.visited ? 'visited':
