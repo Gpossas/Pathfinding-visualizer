@@ -46,6 +46,7 @@
   ul{
     display: flex;
     gap: 20px;
+    justify-content: center;
   }
 
   li{
