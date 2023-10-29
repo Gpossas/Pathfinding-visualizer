@@ -114,6 +114,6 @@
   }
 
   .weighted{
-    background-color: hsl(26, 100%, 50%);
+    background-image: url("../assets/weight.svg");
   }
 </style>
