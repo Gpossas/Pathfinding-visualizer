@@ -7,7 +7,7 @@
   export let startVertex;
   export let targetVertex;
 
-  let algorithm = null;
+  export let algorithm = '';
 
   function run( algorithm ){
     rebuildPath.set('');
