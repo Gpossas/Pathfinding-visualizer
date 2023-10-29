@@ -69,7 +69,7 @@
   on:mouseleave={ drawOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex 
-  { vertex.value > 1 ? 'weighted':'' } 
+  { vertex.value > 1 && !vertex.isWall ? 'weighted':'' } 
   { vertex.isStart ? 'start':'' } 
   { vertex.isTarget ? 'target':'' } 
   { 
