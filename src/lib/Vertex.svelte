@@ -105,7 +105,7 @@
   }
 
   .visited{
-    background-color: hsl(209, 78%, 35%);
+    background-color: var( --primary );
   }
 
   .explored{
