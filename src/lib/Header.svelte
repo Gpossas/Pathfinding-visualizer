@@ -25,6 +25,22 @@
     clearWalls();
     randomizedPrims( startVertex );
   }
+
+  function clear( task ){
+    switch ( task ){
+      case 'path':
+        rebuildPath.set(''); 
+        clearPath();
+        return;
+      case 'walls':
+        clearWalls();
+        break;
+      case 'weights':
+        clearWeights();
+        break;
+    }
+    run( algorithm );
+  }
 </script>
 
 <header>
@@ -63,11 +79,11 @@
         <li> <button disabled class="primaryButton">Choose an Algorithm</button> </li>
       {/if }
 
-      <li> <button on:click={ () => clearPath() } type="submit">Clear Path</button> </li>
+      <li> <button on:click={ () => clear( 'path' ) } type="submit">Clear Path</button> </li>
       
-      <li> <button on:click={ () => clearWalls() } type="submit">Clear Walls</button> </li>
+      <li> <button on:click={ () => clear( 'walls' ) } type="submit">Clear Walls</button> </li>
 
-      <li> <button on:click={ () => clearWeights() } type="submit">Clear Weights</button> </li>
+      <li> <button on:click={ () => clear( 'weights' ) } type="submit">Clear Weights</button> </li>
     </ul>
   </nav>
 </header>
