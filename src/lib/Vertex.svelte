@@ -101,7 +101,7 @@
   }
 
   .shortestPath{
-    background-color: hsl(56, 100%, 45%);
+    background-color: #efc12e;
   }
 
   .visited{
@@ -109,7 +109,7 @@
   }
 
   .explored{
-    background-color: hsl(291, 78%, 35%);
+    background-color: #e54d4d;
   }
 
   .weighted{
