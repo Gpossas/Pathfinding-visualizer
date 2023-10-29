@@ -49,6 +49,9 @@
 <style>
   #board{
     display: grid;
+    /* Prevent double borders in CSS Grid */
+    border-top: 0.1px solid var( --secondary );
+    border-left: 0.1px solid var( --secondary );
   } 
 
   .container{

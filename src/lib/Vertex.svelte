@@ -87,11 +87,13 @@
 <style>
   .vertex{
     display: inline-block;
-    border: 0.5px solid;
+    /* Prevent double borders in CSS Grid */
+    border-bottom: 0.1px solid var( --secondary );
+    border-right: 0.1px solid var( --secondary );
   }
 
   .wall{
-    background-color: black;
+    background-color: var( --secondary );
   }
 
   .start{
