@@ -94,7 +94,7 @@
   }
 
   .start{
-    background-color: hsl(155, 100%, 31%);
+    background-image: url("../assets/person.svg");
   }
 
   .target{
