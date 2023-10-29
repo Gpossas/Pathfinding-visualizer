@@ -14,6 +14,11 @@
       <img src="../src/assets/weight.svg" alt="person, start vertex" width="35px" height="35px">
       <span>weights</span>
     </li>
+
+    <li>
+      <img src="../src/assets/visited.svg" alt="person, start vertex" width="35px" height="35px">
+      <span>visited(computed)</span>
+    </li>
     
     <li>
       <img src="../src/assets/wall.svg" alt="person, start vertex" width="35px" height="35px">
