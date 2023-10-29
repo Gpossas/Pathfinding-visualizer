@@ -68,14 +68,13 @@
   on:mouseenter={ drawOperation ? moveToPosition : drawOrRemove }
   on:mouseleave={ drawOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
-  class="vertex { 
+  class="vertex { vertex.value > 1 ? 'weighted':'' } { 
     vertex.isStart ? 'start':
     vertex.isTarget ? 'target':
     vertex.isWall ? 'wall':
     vertex.isShortestPath ? 'shortestPath':
     vertex.visited ? 'visited':
     vertex.explored ? 'explored':
-    vertex.value > 1 ? 'weighted':
     ''
   }"
   bind:this={ vertexComponent }
@@ -98,7 +97,7 @@
   }
 
   .target{
-    background-color: hsl(0, 100%, 40%);
+    background-image: url("../assets/target.svg");
   }
 
   .shortestPath{
