@@ -93,9 +93,11 @@
   header{
     background-color: var( --secondary );
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    height: 81px;
-    padding-left: 20px;
+    height: 100%;
+    padding: 20px;
+    gap:40px;
   }
 
   h1{
@@ -105,6 +107,7 @@
   ul{
     display: flex;
     gap: 20px;
+    padding: 0;
   }
 
   /* List items */
