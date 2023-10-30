@@ -41,7 +41,11 @@
 
   .legends{
     padding: 30px;
+    overflow-x: scroll;
   }
+  .legends::-webkit-scrollbar {
+    display: none;
+}
 
   ul{
     display: flex;
