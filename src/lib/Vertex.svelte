@@ -116,6 +116,7 @@
 
   .explored{
     background-color: #e54d4d;
+    animation: grow 0.5s ease-in;
   }
 
   .weighted{
@@ -124,19 +125,19 @@
   }
 
   @keyframes build {
-    0% {
+    from {
       transform: scale(0, 0);
     }
-    100% {
+    to {
       transform: scale(1, 1);
     }
   }
 
   @keyframes fall {
-    0% {
+    from {
       transform: translate(0, -30px);
     }
-    100% {
+    to {
       transform: translate(0, 0);
     }
   }
