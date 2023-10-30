@@ -4,9 +4,9 @@ import Vertex, { vertexSize } from "./vertex";
 
 const totalWidth = window.innerWidth;
 const totalHeight = window.innerHeight;
-const headerSize = 190; //TODO: get height of header document.querySelector('header').offsetheight
+const headerSize = 192; //TODO: get height of header document.querySelector('header').offsetheight
 
-export const columns = Math.floor( ( totalWidth * 0.9 ) / vertexSize );
+export const columns = Math.floor( ( totalWidth * 0.98 ) / vertexSize );
 export const rows = Math.floor( ( totalHeight * 0.98 - headerSize ) / vertexSize );
 
 
