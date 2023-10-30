@@ -78,7 +78,8 @@
     vertex.visited ? 'visited':
     vertex.explored ? 'explored':
     ''
-  }"
+  }
+  { !get(rebuildPath) && vertex.visited ? 'animate-grow': '' }"
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
@@ -111,7 +112,6 @@
 
   .visited{
     background-color: var( --primary );
-    animation: grow 1.5s ease-out;
   }
 
   /* .explored{
@@ -161,5 +161,9 @@
       transform: scale(1);
       background-color: var( --primary );
     }
+  }
+
+  .animate-grow{
+    animation: grow 1.5s ease-out;
   }
 </style>
