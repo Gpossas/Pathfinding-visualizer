@@ -111,13 +111,13 @@
 
   .visited{
     background-color: var( --primary );
-    animation: grow 0.5s ease-in;
+    animation: grow 1.5s ease-out;
   }
 
-  .explored{
-    background-color: #e54d4d;
-    animation: grow 0.5s ease-in;
-  }
+  /* .explored{
+    background-color: #e54d4d; 
+    animation: grow 0.5s ease-out;
+  } */
 
   .weighted{
     background-image: url("../assets/weight.svg");
@@ -143,12 +143,23 @@
   }
 
   @keyframes grow {
-    from {
-      transform: scale(0.0, 0.0);
+    0% {
+      transform: scale(0);
       border-radius: 50%;
+      background-color: #F5332A;
     }  
-    to {
-      transform: scale(1, 1);
+    25%{
+      background-color: #F5332A;
+    }
+    50%{
+      background-color: var( --primary );
+    }
+    75%{
+      background-color: #F1C32F;
+    }
+    100% {
+      transform: scale(1);
+      background-color: var( --primary );
     }
   }
 </style>
