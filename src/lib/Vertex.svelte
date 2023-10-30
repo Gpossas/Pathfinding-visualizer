@@ -13,7 +13,7 @@
 
     if ( leftMouseButtonPressed ){
       vertex.isWall = !startEvent.shiftKey;
-      vertex.value = startEvent.shiftKey ? 15 : 1;
+      vertex.value = startEvent.shiftKey ? 7 : 1;
     } else {
       vertex.isWall = false;
       vertex.value = 1;

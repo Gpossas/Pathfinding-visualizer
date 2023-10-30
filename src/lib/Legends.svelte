@@ -12,7 +12,7 @@
 
     <li>
       <img src="../src/assets/weight.svg" alt="person, start vertex" width="35px" height="35px">
-      <span>weights</span>
+      <span>weights(+6)</span>
     </li>
 
     <li>
