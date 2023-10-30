@@ -94,6 +94,7 @@
 
   .wall{
     background-color: var( --secondary );
+    animation: draw 0.7s cubic-bezier(.26,.53,.74,1.48);
   }
 
   .start{
@@ -118,5 +119,15 @@
 
   .weighted{
     background-image: url("../assets/weight.svg");
+    animation: draw 0.7s cubic-bezier(.26,.53,.74,1.48);
+  }
+
+  @keyframes draw {
+    0% {
+      transform: scale(0, 0);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
   }
 </style>
