@@ -97,7 +97,7 @@
     align-items: center;
     height: 100%;
     padding: 20px;
-    gap:40px;
+    gap: 20px 40px;
   }
 
   h1{
@@ -108,6 +108,11 @@
     display: flex;
     gap: 20px;
     padding: 0;
+  }
+
+  .action_buttons{
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 
   /* List items */
@@ -156,5 +161,11 @@
 
   .primaryButton{
     background-color: var( --primary );
+  }
+
+  @media (692px < width < 975px) {
+    .action_buttons li{
+      flex-basis: 31%;
+    }
   }
 </style>
