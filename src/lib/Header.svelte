@@ -2,7 +2,8 @@
   import { dfs, bfs, dijkstra, aStar } from './pathfinding algorithms.js';
   import { rebuildPath } from './helpers/store.js';
   import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
-  import { randomizedPrims } from './maze_generators.js'
+  import { randomizedPrims } from './maze_generators.js';
+  import { speed } from './helpers/store.js';
 
   export let startVertex;
   export let targetVertex;
@@ -84,6 +85,12 @@
       <li> <button on:click={ () => clear( 'walls' ) } type="submit">Clear Walls</button> </li>
 
       <li> <button on:click={ () => clear( 'weights' ) } type="submit">Clear Weights</button> </li>
+
+      <li class="speed"> 
+        <label for="speed">fast</label> 
+        <input type="range" name="speed" min="10" max="1000" bind:value={ $speed }> 
+        <label for="speed">slow</label> 
+      </li>
     </ul>
   </nav>
 </header>
@@ -138,6 +145,24 @@
   .select{
     display: inline-block;
     position: relative; 
+  }
+
+  /* range input */
+  .speed{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    margin-bottom: 5px;
+  }
+  .speed input{
+    width: 50px;
+    accent-color: var( --primary );
+  }
+  .speed label{
+    font-weight: 600;
+    font-size: 12px;
+    margin-top: 2px;
   }
 
   /* ===== BUTTONS ===== */

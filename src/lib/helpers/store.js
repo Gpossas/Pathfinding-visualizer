@@ -15,4 +15,6 @@ function graphStore(){
 
 export let rebuildPath = writable( '' );
 
+export let speed = writable( 0 );
+
 export const graph = graphStore();
