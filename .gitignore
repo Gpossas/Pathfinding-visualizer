@@ -22,7 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-jsconfig.json
-package.json
-package-lock.json
