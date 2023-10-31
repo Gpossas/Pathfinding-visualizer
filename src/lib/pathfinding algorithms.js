@@ -8,41 +8,50 @@ import { sleep } from './helpers/sleep.js';
 
 /** @param { Vertex } start start vertex */
 export async function dfs( start ){
-  const pathTraveled = new Queue();
   const stack = [ start ];
 
   while ( stack ){
     let vertex = stack.pop();
-
-    if ( vertex.isTarget ){
-      await buildShortestPath( vertex );
-      rebuildPath.set( 'dfs' );
-      return;
-    }
-    if ( vertex.visited ){
-      continue;
-    }
-
+    
     const [row, column] = vertex.coordinates;
+    graph.compute( row, column, 'visited' );
+
     const left = [row, column - 1];
     const right = [row, column + 1];
     const up = [row - 1, column];
     const down = [row + 1, column];
-    explore( ...left, vertex );
-    explore( ...down, vertex );
-    explore( ...right, vertex );
-    explore( ...up, vertex );
 
-    graph.compute( row, column, 'visited' );
+    const flag = new Object();
+    flag['isTargetFound'] = false;
+    explore( ...left, vertex, flag );
+    explore( ...down, vertex, flag );
+    explore( ...right, vertex, flag );
+    explore( ...up, vertex, flag );
+    
+    if ( flag['isTargetFound'] ){
+      await buildShortestPath( flag['target'] );
+      rebuildPath.set( 'dfs' );
+      return;
+    }
+
     if ( ! get(rebuildPath) ) await sleep( get(speed) );
   }
 
-  function explore( row, column, vertex ){
+  function explore( row, column, vertex, flag ){
     if ( 
       isOutOfBounds( row, column ) 
       || get(graph)[row][column].isWall 
       || get(graph)[row][column].visited    
+      || get(graph)[row][column].explored 
     ) return;
+
+    if ( get(graph)[row][column].isTarget ){
+      flag['target'] = get(graph)[row][column];
+      flag['isTargetFound'] = true;
+      graph.compute( row, column, 'visited' );
+      graph.compute( row, column, 'previous', vertex );
+      return;
+    }
     
     graph.compute( row, column, 'explored' );
     stack.push( get(graph)[row][column] );
