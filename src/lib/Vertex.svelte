@@ -101,9 +101,15 @@
   .start{
     background-image: url("./assets/person.svg");
   }
+  .start:hover{
+    filter: brightness(1.3);
+  }
 
   .target{
     background-image: url("./assets/target.svg");
+  }
+  .target:hover{
+    filter: brightness(1.8);
   }
 
   .shortestPath{
