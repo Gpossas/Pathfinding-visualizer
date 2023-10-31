@@ -9,8 +9,8 @@
 
   export let algorithm = '';
 
-  function run( algorithm ){
-    rebuildPath.set('');
+  function run( algorithm, isAnimated = true ){
+    if ( isAnimated ) rebuildPath.set('');
     clearPath();
     switch ( algorithm ){
       case 'dfs': return dfs( startVertex );
@@ -39,7 +39,7 @@
         clearWeights();
         break;
     }
-    run( algorithm );
+    run( algorithm, false );
   }
 </script>
 
