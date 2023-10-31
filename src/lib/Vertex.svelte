@@ -76,7 +76,7 @@
     vertex.isWall ? 'wall':
     vertex.isShortestPath ? 'shortestPath':
     vertex.visited ? 'visited':
-    vertex.explored ? 'explored':
+    vertex.explored && get(rebuildPath) ? 'explored':
     ''
   }
   { !get(rebuildPath) && vertex.visited ? 'animate-grow': '' }"
@@ -114,10 +114,9 @@
     background-color: var( --primary );
   }
 
-  /* .explored{
+  .explored{
     background-color: #e54d4d; 
-    animation: grow 0.5s ease-out;
-  } */
+  }
 
   .weighted{
     background-image: url("./assets/weight.svg");
