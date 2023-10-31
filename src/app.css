@@ -4,7 +4,6 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  overflow-y: hidden;
 }
 
 :root {
@@ -13,6 +12,7 @@
   --background: #101524;
   --secondary: #1F2947;
   background-color: var( --background );
+  overflow: hidden;
 }
 
 ul{
