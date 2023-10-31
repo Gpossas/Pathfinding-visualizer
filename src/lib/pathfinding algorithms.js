@@ -15,7 +15,7 @@ export async function dfs( start ){
     let vertex = stack.pop();
 
     if ( vertex.isTarget ){
-      await traversePathTraveled();
+      await buildShortestPath( vertex );
       rebuildPath.set( 'dfs' );
       return;
     }
@@ -41,20 +41,12 @@ export async function dfs( start ){
     if ( 
       isOutOfBounds( row, column ) 
       || get(graph)[row][column].isWall 
-      || get(graph)[row][column].visited 
+      || get(graph)[row][column].visited    
     ) return;
     
     graph.compute( row, column, 'explored' );
     stack.push( get(graph)[row][column] );
     graph.compute( row, column, 'previous', vertex );
-  }
-
-  async function traversePathTraveled(){
-    while ( !pathTraveled.isEmpty() ){
-      const vertex = pathTraveled.dequeue();
-      graph.compute( ...vertex.coordinates, 'visited' );
-      if ( ! get(rebuildPath) ) await sleep( get(speed) );
-    }
   }
 }
 
