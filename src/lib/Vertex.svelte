@@ -120,7 +120,7 @@
   } */
 
   .weighted{
-    background-image: url("../assets/weight.svg");
+    background-image: url("./assets/weight.svg");
     animation: fall 0.3s cubic-bezier(.26,.53,.74,1.28);
   }
 
