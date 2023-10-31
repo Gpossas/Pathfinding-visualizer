@@ -99,11 +99,11 @@
   }
 
   .start{
-    background-image: url("./person.svg");
+    background-image: url("./assets/person.svg");
   }
 
   .target{
-    background-image: url("./target.svg");
+    background-image: url("./assets/target.svg");
   }
 
   .shortestPath{
