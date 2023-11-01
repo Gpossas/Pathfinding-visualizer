@@ -95,7 +95,7 @@
 
   .wall{
     background-color: var( --secondary );
-    animation: build 0.7s cubic-bezier(.26,.53,.74,1.48);
+    animation: build 0.1s cubic-bezier(.26,.53,.74,1.48);
   }
 
   .start{
