@@ -4,6 +4,7 @@
   import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
   import { randomizedPrims } from './maze_generators.js';
   import { speed } from './helpers/store.js';
+    import { get } from 'svelte/store';
 
   export let startVertex;
   export let targetVertex;
@@ -41,8 +42,9 @@
         break;
     }
     
-    if ( visualizedAlgorithm )
+    if ( get(visualizedAlgorithm) ){
       run( algorithm, false );
+    }
   }
 </script>
 
