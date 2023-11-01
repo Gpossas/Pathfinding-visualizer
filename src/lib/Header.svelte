@@ -1,25 +1,29 @@
 <script>
   import { dfs, bfs, dijkstra, aStar } from './pathfinding algorithms.js';
-  import { visualizedAlgorithm } from './helpers/store.js';
+  import { visualizedAlgorithm, isAlgorithmRunning } from './helpers/store.js';
   import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
   import { randomizedPrims } from './maze_generators.js';
   import { speed } from './helpers/store.js';
-    import { get } from 'svelte/store';
+  import { get } from 'svelte/store';
 
   export let startVertex;
   export let targetVertex;
 
   export let algorithm = '';
 
-  function run( algorithm, isAnimated = true ){
+  async function run( algorithm, isAnimated = true ){
     if ( isAnimated ) visualizedAlgorithm.set('');
     clearPath();
+    isAlgorithmRunning.set( true );
+
     switch ( algorithm ){
-      case 'dfs': return dfs( startVertex );
-      case 'bfs': return bfs( startVertex );
-      case 'dijkstra': return dijkstra( startVertex );
-      case 'a*': return aStar( startVertex, targetVertex );
+      case 'dfs': await dfs( startVertex ); break;
+      case 'bfs': await bfs( startVertex ); break;
+      case 'dijkstra': await dijkstra( startVertex ); break;
+      case 'a*': await aStar( startVertex, targetVertex ); break;
     }  
+
+    isAlgorithmRunning.set( false );
   }
 
   function generateMaze(){
@@ -42,9 +46,8 @@
         break;
     }
     
-    if ( get(visualizedAlgorithm) ){
+    if ( get(visualizedAlgorithm) )
       run( algorithm, false );
-    }
   }
 </script>
 
@@ -78,17 +81,33 @@
         </ul>
       </li>
 
-      {#if algorithm }
-        <li> <button on:click={ () => run( algorithm ) } type="submit" class="primaryButton">Visualize { algorithm }</button> </li>
-      {:else }
+      { #if algorithm }
+        { #if $isAlgorithmRunning }
+          <li> <button disabled>Visualize { algorithm }</button> </li>
+        { :else }
+          <li> <button on:click={ () => run( algorithm ) } type="submit" class="primaryButton">Visualize { algorithm }</button> </li>
+        { /if }
+      { :else }
         <li> <button disabled class="primaryButton">Choose an Algorithm</button> </li>
-      {/if }
+      { /if }
 
-      <li> <button on:click={ () => clear( 'path' ) } type="submit">Clear Path</button> </li>
+      { #if $isAlgorithmRunning }
+        <li> <button>Clear Path</button> </li>
+      { :else }
+        <li> <button on:click={ () => clear( 'path' ) } type="submit">Clear Path</button> </li>
+      { /if }
       
-      <li> <button on:click={ () => clear( 'walls' ) } type="submit">Clear Walls</button> </li>
-
-      <li> <button on:click={ () => clear( 'weights' ) } type="submit">Clear Weights</button> </li>
+      { #if $isAlgorithmRunning }
+        <li> <button disabled>Clear Walls</button> </li>
+      { :else }
+        <li> <button on:click={ () => clear( 'walls' ) } type="submit">Clear Walls</button> </li>
+      { /if }
+      
+      { #if $isAlgorithmRunning }
+        <li> <button disabled>Clear Weights</button> </li>
+      { :else }
+        <li> <button on:click={ () => clear( 'weights' ) } type="submit">Clear Weights</button> </li>
+      { /if }
 
       <li class="speed"> 
         <label for="speed">fast</label> 
@@ -182,6 +201,9 @@
   }
   button:hover{
     cursor: pointer;
+  }
+  button:disabled{
+    cursor: not-allowed;
   }
   .dropdown button:hover{
     transition: 0.2s ease-in;

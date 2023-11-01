@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   import { get } from "svelte/store";
-  import { visualizedAlgorithm } from "./helpers/store";
+  import { isAlgorithmRunning, visualizedAlgorithm } from "./helpers/store";
   import { dfs, bfs, dijkstra, aStar } from "./pathfinding algorithms";
   import { clearPath } from "./helpers/board";
 
@@ -22,7 +22,7 @@
 
   /** @param { Event } mouseEvent */
   function moveToPosition( mouseEvent ){
-    if ( !isPressing ) return;
+    if ( !isPressing || get( isAlgorithmRunning ) ) return;
 
     const isStartVertex = startEvent.target.classList.contains( 'start' );
 
@@ -79,7 +79,9 @@
     vertex.explored && get(visualizedAlgorithm) ? 'explored':
     ''
   }
-  { !get(visualizedAlgorithm) && vertex.visited ? 'animate-grow': '' }"
+  { $isAlgorithmRunning && vertex.visited ? 'animate-grow': '' }
+  { $isAlgorithmRunning && ( vertex.isStart || vertex.isTarget ) ? 'disabled':'' }
+  "
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
 </div>
@@ -127,6 +129,10 @@
   .weighted{
     background-image: url("./assets/weight.svg");
     animation: fall 0.3s cubic-bezier(.26,.53,.74,1.28);
+  }
+
+  .disabled{
+    cursor: not-allowed;
   }
 
   @keyframes build {

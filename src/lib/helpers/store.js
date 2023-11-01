@@ -13,6 +13,7 @@ function graphStore(){
   }
 }
 
+export let isAlgorithmRunning = writable( false );
 
 export let visualizedAlgorithm = writable( '' );
 
