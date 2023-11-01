@@ -1,6 +1,6 @@
 <script>
   import { dfs, bfs, dijkstra, aStar } from './pathfinding algorithms.js';
-  import { rebuildPath } from './helpers/store.js';
+  import { visualizedAlgorithm } from './helpers/store.js';
   import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
   import { randomizedPrims } from './maze_generators.js';
   import { speed } from './helpers/store.js';
@@ -11,7 +11,7 @@
   export let algorithm = '';
 
   function run( algorithm, isAnimated = true ){
-    if ( isAnimated ) rebuildPath.set('');
+    if ( isAnimated ) visualizedAlgorithm.set('');
     clearPath();
     switch ( algorithm ){
       case 'dfs': return dfs( startVertex );
@@ -30,7 +30,7 @@
   function clear( task ){
     switch ( task ){
       case 'path':
-        rebuildPath.set(''); 
+        visualizedAlgorithm.set(''); 
         clearPath();
         return;
       case 'walls':
@@ -40,7 +40,9 @@
         clearWeights();
         break;
     }
-    run( algorithm, false );
+    
+    if ( visualizedAlgorithm )
+      run( algorithm, false );
   }
 </script>
 

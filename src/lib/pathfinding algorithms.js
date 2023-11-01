@@ -2,7 +2,7 @@ import Vertex from './helpers/vertex.js';
 import { isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
 import { heapPush, heapPop } from './helpers/heap.js';
-import { graph, rebuildPath, speed } from './helpers/store.js';
+import { graph, visualizedAlgorithm, speed } from './helpers/store.js';
 import { get } from 'svelte/store';
 import { sleep } from './helpers/sleep.js';
 
@@ -33,7 +33,7 @@ export async function dfs( start ){
       break;
     }
 
-    if ( ! get(rebuildPath) ) await sleep( get(speed) );
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
   function explore( row, column, vertex, flag ){
@@ -57,7 +57,7 @@ export async function dfs( start ){
     graph.compute( row, column, 'previous', vertex );
   }
 
-  rebuildPath.set( 'dfs' );
+  visualizedAlgorithm.set( 'dfs' );
 }
 
 /** @param { Vertex } start start vertex */
@@ -87,10 +87,10 @@ export async function bfs( start ){
     explore( ...down, vertex );
     
     graph.compute( row, column, 'visited' );
-    if ( ! get(rebuildPath) ) await sleep( get(speed) );
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
-  rebuildPath.set( 'bfs' );
+  visualizedAlgorithm.set( 'bfs' );
 
   function explore( row, column, vertex ){
     if ( 
@@ -133,10 +133,10 @@ export async function dijkstra( start ){
     explore( ...down, vertex, shortestDistance, priorityQueue );
 
     graph.compute( row, column, 'visited' );
-    if ( ! get(rebuildPath) ) await sleep( get(speed) );
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
-  rebuildPath.set( 'dijkstra' );
+  visualizedAlgorithm.set( 'dijkstra' );
 
   function explore( row, column, vertex, shortestDistance, priorityQueue ){
     if ( 
@@ -187,10 +187,10 @@ export async function aStar( start, target ){
     explore( ...up, vertex, target, priorityQueue );
     explore( ...right, vertex, target, priorityQueue );
     explore( ...down, vertex, target, priorityQueue );
-    if ( ! get(rebuildPath) ) await sleep( get(speed) );
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
-  rebuildPath.set( 'a*' );
+  visualizedAlgorithm.set( 'a*' );
 
   function explore( row, column, vertex, target, priorityQueue ){
     if (
@@ -231,6 +231,6 @@ async function buildShortestPath( vertex ){
     vertex = pathStack.pop();
     const [row, column] = vertex.coordinates;
     graph.compute( row, column, 'isShortestPath' );
-    if ( ! get(rebuildPath) ) await sleep( get(speed) );
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 }

@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   import { get } from "svelte/store";
-  import { rebuildPath } from "./helpers/store";
+  import { visualizedAlgorithm } from "./helpers/store";
   import { dfs, bfs, dijkstra, aStar } from "./pathfinding algorithms";
   import { clearPath } from "./helpers/board";
 
@@ -43,7 +43,7 @@
 
   function retracePath(){
     clearPath();
-    switch( get( rebuildPath ) ){
+    switch( get( visualizedAlgorithm ) ){
       case 'dfs': return dfs( startVertex );
       case 'bfs': return bfs( startVertex );
       case 'dijkstra': return dijkstra( startVertex );
@@ -76,10 +76,10 @@
     vertex.isWall ? 'wall':
     vertex.isShortestPath ? 'shortestPath':
     vertex.visited ? 'visited':
-    vertex.explored && get(rebuildPath) ? 'explored':
+    vertex.explored && get(visualizedAlgorithm) ? 'explored':
     ''
   }
-  { !get(rebuildPath) && vertex.visited ? 'animate-grow': '' }"
+  { !get(visualizedAlgorithm) && vertex.visited ? 'animate-grow': '' }"
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
 </div>

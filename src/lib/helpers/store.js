@@ -13,7 +13,8 @@ function graphStore(){
   }
 }
 
-export let rebuildPath = writable( '' );
+
+export let visualizedAlgorithm = writable( '' );
 
 export let speed = writable( 0 );
 
