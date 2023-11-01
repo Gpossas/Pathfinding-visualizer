@@ -30,8 +30,7 @@ export async function dfs( start ){
     
     if ( flag['isTargetFound'] ){
       await buildShortestPath( flag['target'] );
-      rebuildPath.set( 'dfs' );
-      return;
+      break;
     }
 
     if ( ! get(rebuildPath) ) await sleep( get(speed) );
@@ -57,6 +56,8 @@ export async function dfs( start ){
     stack.push( get(graph)[row][column] );
     graph.compute( row, column, 'previous', vertex );
   }
+
+  rebuildPath.set( 'dfs' );
 }
 
 /** @param { Vertex } start start vertex */
@@ -69,8 +70,7 @@ export async function bfs( start ){
 
     if ( vertex.isTarget ){
       await buildShortestPath( vertex );   
-      rebuildPath.set( 'bfs' );
-      return;
+      break;
     }
     if ( vertex.visited ){
       continue;
@@ -89,6 +89,8 @@ export async function bfs( start ){
     graph.compute( row, column, 'visited' );
     if ( ! get(rebuildPath) ) await sleep( get(speed) );
   }
+
+  rebuildPath.set( 'bfs' );
 
   function explore( row, column, vertex ){
     if ( 
@@ -114,8 +116,7 @@ export async function dijkstra( start ){
     
     if ( vertex.isTarget ){
       await buildShortestPath( vertex );
-      rebuildPath.set( 'dijkstra' );
-      return;
+      break;
     }
     if ( vertex.visited ){
       continue;
@@ -134,6 +135,8 @@ export async function dijkstra( start ){
     graph.compute( row, column, 'visited' );
     if ( ! get(rebuildPath) ) await sleep( get(speed) );
   }
+
+  rebuildPath.set( 'dijkstra' );
 
   function explore( row, column, vertex, shortestDistance, priorityQueue ){
     if ( 
@@ -167,8 +170,7 @@ export async function aStar( start, target ){
     
     if ( vertex.isTarget ){
       await buildShortestPath( vertex );
-      rebuildPath.set( 'a*' );
-      return;
+      break;
     }
     if ( vertex.visited ){
       continue;
@@ -187,6 +189,8 @@ export async function aStar( start, target ){
     explore( ...down, vertex, target, priorityQueue );
     if ( ! get(rebuildPath) ) await sleep( get(speed) );
   }
+
+  rebuildPath.set( 'a*' );
 
   function explore( row, column, vertex, target, priorityQueue ){
     if (
