@@ -1,5 +1,6 @@
 <script>
   import { dfs, bfs } from "./helpers/pythonalgorithms";
+    import { dijkstra } from "./pathfinding algorithms";
 
   export let algorithm;
   let dialog;
@@ -15,7 +16,9 @@
       case 'bfs':
         code = bfs;
         break;
-      
+      case 'dijkstra':
+        code = dijkstra;
+        break;
     }
   }
 </script>

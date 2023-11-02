@@ -117,5 +117,51 @@ def is_out_of_bounds( row, column ):
 `;
 
 export const dijkstra = `
+def dijkstra( start: Vertex ):
+  shortest_distance = { start: 0 }
+  priority_queue: 'heapq' = [ ( 0, start ) ]
 
+  while priority_queue:
+    vertex = heapq.heappop( priority_queue )[-1]
+    row, column = vertex.coordinates
+
+    if vertex.target: 
+      return build
+
+    left: tuple = ( row, column - 1 )
+    right: tuple = ( row, column + 1 )
+    up: tuple = ( row - 1, column )
+    bottom: tuple = ( row + 1, column )
+    
+    explore( *up, vertex, priority_queue )
+    explore( *right, vertex, priority_queue )
+    explore( *left, vertex, priority_queue )
+    explore( *bottom, vertex, priority_queue )
+
+    vertex.visited = True 
+
+def explore( row, column, vertex ):
+  if (
+    is_out_of_bounds( row, column ) 
+    or (neighbor := self.graph[row][column]).is_wall
+    or neighbor.visited
+  ): return
+
+  neighbor.explored = True
+  distance = shortest_distance.get( vertex, 0 ) + neighbor.value
+  if distance < shortest_distance.get( neighbor, float( 'inf' ) ):
+    # you may want to change heappush for a decrease_key function to not add duplicates in heap, but time complexity is similar
+    heapq.heappush( priority_queue, ( distance, neighbor ) )
+    shortest_distance[neighbor] = distance
+    neighbor.previous = vertex
+
+def build_shortest_path( vertex ):
+  path = [] # stack
+  while vertex:
+    path.append( vertex )
+    vertex = vertex.previous
+
+  while path:  
+    vertex = path.pop()
+    vertex.is_shortest_path = True
 `
