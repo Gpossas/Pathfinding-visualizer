@@ -17,6 +17,6 @@ export let isAlgorithmRunning = writable( false );
 
 export let visualizedAlgorithm = writable( '' );
 
-export let speed = writable( 0 );
+export let speed = writable( 10 );
 
 export const graph = graphStore();

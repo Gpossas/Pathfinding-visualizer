@@ -111,7 +111,7 @@
 
       <li class="speed"> 
         <label for="speed">fast</label> 
-        <input type="range" name="speed" min="10" max="1000" bind:value={ $speed }> 
+        <input type="range" name="speed" min="0" max="1000" bind:value={ $speed }> 
         <label for="speed">slow</label> 
       </li>
     </ul>
@@ -179,7 +179,7 @@
     margin-bottom: 5px;
   }
   .speed input{
-    width: 50px;
+    width: 40px;
     accent-color: var( --primary );
   }
   .speed label{
