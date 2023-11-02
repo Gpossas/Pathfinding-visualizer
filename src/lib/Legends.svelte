@@ -1,4 +1,36 @@
+<script>
+  import { dfs } from "./helpers/pythonalgorithms";
+
+  export let algorithm;
+  let dialog;
+  let code;
+
+  function show( algorithm ){
+    console.log(algorithm)
+    dialog.showModal();
+    switch ( algorithm ){
+      case 'dfs':
+        code = dfs;
+        break;
+    }
+  }
+</script>
+
 <div class="legends">
+
+  <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+  {#if algorithm }
+    <button on:click={ () => show( algorithm ) }>&lt;/&gt;</button>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <dialog bind:this={ dialog } on:click={ dialog.close() }>
+      <code>
+        <pre>
+          { code }
+        </pre>
+      </code>
+    </dialog>
+  {/if}
+
   <ul>
     <li>
       <img src="./person.svg" alt="person, start vertex" width="35px" height="35px">
@@ -63,5 +95,15 @@
     font-weight: bold;
     font-size: 15px;
     color: white;
+  }
+
+  button{
+    padding: 8px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    background-color: var( --primary );
+    position: absolute;
+    cursor: pointer;
   }
 </style>
