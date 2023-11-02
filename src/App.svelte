@@ -3,6 +3,7 @@
   import Header from './lib/Header.svelte';
   import Legends from './lib/Legends.svelte';
   import Info from './lib/Info.svelte';
+  import Dialog from './lib/Dialog.svelte';
   import { rows, columns } from './lib/helpers/board';
   import { graph } from './lib/helpers/store.js';
 
@@ -13,6 +14,8 @@
 
   let algorithm;
 </script>
+
+<Dialog/>
 
 <Header
   { startVertex }
