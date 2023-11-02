@@ -23,22 +23,25 @@
         break;
     }
   }
+  console.log(algorithm)
 </script>
 
 <div class="legends">
 
   <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-  {#if algorithm }
-    <button on:click={ () => show( algorithm ) }>&lt;/&gt;</button>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <dialog bind:this={ dialog } on:click={ dialog.close() }>
-      <code>
-        <pre>
-          { code }
-        </pre>
-      </code>
-    </dialog>
-  {/if}
+  { #if algorithm }
+    {#key algorithm }
+      <button on:click={ () => show( algorithm ) }>&lt;/&gt;</button>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <dialog bind:this={ dialog } on:click={ dialog.close() }>
+        <code>
+          <pre>
+            { code }
+          </pre>
+        </code>
+      </dialog>
+    {/key}
+  { /if }
 
   <ul>
     <li>
@@ -114,6 +117,7 @@
     background-color: var( --primary );
     position: absolute;
     cursor: pointer;
+    animation: slideFromLeft 1s ease-out;
   }
 
   dialog{
@@ -121,5 +125,17 @@
     border: none;
     color: white;
     font-weight: bold;
+  }
+
+  @keyframes slideFromLeft {
+    0%{
+      transform: translateX(-80px);
+    }
+    50%{
+      transform: translateX(5px);
+    }
+    100%{
+      transform: translateX(0);
+    }
   }
 </style>
