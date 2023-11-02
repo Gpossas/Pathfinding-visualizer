@@ -1,5 +1,5 @@
 <script>
-  import { dfs } from "./helpers/pythonalgorithms";
+  import { dfs, bfs } from "./helpers/pythonalgorithms";
 
   export let algorithm;
   let dialog;
@@ -12,6 +12,10 @@
       case 'dfs':
         code = dfs;
         break;
+      case 'bfs':
+        code = bfs;
+        break;
+      
     }
   }
 </script>

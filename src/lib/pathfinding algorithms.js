@@ -97,6 +97,7 @@ export async function bfs( start ){
       isOutOfBounds( row, column ) 
       || get(graph)[row][column].isWall 
       || get(graph)[row][column].visited 
+      || get(graph)[row][column].explored 
     ) return;
     
     graph.compute( row, column, 'explored' );
