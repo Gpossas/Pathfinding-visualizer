@@ -92,7 +92,7 @@
       { /if }
 
       { #if $isAlgorithmRunning }
-        <li> <button>Clear Path</button> </li>
+        <li> <button disabled>Clear Path</button> </li>
       { :else }
         <li> <button on:click={ () => clear( 'path' ) } type="submit">Clear Path</button> </li>
       { /if }
