@@ -230,8 +230,8 @@ async function buildShortestPath( vertex ){
 
   while ( pathStack.length > 0 ){
     vertex = pathStack.pop();
-    const [row, column] = vertex.coordinates;
-    graph.compute( row, column, 'isShortestPath' );
-    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
+    graph.compute( ...vertex.coordinates, 'isShortestPath' );
+    if ( ! get(visualizedAlgorithm) ) 
+      await sleep( get(speed) );
   }
 }
