@@ -39,7 +39,17 @@ def explore(row, column, vertex, flag, stack ):
   
   neighbor.exlored = True
   stack.push( neighbor )
-  
+
+def build_shortest_path( vertex ):
+  path = [] # stack
+  while vertex:
+    path.append( vertex )
+    vertex = vertex.previous
+
+  while path:  
+    vertex = path.pop()
+    vertex.is_shortest_path = True
+
 def is_out_of_bounds( row, column ):
   return (
     row < 0 
@@ -47,7 +57,7 @@ def is_out_of_bounds( row, column ):
     or column < 0
     or column >= MAX_COLUMNS
   )
-`
+`;
 
 export const bfs = `
 def bfs( start: Vertex ) -> None:
@@ -87,6 +97,16 @@ def explore( row, column, vertex, queue ):
   queue.append( neighbor )
   neighbor.previous = vertex
   
+  def build_shortest_path( vertex ):
+    path = [] # stack
+    while vertex:
+      path.append( vertex )
+      vertex = vertex.previous
+
+    while path:  
+      vertex = path.pop()
+      vertex.is_shortest_path = True
+
 def is_out_of_bounds( row, column ):
   return (
     row < 0 
@@ -94,4 +114,8 @@ def is_out_of_bounds( row, column ):
     or column < 0
     or column >= MAX_COLUMNS
   )
+`;
+
+export const dijkstra = `
+
 `
