@@ -164,4 +164,80 @@ def build_shortest_path( vertex ):
   while path:  
     vertex = path.pop()
     vertex.is_shortest_path = True
+
+def is_out_of_bounds( row, column ):
+  return (
+    row < 0 
+    or row >= MAX_ROWS
+    or column < 0
+    or column >= MAX_COLUMNS
+  )
+`
+
+export const aStar = `
+def a_star( start: Vertex, target: Vertex ) -> None:
+  def heuristic( vertex_position: tuple, target_position: tuple ) -> int: 
+    """uses manhattan distance to estimates how far it is from vertex to the target"""
+    return abs( vertex_position[0] - target_position[0] ) + abs( vertex_position[1] - target_position[1] )
+
+  start.g = 0
+  start.h = heuristic( start.coordinates, target.coordinates )
+  start.f = start.h
+
+  # if two Vertex have the same 'f', check 'h'
+  priority_queue = [ ( start.f, start.h, start ) ]
+  while priority_queue:
+    vertex = heapq.heappop( priority_queue )[-1]
+    
+    if vertex.target:
+      return build_shortest_path( vertex )
+
+    row, column = vertex.coordinates
+
+    left: tuple = ( row, column - 1 )
+    right: tuple = ( row, column + 1 )
+    up: tuple = ( row - 1, column )
+    bottom: tuple = ( row + 1, column )
+
+    calculate_distance( *left, priority_queue )
+    calculate_distance( *right, priority_queue )
+    calculate_distance( *up, priority_queue )
+    calculate_distance( *bottom, priority_queue )
+    
+    vertex.visited = True
+  
+  def calculate_distance( row, column, priority_queue ) -> None:
+    if (
+      is_out_of_bounds( row, column ) 
+      or (neighbor := self.graph[row][column]).is_wall
+      or neighbor.visited
+    ): return
+    
+    neighbor.explored = True
+    g_cost = vertex.g + neighbor.value
+    h_cost = heuristic( neighbor.coordinates, target )
+    f_cost = g_cost + h_cost
+    if neighbor.f == None or f_cost < neighbor.f:
+      neighbor.g, neighbor.h, neighbor.f = g_cost, h_cost, f_cost
+      heapq.heappush( priority_queue, ( f_cost, h_cost, neighbor ) )
+      neighbor.previous = vertex
+    
+
+def build_shortest_path( vertex ):
+  path = [] # stack
+  while vertex:
+    path.append( vertex )
+    vertex = vertex.previous
+
+  while path:  
+    vertex = path.pop()
+    vertex.is_shortest_path = True
+
+def is_out_of_bounds( row, column ):
+  return (
+    row < 0 
+    or row >= MAX_ROWS
+    or column < 0
+    or column >= MAX_COLUMNS
+  )
 `

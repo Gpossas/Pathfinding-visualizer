@@ -188,7 +188,8 @@ export async function aStar( start, target ){
     explore( ...up, vertex, target, priorityQueue );
     explore( ...right, vertex, target, priorityQueue );
     explore( ...down, vertex, target, priorityQueue );
-    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
+    if ( ! get(visualizedAlgorithm) ) 
+      await sleep( get(speed) );
   }
 
   visualizedAlgorithm.set( 'a*' );
