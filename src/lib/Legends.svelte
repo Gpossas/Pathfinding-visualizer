@@ -34,6 +34,12 @@
       <button on:click={ () => show( algorithm ) }>&lt;/&gt;</button>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <dialog bind:this={ dialog } on:click={ dialog.close() }>
+        <div>
+          <a href="https://github.com/Gpossas/Pathfinding-visualizer">
+          <img src="./github.png" alt="github link" height="30px">
+          </a>
+        </div>
+
         <code>
           <pre>
             { code }
@@ -50,32 +56,32 @@
     </li>
 
     <li>
-      <img src="./target.svg" alt="person, start vertex" width="35px" height="35px">
+      <img src="./target.svg" alt="finish, target vertex" width="35px" height="35px">
       <span>target</span>
     </li>
 
     <li>
-      <img src="./weight.svg" alt="person, start vertex" width="35px" height="35px">
+      <img src="./weight.svg" alt="weight" width="35px" height="35px">
       <span>weights(+6)</span>
     </li>
 
     <li>
-      <img src="./visited.svg" alt="person, start vertex" width="35px" height="35px">
+      <img src="./visited.svg" alt="visited vertex" width="35px" height="35px">
       <span>visited(computed)</span>
     </li>
     
     <li>
-      <img src="./explored.svg" alt="person, start vertex" width="35px" height="35px">
+      <img src="./explored.svg" alt="explored vertex" width="35px" height="35px">
       <span>explored(stored)</span>
     </li>
     
     <li>
-      <img src="./shortestpath.svg" alt="person, start vertex" width="35px" height="35px">
+      <img src="./shortestpath.svg" alt="shortest path vertex" width="35px" height="35px">
       <span>shortest path</span>
     </li>
     
     <li>
-      <img src="./wall.svg" alt="person, start vertex" width="35px" height="35px">
+      <img src="./wall.svg" alt="wall" width="35px" height="35px">
       <span>walls</span>
     </li>
   </ul>
