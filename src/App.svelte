@@ -23,9 +23,9 @@
   bind:algorithm
 />
 
-<Legends/>
+<Legends { algorithm } />
 
-<Info { algorithm }/>
+<Info { algorithm } />
 
 <Board 
   { rows }
