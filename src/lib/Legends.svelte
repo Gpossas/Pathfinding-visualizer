@@ -86,7 +86,7 @@
   }
   .legends::-webkit-scrollbar {
     display: none;
-}
+  }
 
   ul{
     display: flex;
@@ -114,5 +114,12 @@
     background-color: var( --primary );
     position: absolute;
     cursor: pointer;
+  }
+
+  dialog{
+    background-color: var( --secondary );
+    border: none;
+    color: white;
+    font-weight: bold;
   }
 </style>
