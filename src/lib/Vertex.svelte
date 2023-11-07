@@ -69,18 +69,18 @@
   on:mouseleave={ drawOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex 
-  { vertex.value > 1 && !vertex.isWall ? 'weighted':'' } 
-  { vertex.isStart ? 'start':'' } 
-  { vertex.isTarget ? 'target':'' } 
+  { $vertex.value > 1 && !$vertex.isWall ? 'weighted':'' } 
+  { $vertex.isStart ? 'start':'' } 
+  { $vertex.isTarget ? 'target':'' } 
   { 
-    vertex.isWall ? 'wall':
-    vertex.isShortestPath ? 'shortestPath':
-    vertex.visited ? 'visited':
-    vertex.explored && get(visualizedAlgorithm) ? 'explored':
+    $vertex.isWall ? 'wall':
+    $vertex.isShortestPath ? 'shortestPath':
+    $vertex.visited ? 'visited':
+    $vertex.explored && get(visualizedAlgorithm) ? 'explored':
     ''
   }
-  { $isAlgorithmRunning && vertex.visited ? 'animate-grow': '' }
-  { $isAlgorithmRunning && ( vertex.isStart || vertex.isTarget ) ? 'disabled':'' }
+  { $isAlgorithmRunning && $vertex.visited ? 'animate-grow': '' }
+  { $isAlgorithmRunning && ( $vertex.isStart || $vertex.isTarget ) ? 'disabled':'' }
   "
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
