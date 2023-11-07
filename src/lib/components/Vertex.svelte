@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   import { get } from "svelte/store";
-  import { isAlgorithmRunning, visualizedAlgorithm } from "../helpers/store";
+  import { isAlgorithmRunning, key, visualizedAlgorithm } from "../helpers/store";
   import { dfs, bfs, dijkstra, aStar } from "../pathfinding algorithms";
   import { clearPath } from "../helpers/board";
 
@@ -27,15 +27,19 @@
     if ( !isPressing || get( isAlgorithmRunning ) ) return;
 
     const isStartVertex = startEvent.target.classList.contains( 'start' );
+    const isTargetVertex = startEvent.target.classList.contains( 'target' );
 
     if ( mouseEvent.type ===  'mouseenter' ){
       
       if ( isStartVertex ){
         vertex.compute( 'isStart', true );
         startVertex = vertex;
-      } else{
+      } else if ( isTargetVertex ){
         vertex.compute( 'isTarget', true );
         targetVertex = vertex;
+      } else{
+        vertex.compute( 'isKey', true );
+        key.put( $vertex );
       }
 
       if ( get(visualizedAlgorithm) ){
@@ -47,8 +51,10 @@
       if ( isStartVertex ){
         vertex.compute( 'isStart', false );
       }
-      else{
+      else if( isTargetVertex ){
         vertex.compute( 'isTarget', false );
+      } else{
+        vertex.compute( 'isKey', false );
       }
     }
   }
@@ -86,7 +92,7 @@
     $vertex.isStart ? 'start':
     $vertex.isTarget ? 'target': 
     $vertex.isKey ? 'key': '' 
-   } 
+  } 
   { 
     $vertex.isWall ? 'wall':
     $vertex.isShortestPath ? 'shortestPath':
