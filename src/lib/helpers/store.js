@@ -27,6 +27,40 @@ export function vertexStore( vertex ){
   }
 }
 
+function keyStore(){
+  const { update, set, subscribe } = writable( 
+    { 
+      'vertex': null,
+      'found': false,
+    } 
+  )
+
+  return {
+    subscribe,
+
+    remove: () => set( 
+      { 
+        'vertex': null,
+        'found': false,
+      } 
+    ),
+
+    put: ( vertex ) => update(
+      object => ({
+        ...object,
+        ['vertex']: vertex
+      })
+    ),
+
+    found: (state = true) => update( 
+      object => ({
+        ...object, 
+        ['found']: state 
+      }) 
+    ),
+  }
+}
+
 export let isAlgorithmRunning = writable( false );
 
 export let visualizedAlgorithm = writable( '' );
@@ -34,3 +68,5 @@ export let visualizedAlgorithm = writable( '' );
 export let speed = writable( 10 );
 
 export const graph = createBoard( rows, columns );
+
+export const key = keyStore();
