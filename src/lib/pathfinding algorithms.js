@@ -60,10 +60,9 @@ export async function dfs( start ){
   visualizedAlgorithm.set( 'dfs' );
 }
 
-/** @param { Vertex } start start vertex */
 export async function bfs( start ){
   const queue = new Queue();
-  queue.enqueue( start );
+  queue.enqueue( get(start) );
   
   while ( !queue.isEmpty() ){
     let vertex = queue.dequeue();
