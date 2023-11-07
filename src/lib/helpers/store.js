@@ -6,6 +6,7 @@ export function vertexStore( vertex ){
 
   return {
     subscribe,
+    /** @param { string } status @param { any } value */
     compute: ( status, value = true ) => update( 
       vertex => ({
         ...vertex,
