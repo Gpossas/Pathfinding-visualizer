@@ -126,6 +126,13 @@
     filter: brightness(1.8);
   }
 
+  .key{
+    background-image: url("../assets/key_of_light.svg");
+  }
+  .key:hover{
+    filter: brightness(1.8);
+  }
+
   .shortestPath{
     background-color: #efc12e;
   }
