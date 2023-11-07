@@ -12,11 +12,11 @@
     const leftMouseButtonPressed = mouseEvent.buttons == 1 && startEvent.button == 0;
 
     if ( leftMouseButtonPressed ){
-      vertex.isWall = !startEvent.shiftKey;
-      vertex.value = startEvent.shiftKey ? 7 : 1;
+      vertex.compute( 'isWall', !startEvent.shiftKey );
+      vertex.compute( 'value', startEvent.shiftKey ? 7 : 1 );
     } else {
-      vertex.isWall = false;
-      vertex.value = 1;
+      vertex.compute( 'isWall', false );
+      vertex.compute( 'value', 1 );
     }
   }
 
@@ -28,10 +28,10 @@
 
     if ( mouseEvent.type ===  'mouseenter' ){
       if ( isStartVertex ){
-        vertex.isStart = true;
+        vertex.compute( 'isStart', true );
         startVertex = vertex;
       } else{
-        vertex.isTarget = true;
+        vertex.compute( 'isTarget', true );
         targetVertex = vertex;
       }
 
