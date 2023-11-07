@@ -7,7 +7,7 @@
 
   /** @param { Event } mouseEvent */
    function drawOrRemove( mouseEvent ){
-    if ( !isPressing || vertex.isStart || vertex.isTarget ) return;
+    if ( !isPressing || $vertex.isStart || $vertex.isTarget ) return;
     
     const leftMouseButtonPressed = mouseEvent.buttons == 1 && startEvent.button == 0;
 
@@ -37,7 +37,7 @@
 
       retracePath();
     } else{
-      isStartVertex ? vertex.isStart = false : vertex.isTarget = false;
+      isStartVertex ? $vertex.isStart = false : $vertex.isTarget = false;
     }
   }
 
