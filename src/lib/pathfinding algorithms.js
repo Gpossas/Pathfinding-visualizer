@@ -62,10 +62,11 @@ export async function dfs( start ){
 
 export async function bfs( start ){
   const queue = new Queue();
-  queue.enqueue( get(start) );
+  queue.enqueue( get(start).coordinates );
   
   while ( !queue.isEmpty() ){
-    let vertex = queue.dequeue();
+    const [row, column] = queue.dequeue();
+    const vertex = get(graph[row][column]);
 
     if ( vertex.isTarget ){
       await buildShortestPath( vertex );   
@@ -75,7 +76,7 @@ export async function bfs( start ){
       continue;
     }
 
-    const [row, column] = vertex.coordinates;
+    // const [row, column] = vertex.coordinates;
     const left = [row, column - 1];
     const right = [row, column + 1];
     const up = [row - 1, column];
@@ -101,7 +102,7 @@ export async function bfs( start ){
     
     graph[row][column].compute( 'explored' );
     graph[row][column].compute( 'previous', vertex );
-    queue.enqueue( get(graph[row][column]) );
+    queue.enqueue( [row, column] );
   }
 }
 
