@@ -76,7 +76,6 @@ export async function bfs( start ){
       continue;
     }
 
-    // const [row, column] = vertex.coordinates;
     const left = [row, column - 1];
     const right = [row, column + 1];
     const up = [row - 1, column];
