@@ -6,7 +6,6 @@
   let code;
 
   function show( algorithm ){
-    console.log(algorithm)
     dialog.showModal();
     switch ( algorithm ){
       case 'dfs':
@@ -23,7 +22,6 @@
         break;
     }
   }
-  console.log(algorithm)
 </script>
 
 <div class="legends">
