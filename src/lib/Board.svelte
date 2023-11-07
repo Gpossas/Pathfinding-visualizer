@@ -11,7 +11,7 @@
 
   let isPressing = false;
   let startEvent;
-  let drawOperation = false;
+  let moveOperation = false;
 
   /** @param { Event } mouseEvent */
   function startSelecting( mouseEvent ){
@@ -22,12 +22,12 @@
       || startEvent.target.classList.contains( 'target' )
       || startEvent.target.classList.contains( 'key' )
      )
-      drawOperation = true;
+      moveOperation = true;
   }
 
   function stopSelecting(){
     isPressing = false;
-    drawOperation = false;
+    moveOperation = false;
   }
 </script>
 
@@ -44,7 +44,7 @@
         <VertexComponent 
           { vertex } 
           { startEvent } 
-          { drawOperation } 
+          { moveOperation } 
           { isPressing } 
           { rowIndex } 
           { columnIndex } 
