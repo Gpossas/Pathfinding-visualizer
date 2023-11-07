@@ -68,15 +68,15 @@
   export let startEvent;
   export let startVertex;
   export let targetVertex;
-  export let drawOperation;
+  export let moveOperation;
 
   let vertexComponent;
 </script>
 
 { #key isPressing && startEvent.target === vertexComponent }
 <div 
-  on:mouseenter={ drawOperation ? moveToPosition : drawOrRemove }
-  on:mouseleave={ drawOperation ? moveToPosition : undefined }
+  on:mouseenter={ moveOperation ? moveToPosition : drawOrRemove }
+  on:mouseleave={ moveOperation ? moveToPosition : undefined }
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex 
   { $vertex.value > 1 && !$vertex.isWall ? 'weighted':'' } 
