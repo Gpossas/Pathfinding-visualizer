@@ -37,7 +37,13 @@
     >
     { #each graph as row, rowIndex }
       { #each row as vertex, columnIndex }
-        <VertexComponent { vertex } { startEvent } { drawOperation } { isPressing } { rowIndex } { columnIndex } 
+        <VertexComponent 
+          { vertex } 
+          { startEvent } 
+          { drawOperation } 
+          { isPressing } 
+          { rowIndex } 
+          { columnIndex } 
           bind:startVertex
           bind:targetVertex
         />
