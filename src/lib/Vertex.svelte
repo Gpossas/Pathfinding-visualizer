@@ -27,6 +27,7 @@
     const isStartVertex = startEvent.target.classList.contains( 'start' );
 
     if ( mouseEvent.type ===  'mouseenter' ){
+      
       if ( isStartVertex ){
         vertex.compute( 'isStart', true );
         startVertex = vertex;
@@ -38,8 +39,15 @@
       if ( get(visualizedAlgorithm) ){
         retracePath();
       }
+
     } else{
-      isStartVertex ? $vertex.isStart = false : $vertex.isTarget = false;
+
+      if ( isStartVertex ){
+        vertex.compute( 'isStart', false );
+      }
+      else{
+        vertex.compute( 'isTarget', false );
+      }
     }
   }
 
