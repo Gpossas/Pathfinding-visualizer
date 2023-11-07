@@ -98,6 +98,20 @@
         </ul>
       </li>
 
+      { #if $isAlgorithmRunning }
+        { #if $key.vertex }
+          <li> <button disabled>Remove key</button> </li>
+        { :else }
+          <li> <button disabled>Add key</button> </li>
+        { /if }
+      { :else}
+        { #if $key.vertex }
+          <li> <button on:click={ () => removeKey() } type="submit">Remove key</button> </li>
+        { :else }
+          <li> <button on:click={ () => addKey() } type="submit">Add key</button> </li>
+        { /if }
+      { /if }
+
       { #if algorithm }
         { #if $isAlgorithmRunning }
           <li> <button disabled>Visualize { algorithm }</button> </li>
