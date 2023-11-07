@@ -1,4 +1,3 @@
-import { get } from "svelte/store";
 import { graph, vertexStore } from "./store";
 import Vertex, { vertexSize } from "./vertex";
 
