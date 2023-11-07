@@ -1,5 +1,5 @@
-import { get } from "svelte/store";
-import { graph } from "./store";
+import { get, writable } from "svelte/store";
+import { graph, vertexStore } from "./store";
 import Vertex, { vertexSize } from "./vertex";
 
 const totalWidth = window.innerWidth;
@@ -13,14 +13,14 @@ export const rows = Math.floor( ( totalHeight * 0.98 - headerSize ) / vertexSize
 /**
  * @param { number } rows max number of rows
  * @param { number } columns max number of columns
- * @return { Array<Array<Vertex>> } Matrix containing vertices
+ * @return Matrix containing vertices
  */
 export function createBoard( rows, columns ){
   const matrix = [];
   for ( let row = 0; row < rows; row++ ){
     const rowItems = [];
     for ( let column = 0; column < columns; column++ ){
-      rowItems.push( new Vertex( [ row, column ] ) );
+      rowItems.push( vertexStore( new Vertex( [ row, column ] ) ) );
     }
     matrix.push( rowItems );
   }
