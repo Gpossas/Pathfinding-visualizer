@@ -82,8 +82,11 @@
   id="{ rowIndex }_{ columnIndex }" 
   class="vertex 
   { $vertex.value > 1 && !$vertex.isWall ? 'weighted':'' } 
-  { $vertex.isStart ? 'start':'' } 
-  { $vertex.isTarget ? 'target':'' } 
+  {
+    $vertex.isStart ? 'start':
+    $vertex.isTarget ? 'target': 
+    $vertex.isKey ? 'key': '' 
+   } 
   { 
     $vertex.isWall ? 'wall':
     $vertex.isShortestPath ? 'shortestPath':
