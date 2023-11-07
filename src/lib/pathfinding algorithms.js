@@ -86,7 +86,7 @@ export async function bfs( start ){
     explore( ...up, vertex );
     explore( ...down, vertex );
     
-    graph.compute( row, column, 'visited' );
+    graph[row][column].compute( 'visited' );
     if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
@@ -95,14 +95,14 @@ export async function bfs( start ){
   function explore( row, column, vertex ){
     if ( 
       isOutOfBounds( row, column ) 
-      || get(graph)[row][column].isWall 
-      || get(graph)[row][column].visited 
-      || get(graph)[row][column].explored 
+      || get(graph[row][column]).isWall 
+      || get(graph[row][column]).visited 
+      || get(graph[row][column]).explored 
     ) return;
     
-    graph.compute( row, column, 'explored' );
-    queue.enqueue( get(graph)[row][column] );
-    graph.compute( row, column, 'previous', vertex );
+    graph[row][column].compute( 'explored' );
+    queue.enqueue( get(graph[row][column]) );
+    graph[row][column].compute( 'previous', vertex );
   }
 }
 
