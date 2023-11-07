@@ -44,9 +44,9 @@ export function clearWalls(){
 }
 
 export function clearWeights(){
-  for ( let row of get(graph) ){
-    for ( let vertex of row ){
-      graph.compute( ...vertex.coordinates, 'value', 1 );
+  for ( let row = 0; row < rows; row++ ){
+    for ( let column = 0; column < columns; column++ ){
+      graph[row][column].compute( 'value', 1 );
     }
   }
 }
