@@ -100,8 +100,8 @@ export async function bfs( start ){
     ) return;
     
     graph[row][column].compute( 'explored' );
-    queue.enqueue( get(graph[row][column]) );
     graph[row][column].compute( 'previous', vertex );
+    queue.enqueue( get(graph[row][column]) );
   }
 }
 
@@ -227,7 +227,6 @@ async function buildShortestPath( vertex ){
     pathStack.push( vertex );
     vertex = vertex.previous;
   }
-
   while ( pathStack.length > 0 ){
     const [row, column] = pathStack.pop().coordinates;
     graph[row][column].compute( 'isShortestPath' );
