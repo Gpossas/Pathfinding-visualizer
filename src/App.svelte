@@ -12,7 +12,7 @@
   startVertex.compute( 'isStart', true );
   targetVertex.compute( 'isTarget', true );
 
-  let algorithm;
+  let algorithm = '';
 </script>
 
 <Dialog/>
