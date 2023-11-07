@@ -35,7 +35,7 @@
     grid-template-columns: repeat({ columns }, { vertexSize }px);" 
     role="grid" tabindex="-1" aria-label="Board"
     >
-    { #each $graph as row, rowIndex }
+    { #each graph as row, rowIndex }
       { #each row as vertex, columnIndex }
         <VertexComponent { vertex } { startEvent } { drawOperation } { isPressing } { rowIndex } { columnIndex } 
           bind:startVertex
