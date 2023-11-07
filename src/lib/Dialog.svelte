@@ -14,7 +14,7 @@
   <ul>
     <li>click or hold <span>left</span> click mouse to <span>add walls</span>.</li>
     <li>click or hold <span>right</span> click mouse to <span>remove walls</span>.</li>
-    <li>Hold <span>shift</span> and hold left click mouse to <span>add weights</span>.</li>
+    <li>Hold <span>shift</span> to <span>add weights</span>.</li>
     <li>click or hold <span>right</span> click mouse to <span>remove weights</span>.</li>
     <li>move <span>person</span> and <span>target</span> anywhere on the board.</li>
     <li>If you <span>move</span> person or target after you running an algorithm it will <span>rebuild</span> the path immediately, so you can see other paths <span>BLAZINGLY FAST</span></li>
