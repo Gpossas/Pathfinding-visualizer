@@ -1,8 +1,8 @@
 <script>
   // @ts-nocheck
-  import { graph } from './helpers/store.js';
+  import { graph } from '../helpers/store.js';
   import VertexComponent from "./Vertex.svelte";
-  import { vertexSize } from "./helpers/vertex.js"
+  import { vertexSize } from "../helpers/vertex.js"
 
   export let startVertex;
   export let targetVertex;

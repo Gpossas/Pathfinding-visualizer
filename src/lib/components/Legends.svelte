@@ -1,5 +1,5 @@
 <script>
-  import { dfs, bfs, dijkstra, aStar } from "./helpers/pythonalgorithms";
+  import { dfs, bfs, dijkstra, aStar } from "../helpers/pythonalgorithms";
 
   export let algorithm;
   let dialog;

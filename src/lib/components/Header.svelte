@@ -1,10 +1,10 @@
 <script>
-  import { dfs, bfs, dijkstra, aStar } from './pathfinding algorithms.js';
-  import { visualizedAlgorithm, isAlgorithmRunning } from './helpers/store.js';
-  import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
-  import { randomizedPrims } from './maze_generators.js';
-  import { rows, columns } from './helpers/board.js';
-  import { speed, graph, key } from './helpers/store.js';
+  import { dfs, bfs, dijkstra, aStar } from '../pathfinding algorithms.js';
+  import { visualizedAlgorithm, isAlgorithmRunning } from '../helpers/store.js';
+  import { clearPath, clearWalls, clearWeights } from '../helpers/board.js';
+  import { randomizedPrims } from '../maze_generators.js';
+  import { rows, columns } from '../helpers/board.js';
+  import { speed, graph, key } from '../helpers/store.js';
   import { get } from 'svelte/store';
 
   export let startVertex;

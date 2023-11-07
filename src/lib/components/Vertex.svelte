@@ -1,9 +1,9 @@
 <script>
   // @ts-nocheck
   import { get } from "svelte/store";
-  import { isAlgorithmRunning, visualizedAlgorithm } from "./helpers/store";
-  import { dfs, bfs, dijkstra, aStar } from "./pathfinding algorithms";
-  import { clearPath } from "./helpers/board";
+  import { isAlgorithmRunning, visualizedAlgorithm } from "../helpers/store";
+  import { dfs, bfs, dijkstra, aStar } from "../pathfinding algorithms";
+  import { clearPath } from "../helpers/board";
 
   /** @param { Event } mouseEvent */
    function drawOrRemove( mouseEvent ){
@@ -111,14 +111,14 @@
   }
 
   .start{
-    background-image: url("./assets/person.svg");
+    background-image: url("../assets/person.svg");
   }
   .start:hover{
     filter: brightness(1.3);
   }
 
   .target{
-    background-image: url("./assets/target.svg");
+    background-image: url("../assets/target.svg");
   }
   .target:hover{
     filter: brightness(1.8);
@@ -137,7 +137,7 @@
   }
 
   .weighted{
-    background-image: url("./assets/weight.svg");
+    background-image: url("../assets/weight.svg");
     animation: fall 0.3s cubic-bezier(.26,.53,.74,1.28);
   }
 

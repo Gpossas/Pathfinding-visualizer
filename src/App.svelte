@@ -1,9 +1,9 @@
 <script>
-  import Board from './lib/Board.svelte';
-  import Header from './lib/Header.svelte';
-  import Legends from './lib/Legends.svelte';
-  import Info from './lib/Info.svelte';
-  import Dialog from './lib/Dialog.svelte';
+  import Board from './lib/components/Board.svelte';
+  import Header from './lib/components/Header.svelte';
+  import Legends from './lib/components/Legends.svelte';
+  import Info from './lib/components/Info.svelte';
+  import Dialog from './lib/components/Dialog.svelte';
   import { rows, columns } from './lib/helpers/board';
   import { graph } from './lib/helpers/store.js';
 
