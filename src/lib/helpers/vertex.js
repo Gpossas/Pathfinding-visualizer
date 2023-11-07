@@ -6,6 +6,7 @@ class Vertex {
     this.isWall = false;
     this.isStart = false;
     this.isTarget = false;
+    this.isKey = false;
     this.visited = false;
     this.explored = false;
     this.isShortestPath = false;
