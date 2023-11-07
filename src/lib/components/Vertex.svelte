@@ -7,7 +7,9 @@
 
   /** @param { Event } mouseEvent */
    function drawOrRemove( mouseEvent ){
-    if ( !isPressing || $vertex.isStart || $vertex.isTarget ) return;
+    if ( !isPressing || $vertex.isStart || $vertex.isTarget || $vertex.isKey ){
+      return;
+    }
     
     const leftMouseButtonPressed = mouseEvent.buttons == 1 && startEvent.button == 0;
 
