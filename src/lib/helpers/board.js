@@ -36,9 +36,9 @@ export function clearPath(){
 }
 
 export function clearWalls(){
-  for ( let row of get(graph) ){
-    for ( let vertex of row ){
-      graph.compute( ...vertex.coordinates, 'isWall', false );
+  for ( let row = 0; row < rows; row++ ){
+    for ( let column = 0; column < columns; column++ ){
+      graph[row][column].compute( 'isWall', false );
     }
   }
 }
