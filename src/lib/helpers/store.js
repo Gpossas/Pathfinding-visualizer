@@ -1,15 +1,28 @@
 import { writable } from "svelte/store";
 import { rows, columns, createBoard } from "./board";
 
-function graphStore(){
-  const { update, subscribe } = writable( createBoard( rows, columns ) );
+export function vertexStore( vertex ){
+  const { update, subscribe } = writable( vertex );
 
   return {
     subscribe,
-    compute: ( row, column, status, value = true ) => update( ( graph ) => {
-      graph[row][column][status] = value; // expected: compute(0, 1, 'isVisited') => graph[0][1].isVisited = true;
-      return graph;
-    })
+    compute: ( status, value = true ) => update( 
+      vertex => ({
+        ...vertex,
+        [status]: value
+      }) 
+    ),
+    clear: () => update(
+      vertex => ({
+        ...vertex,
+        ['visited']: false,
+        ['explored']: false,
+        ['isShortestPath']: false,
+        ['previous']: null,
+        ['f']: Infinity,
+        ['g']: Infinity,
+      })
+    )
   }
 }
 
@@ -19,4 +32,4 @@ export let visualizedAlgorithm = writable( '' );
 
 export let speed = writable( 10 );
 
-export const graph = graphStore();
+export const graph = createBoard( rows, columns );
