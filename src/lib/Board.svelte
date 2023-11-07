@@ -17,7 +17,11 @@
   function startSelecting( mouseEvent ){
     isPressing = true;
     startEvent = mouseEvent;
-    if ( startEvent.target.classList.contains( 'start' ) || startEvent.target.classList.contains( 'target' ) )
+    if ( 
+      startEvent.target.classList.contains( 'start' ) 
+      || startEvent.target.classList.contains( 'target' )
+      || startEvent.target.classList.contains( 'key' )
+     )
       drawOperation = true;
   }
 
