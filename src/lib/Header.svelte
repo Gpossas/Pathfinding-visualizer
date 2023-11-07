@@ -3,7 +3,8 @@
   import { visualizedAlgorithm, isAlgorithmRunning } from './helpers/store.js';
   import { clearPath, clearWalls, clearWeights } from './helpers/board.js';
   import { randomizedPrims } from './maze_generators.js';
-  import { speed } from './helpers/store.js';
+  import { rows, columns } from './helpers/board.js';
+  import { speed, graph, key } from './helpers/store.js';
   import { get } from 'svelte/store';
 
   export let startVertex;
@@ -48,6 +49,22 @@
     
     if ( get(visualizedAlgorithm) )
       run( algorithm, false );
+  }
+
+  function addKey(){
+    const keyVertex = graph[Math.trunc( rows / 2 )][Math.trunc( columns / 2 )];
+    key.put( get( keyVertex ) );
+    keyVertex.compute( 'isKey' );
+
+    if ( get(visualizedAlgorithm) ) run( algorithm, false );
+  }
+
+  function removeKey(){
+    const [row, column] = get(key).vertex.coordinates;
+    key.remove();
+    graph[row][column].compute( 'isKey', false );
+    
+    if ( get(visualizedAlgorithm) ) run( algorithm, false );
   }
 </script>
 
