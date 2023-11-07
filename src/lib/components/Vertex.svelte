@@ -101,7 +101,7 @@
     ''
   }
   { $isAlgorithmRunning && $vertex.visited ? 'animate-grow': '' }
-  { $isAlgorithmRunning && ( $vertex.isStart || $vertex.isTarget ) ? 'disabled':'' }
+  { $isAlgorithmRunning && ( $vertex.isStart || $vertex.isTarget || $vertex.isKey ) ? 'disabled': '' }
   "
   bind:this={ vertexComponent }
   role="cell" tabindex="-1" aria-label="vertex">
