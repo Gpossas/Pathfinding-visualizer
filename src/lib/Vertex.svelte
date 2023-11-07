@@ -35,7 +35,9 @@
         targetVertex = vertex;
       }
 
-      retracePath();
+      if ( get(visualizedAlgorithm) ){
+        retracePath();
+      }
     } else{
       isStartVertex ? $vertex.isStart = false : $vertex.isTarget = false;
     }
