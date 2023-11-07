@@ -27,16 +27,10 @@ export function createBoard( rows, columns ){
   return matrix;  
 }
 
- 
 export function clearPath(){
-  for ( let row of get(graph) ){
-    for ( let vertex of row ){
-      graph.compute( ...vertex.coordinates, 'visited', false );
-      graph.compute( ...vertex.coordinates, 'explored', false );
-      graph.compute( ...vertex.coordinates, 'isShortestPath', false );
-      vertex.previous = null;
-      vertex.f = Infinity;
-      vertex.g = Infinity;
+  for ( let row = 0; row < rows; row++ ){
+    for ( let column = 0; column < columns; column++ ){
+      graph[row][column].clear();
     }
   }
 }
