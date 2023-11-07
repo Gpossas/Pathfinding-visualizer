@@ -7,10 +7,10 @@
   import { rows, columns } from './lib/helpers/board';
   import { graph } from './lib/helpers/store.js';
 
-  let startVertex = $graph[Math.trunc( rows / 2 )][Math.trunc( columns / 4 )];
-  let targetVertex = $graph[Math.trunc( rows / 2 )].at( -Math.trunc( columns / 4 ) );
-  startVertex.isStart = true;
-  targetVertex.isTarget = true;
+  let startVertex = graph[Math.trunc( rows / 2 )][Math.trunc( columns / 4 )];
+  let targetVertex = graph[Math.trunc( rows / 2 )].at( -Math.trunc( columns / 4 ) );
+  startVertex.compute( 'isStart', true );
+  targetVertex.compute( 'isTarget', true );
 
   let algorithm;
 </script>
