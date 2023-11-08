@@ -107,8 +107,14 @@ export async function bfs( start ){
       || get(graph[row][column]).explored 
     ) return;
     
-    graph[row][column].compute( 'explored' );
-    graph[row][column].compute( 'previous', vertex );
+    if ( hasKeyAndKeyNotFound() ){
+      cloneGraph[row][column].compute( 'explored' );
+      cloneGraph[row][column].compute( 'previous', vertex );
+    }
+    else{
+      graph[row][column].compute( 'explored' );
+      graph[row][column].compute( 'previous', vertex );
+    }
     queue.enqueue( [row, column] );
   }
 
