@@ -61,6 +61,7 @@
 
   function retracePath(){
     clearPath();
+    key.found( false );
     switch( get( visualizedAlgorithm ) ){
       case 'dfs': return dfs( startVertex );
       case 'bfs': return bfs( startVertex );
