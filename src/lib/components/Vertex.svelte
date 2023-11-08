@@ -152,6 +152,10 @@
     background-color: var( --primary );
   }
 
+  .clone-visited{
+    background-color: #0F3A67;
+  }
+
   .explored{
     background-color: #e54d4d; 
   }
