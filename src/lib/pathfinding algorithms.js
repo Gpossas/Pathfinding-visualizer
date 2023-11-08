@@ -103,8 +103,10 @@ export async function bfs( start ){
     if ( 
       isOutOfBounds( row, column ) 
       || get(graph[row][column]).isWall 
-      || get(graph[row][column]).visited 
-      || get(graph[row][column]).explored 
+      || hasVisitedInOriginalGraph( row, column )
+      || hasExploredInOriginalGraph( row, column )
+      || hasVisitedInCloneGraph( row, column )
+      || hasExploredInCloneGraph( row, column )
     ) return;
     
     if ( hasKeyAndKeyNotFound() ){
@@ -130,6 +132,25 @@ export async function bfs( start ){
     return get(graph[row][column]).isTarget && get(key).vertex && get(key).found;
   }
 
+  function hasVisitedInOriginalGraph( row, column ){
+    return ( 
+      get(graph[row][column]).visited && !get(key).vertex 
+      || get(graph[row][column]).visited && get(key).vertex && get(key).found
+    )
+  }
+  function hasExploredInOriginalGraph( row, column ){
+    return ( 
+      get(graph[row][column]).explored && !get(key).vertex 
+      || get(graph[row][column]).explored && get(key).vertex && get(key).found
+    )
+  }
+
+  function hasVisitedInCloneGraph( row, column ){
+    return get(cloneGraph[row][column]).visited && get(key).vertex && !get(key).found
+  }
+  function hasExploredInCloneGraph( row, column ){
+    return get(cloneGraph[row][column]).explored && get(key).vertex && !get(key).found
+  }
 }
 
 /** @param { Vertex } start start vertex */
