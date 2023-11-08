@@ -1,8 +1,8 @@
 import Vertex from './helpers/vertex.js';
-import { isOutOfBounds } from './helpers/board.js';
+import { columns, isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
 import { heapPush, heapPop } from './helpers/heap.js';
-import { graph, visualizedAlgorithm, speed } from './helpers/store.js';
+import { graph, visualizedAlgorithm, speed, key, cloneGraph } from './helpers/store.js';
 import { get } from 'svelte/store';
 import { sleep } from './helpers/sleep.js';
 
@@ -66,14 +66,18 @@ export async function bfs( start ){
   
   while ( !queue.isEmpty() ){
     const [row, column] = queue.dequeue();
-    const vertex = get(graph[row][column]);
+    const vertex = hasKeyAndKeyNotFound() ? get(cloneGraph[row][column]) : get(graph[row][column]);
 
-    if ( vertex.isTarget ){
+    if ( vertex.visited ){
+      continue;
+    }
+    if ( isTargetAndDontHaveKey( row, column ) || isTargetAndKeyFound( row, column ) ){
       await buildShortestPath( vertex );   
       break;
     }
-    if ( vertex.visited ){
-      continue;
+    if ( get(graph[row][column]).isKey && get(key).vertex && !get(key).found ){
+      await buildShortestPath( [row, column], true );
+      return bfs( graph[row][column] );
     }
 
     const left = [row, column - 1];
@@ -103,6 +107,20 @@ export async function bfs( start ){
     graph[row][column].compute( 'previous', vertex );
     queue.enqueue( [row, column] );
   }
+
+  function hasKeyAndKeyNotFound(){
+    return get(key).vertex && !get(key).found;
+  }
+
+  function isTargetAndDontHaveKey( row, column ){
+    return get(graph[row][column]).isTarget && !get(key).vertex;
+  }
+
+  function isTargetAndKeyFound( row, column ){
+    return get(graph[row][column]).isTarget && get(key).vertex && get(key).found;
+  }
+
+  function 
 }
 
 /** @param { Vertex } start start vertex */
