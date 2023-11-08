@@ -8,7 +8,7 @@
 
 :root {
   --vertex-size: 24px;
-  --primary: #F1812D;
+  --primary: #f87b1b;
   --background: #101524;
   --secondary: #1F2947;
   background-color: var( --background );
