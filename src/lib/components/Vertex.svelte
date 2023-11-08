@@ -153,7 +153,7 @@
   }
 
   .clone-visited{
-    background-color: #0F3A67;
+    background-color: hsl(211, 75%, 40%);
   }
 
   .explored{
