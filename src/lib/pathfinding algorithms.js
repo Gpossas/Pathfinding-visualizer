@@ -246,9 +246,9 @@ async function buildShortestPath( row, column, isCloneGraph = false ){
   do{
     vertex = isCloneGraph ? cloneGraph[row][column]: graph[row][column];
     pathStack.push( [row, column] );
-    [row, column] = vertex.previous ? vertex.previous.coordinates : [-1, -1];
+    [row, column] = get(vertex).previous ? get(vertex).previous.coordinates : [-1, -1];
   }
-  while( vertex )
+  while( row !== -1 )
 
   while ( pathStack.length > 0 ){
     [row, column] = pathStack.pop();
