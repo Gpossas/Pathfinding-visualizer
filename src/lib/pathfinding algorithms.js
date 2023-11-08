@@ -77,6 +77,7 @@ export async function bfs( start ){
     }
     if ( get(graph[row][column]).isKey && get(key).vertex && !get(key).found ){
       await buildShortestPath( [row, column], true );
+      key.found();
       return bfs( graph[row][column] );
     }
 
@@ -120,7 +121,6 @@ export async function bfs( start ){
     return get(graph[row][column]).isTarget && get(key).vertex && get(key).found;
   }
 
-  function 
 }
 
 /** @param { Vertex } start start vertex */
