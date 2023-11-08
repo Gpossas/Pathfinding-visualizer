@@ -1,6 +1,6 @@
 <script>
   // @ts-nocheck
-  import { graph } from '../helpers/store.js';
+  import { graph, cloneGraph } from '../helpers/store.js';
   import VertexComponent from "./Vertex.svelte";
   import { vertexSize } from "../helpers/vertex.js"
 
@@ -42,6 +42,7 @@
     { #each graph as row, rowIndex }
       { #each row as vertex, columnIndex }
         <VertexComponent 
+          cloneVertex = { cloneGraph[rowIndex][columnIndex] }
           { vertex } 
           { startEvent } 
           { moveOperation } 
