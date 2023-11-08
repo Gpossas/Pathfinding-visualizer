@@ -103,7 +103,10 @@
     $visualizedAlgorithm && ( $vertex.explored || $cloneVertex.explored ) ? 'explored':
     ''
   }
-  { $isAlgorithmRunning && $vertex.visited ? 'animate-grow': '' }
+  { 
+    $isAlgorithmRunning && $vertex.visited ? 'animate-grow': 
+    $isAlgorithmRunning && $cloneVertex.visited ? 'animate-grow-clone': ''
+  }
   { $isAlgorithmRunning && ( $vertex.isStart || $vertex.isTarget || $vertex.isKey ) ? 'disabled': '' }
   "
   bind:this={ vertexComponent }
@@ -154,7 +157,7 @@
   }
 
   .clone-visited{
-    background-color: hsl(211, 75%, 40%);
+    background-color: hsl(231, 87%, 56%);
   }
 
   .explored{
@@ -209,7 +212,31 @@
     }
   }
 
+  @keyframes grow-clone {
+    0% {
+      transform: scale(0);
+      border-radius: 50%;
+      background-color: hsl(231, 87%, 36%);
+    }  
+    25%{
+      background-color: hsl(231, 87%, 46%);
+    }
+    50%{
+      background-color: hsl(231, 87%, 56%);
+    }
+    75%{
+      background-color: hsl(231, 87%, 71%);
+    }
+    100% {
+      transform: scale(1);
+      background-color: hsl(231, 87%, 56%);
+    }
+  }
+
   .animate-grow{
     animation: grow 1.5s ease-out;
+  }
+  .animate-grow-clone{
+    animation: grow-clone 1.5s ease-out;
   }
 </style>
