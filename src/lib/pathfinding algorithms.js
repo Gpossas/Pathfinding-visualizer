@@ -75,7 +75,7 @@ export async function bfs( start ){
       await buildShortestPath( row, column );   
       break;
     }
-    if ( get(graph[row][column]).isKey && get(key).vertex && !get(key).found ){
+    if ( get(graph[row][column]).isKey && hasKeyAndKeyNotFound() ){
       await buildShortestPath( row, column, true );
       key.found();
       return bfs( graph[row][column] );
@@ -90,7 +90,10 @@ export async function bfs( start ){
     explore( ...up, vertex );
     explore( ...down, vertex );
     
-    graph[row][column].compute( 'visited' );
+    hasKeyAndKeyNotFound() 
+      ? cloneGraph[row][column].compute( 'visited' ) 
+      : graph[row][column].compute( 'visited' );
+      
     if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
