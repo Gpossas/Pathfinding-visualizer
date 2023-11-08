@@ -20,6 +20,10 @@
       vertex.compute( 'isWall', false );
       vertex.compute( 'value', 1 );
     }
+    
+    if ( get(visualizedAlgorithm) ){
+      retracePath();
+    }
   }
 
   /** @param { Event } mouseEvent */
