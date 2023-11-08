@@ -72,11 +72,11 @@ export async function bfs( start ){
       continue;
     }
     if ( isTargetAndDontHaveKey( row, column ) || isTargetAndKeyFound( row, column ) ){
-      await buildShortestPath( vertex );   
+      await buildShortestPath( row, column );   
       break;
     }
     if ( get(graph[row][column]).isKey && get(key).vertex && !get(key).found ){
-      await buildShortestPath( [row, column], true );
+      await buildShortestPath( row, column, true );
       key.found();
       return bfs( graph[row][column] );
     }
