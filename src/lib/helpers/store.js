@@ -68,5 +68,6 @@ export let visualizedAlgorithm = writable( '' );
 export let speed = writable( 10 );
 
 export const graph = createBoard( rows, columns );
+export const cloneGraph = createBoard( rows, columns );
 
 export const key = keyStore();
