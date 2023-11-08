@@ -73,6 +73,7 @@
   export let columnIndex;
   export let isPressing;
   export let vertex;
+  export let cloneVertex;
   export let startEvent;
   export let startVertex;
   export let targetVertex;
@@ -95,9 +96,10 @@
   } 
   { 
     $vertex.isWall ? 'wall':
-    $vertex.isShortestPath ? 'shortestPath':
+    $vertex.isShortestPath || $cloneVertex.isShortestPath ? 'shortestPath':
     $vertex.visited ? 'visited':
-    $vertex.explored && get(visualizedAlgorithm) ? 'explored':
+    $cloneVertex.visited ? 'clone-visited': 
+    $visualizedAlgorithm && ( $vertex.explored || $cloneVertex.explored ) ? 'explored':
     ''
   }
   { $isAlgorithmRunning && $vertex.visited ? 'animate-grow': '' }
