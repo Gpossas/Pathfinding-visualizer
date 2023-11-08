@@ -239,16 +239,22 @@ export async function aStar( start, target ){
   }
 }
 
-async function buildShortestPath( vertex ){
+async function buildShortestPath( row, column, isCloneGraph = false ){
   const pathStack = [];
-  while ( vertex ){
-    pathStack.push( vertex );
-    vertex = vertex.previous;
+  let vertex;
+
+  do{
+    vertex = isCloneGraph ? cloneGraph[row][column]: graph[row][column];
+    pathStack.push( [row, column] );
+    [row, column] = vertex.previous ? vertex.previous.coordinates : [-1, -1];
   }
+  while( vertex )
+
   while ( pathStack.length > 0 ){
-    const [row, column] = pathStack.pop().coordinates;
-    graph[row][column].compute( 'isShortestPath' );
-    if ( ! get(visualizedAlgorithm) ) 
-      await sleep( get(speed) );
+    [row, column] = pathStack.pop();
+    vertex = isCloneGraph ? cloneGraph[row][column]: graph[row][column];
+    vertex.compute( 'isShortestPath' );
+
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 }
