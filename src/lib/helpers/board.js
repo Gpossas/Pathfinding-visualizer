@@ -1,4 +1,4 @@
-import { graph, vertexStore } from "./store";
+import { graph, cloneGraph , vertexStore } from "./store";
 import Vertex, { vertexSize } from "./vertex";
 
 const totalWidth = window.innerWidth;
@@ -30,6 +30,7 @@ export function clearPath(){
   for ( let row = 0; row < rows; row++ ){
     for ( let column = 0; column < columns; column++ ){
       graph[row][column].clear();
+      cloneGraph[row][column].clear();
     }
   }
 }
@@ -38,6 +39,7 @@ export function clearWalls(){
   for ( let row = 0; row < rows; row++ ){
     for ( let column = 0; column < columns; column++ ){
       graph[row][column].compute( 'isWall', false );
+      cloneGraph[row][column].compute( 'isWall', false );
     }
   }
 }
@@ -46,6 +48,7 @@ export function clearWeights(){
   for ( let row = 0; row < rows; row++ ){
     for ( let column = 0; column < columns; column++ ){
       graph[row][column].compute( 'value', 1 );
+      cloneGraph[row][column].compute( 'value', 1 );
     }
   }
 }
@@ -54,6 +57,7 @@ export function makeGridFullOfWalls(){
   for ( let row = 0; row < rows; row++ ){
     for ( let column = 0; column < columns; column++ ){
       graph[row][column].compute( 'isWall' );
+      cloneGraph[row][column].compute( 'isWall' );
     }
   }
 }
