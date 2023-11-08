@@ -15,6 +15,7 @@
   async function run( algorithm, isAnimated = true ){
     if ( isAnimated ) visualizedAlgorithm.set('');
     clearPath();
+    key.found( false );
     isAlgorithmRunning.set( true );
 
     switch ( algorithm ){
