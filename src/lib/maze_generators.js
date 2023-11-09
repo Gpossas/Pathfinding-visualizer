@@ -8,31 +8,31 @@ export async function randomizedPrims( start ){
 
   makeGridFullOfWalls();
 
-  const walls = new Set([start]);
+  const walls = new Set( [ get(start).coordinates ] );
   while ( walls.size > 0 ){
-    const cell = getRandomKey( walls );
-    walls.delete( cell );
+    const cellCoordinates = getRandomKey( walls );
+    walls.delete( cellCoordinates );
     
-    const neighbors = getNeighbors( cell );
+    const neighbors = getNeighbors( ...cellCoordinates );
     if ( neighbors.size > 0 ){
       const neighbor = getRandomKey( neighbors );
-      connectWallWithPassage( ...cell.coordinates, ...neighbor.coordinates );
+      connectWallWithPassage( ...cellCoordinates, ...neighbor );
     }
-    const frontiers = getFrontiers( cell );
+
+    const frontiers = getFrontiers( ...cellCoordinates );
     for ( let frontier of frontiers ){
       walls.add( frontier );
     }
   }
 
-  function getNeighbors( cell ){
+  function getNeighbors( row, column ){
     //The neighbours of a cell are all passages with exact distance two
     
     const neighbors = new Set();
-    const [row, column] = cell.coordinates;
-    const left = isPassage( row, column - 2 ) ? get(graph)[row][column - 2] : null;
-    const right =  isPassage( row, column + 2 ) ? get(graph)[row][column + 2] : null;
-    const up =  isPassage( row - 2, column ) ? get(graph)[row - 2][column] : null;
-    const down =  isPassage( row + 2, column ) ? get(graph)[row + 2][column] : null;
+    const left = isPassage( row, column - 2 ) ? [row, column - 2] : null;
+    const right =  isPassage( row, column + 2 ) ? [row, column + 2] : null;
+    const up =  isPassage( row - 2, column ) ? [row - 2, column] : null;
+    const down =  isPassage( row + 2, column ) ? [row + 2, column] : null;
     
     if ( left )
       neighbors.add( left );
@@ -45,26 +45,25 @@ export async function randomizedPrims( start ){
     return neighbors;
   }
 
-  function getFrontiers( cell ){
+  function getFrontiers( row, column ){
     // The frontier of a cell are all walls with exact distance two
     
-    const neighbors = new Set();
-    const [row, column] = cell.coordinates;
-    const left = isFrontier( row, column - 2 ) ? get(graph)[row][column - 2] : null;
-    const right =  isFrontier( row, column + 2 ) ? get(graph)[row][column + 2] : null;
-    const up =  isFrontier( row - 2, column ) ? get(graph)[row - 2][column] : null;
-    const down =  isFrontier( row + 2, column ) ? get(graph)[row + 2][column] : null;
+    const frontiers = new Set();
+    const left = isFrontier( row, column - 2 ) ? [row, column - 2] : null;
+    const right =  isFrontier( row, column + 2 ) ? [row, column + 2] : null;
+    const up =  isFrontier( row - 2, column ) ? [row - 2, column] : null;
+    const down =  isFrontier( row + 2, column ) ? [row + 2, column] : null;
 
     if ( left )
-      neighbors.add( left );
+      frontiers.add( left );
     if ( right )
-      neighbors.add( right );
+      frontiers.add( right );
     if ( up )
-      neighbors.add( up );
+      frontiers.add( up );
     if ( down )
-      neighbors.add( down );
+      frontiers.add( down );
 
-    return neighbors;
+    return frontiers;
   }
 
   function connectWallWithPassage( wallX, wallY, passageX, passageY ){
@@ -72,16 +71,18 @@ export async function randomizedPrims( start ){
     const x = Math.floor( ( wallX + passageX ) / 2 );
     const y = Math.floor( ( wallY + passageY ) / 2 );
 
-    graph.compute( wallX, wallY, 'isWall', false );
-    graph.compute( x, y, 'isWall', false );
+    graph[wallX][wallY].compute( 'isWall', false );
+    graph[x][y].compute( 'isWall', false );
   }
 
   function isPassage( row, column ){
-    return !( isOutOfBounds( row, column ) || get(graph)[row][column].isWall || get(graph)[row][column].isTarget );
+    let cell;
+    return !( isOutOfBounds( row, column ) || (cell = get(graph[row][column])).isWall || cell.isTarget || cell.isKey );
   }
 
   function isFrontier( row, column ){
-    return !isOutOfBounds( row, column ) && ( get(graph)[row][column].isWall || get(graph)[row][column].isTarget );
+    let cell;
+    return !isOutOfBounds( row, column ) && ( (cell = get(graph[row][column])).isWall || cell.isTarget || cell.isKey );
   }
 
   function getRandomKey( collection ) {
