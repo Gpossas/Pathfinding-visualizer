@@ -1,3 +1,4 @@
+import { get } from "svelte/store";
 import { graph, cloneGraph , vertexStore } from "./store";
 import Vertex, { vertexSize } from "./vertex";
 
@@ -56,8 +57,12 @@ export function clearWeights(){
 export function makeGridFullOfWalls(){
   for ( let row = 0; row < rows; row++ ){
     for ( let column = 0; column < columns; column++ ){
+      const vertex = get(graph[row][column]);
+      if ( vertex.isStart || vertex.isTarget || vertex.isKey ){
+        continue
+      }
+
       graph[row][column].compute( 'isWall' );
-      cloneGraph[row][column].compute( 'isWall' );
     }
   }
 }
