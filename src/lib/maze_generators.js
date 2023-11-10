@@ -10,16 +10,16 @@ export async function randomizedPrims( start ){
 
   const walls = new Set( [get(start)] );
   while ( walls.size > 0 ){
-    const cellCoordinates = getRandomKey( walls );
-    walls.delete( cellCoordinates );
+    const cell = getRandomKey( walls );
+    walls.delete( cell );
     
-    const neighbors = getNeighbors( ...cellCoordinates );
+    const neighbors = getNeighbors( cell );
     if ( neighbors.size > 0 ){
       const neighbor = getRandomKey( neighbors );
-      connectWallWithPassage( ...cellCoordinates, ...neighbor );
+      connectWallWithPassage( ...cell.coordinates, ...neighbor.coordinates );
     }
 
-    const frontiers = getFrontiers( ...cellCoordinates );
+    const frontiers = getFrontiers( cell );
     for ( let frontier of frontiers ){
       walls.add( frontier );
     }
