@@ -6,15 +6,13 @@ import { graph, visualizedAlgorithm, speed, key, cloneGraph } from './helpers/st
 import { get } from 'svelte/store';
 import { sleep } from './helpers/sleep.js';
 
-/** @param { Vertex } start start vertex */
 export async function dfs( start ){
-  const stack = [ start ];
+  const stack = [ get(start).coordinates ];
 
   while ( stack ){
-    let vertex = stack.pop();
-    
-    const [row, column] = vertex.coordinates;
-    graph.compute( row, column, 'visited' );
+    const [row, column] = stack.pop();
+    graph[row][column].compute( 'visited' );
+    const vertex = hasKeyAndKeyNotFound() ? get(cloneGraph[row][column]) : get(graph[row][column]);
 
     const left = [row, column - 1];
     const right = [row, column + 1];
@@ -29,7 +27,7 @@ export async function dfs( start ){
     explore( ...up, vertex, flag );
     
     if ( flag['isTargetFound'] ){
-      await buildShortestPath( flag['target'] );
+      await buildShortestPath( ...flag['target'].coordinates );
       break;
     }
 
@@ -39,22 +37,26 @@ export async function dfs( start ){
   function explore( row, column, vertex, flag ){
     if ( 
       isOutOfBounds( row, column ) 
-      || get(graph)[row][column].isWall 
-      || get(graph)[row][column].visited    
-      || get(graph)[row][column].explored 
+      || get(graph[row][column]).isWall 
+      || hasVisitedInOriginalGraph( row, column )
+      || hasExploredInOriginalGraph( row, column )
+      || hasVisitedInCloneGraph( row, column )
+      || hasExploredInCloneGraph( row, column )
     ) return;
+    
+    const neighbor = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
 
-    if ( get(graph)[row][column].isTarget ){
-      flag['target'] = get(graph)[row][column];
+    if ( get(neighbor).isTarget ){
+      flag['target'] = get(neighbor);
       flag['isTargetFound'] = true;
-      graph.compute( row, column, 'visited' );
-      graph.compute( row, column, 'previous', vertex );
+      neighbor.compute( 'visited' );
+      neighbor.compute( 'previous', vertex );
       return;
     }
     
-    graph.compute( row, column, 'explored' );
-    stack.push( get(graph)[row][column] );
-    graph.compute( row, column, 'previous', vertex );
+    neighbor.compute( 'explored' );
+    neighbor.compute( 'previous', vertex );
+    stack.push( get(neighbor).coordinates );
   }
 
   visualizedAlgorithm.set( 'dfs' );
@@ -118,38 +120,6 @@ export async function bfs( start ){
       graph[row][column].compute( 'previous', vertex );
     }
     queue.enqueue( [row, column] );
-  }
-
-  function hasKeyAndKeyNotFound(){
-    return get(key).vertex && !get(key).found;
-  }
-
-  function isTargetAndDontHaveKey( row, column ){
-    return get(graph[row][column]).isTarget && !get(key).vertex;
-  }
-
-  function isTargetAndKeyFound( row, column ){
-    return get(graph[row][column]).isTarget && get(key).vertex && get(key).found;
-  }
-
-  function hasVisitedInOriginalGraph( row, column ){
-    return ( 
-      get(graph[row][column]).visited && !get(key).vertex 
-      || get(graph[row][column]).visited && get(key).vertex && get(key).found
-    )
-  }
-  function hasExploredInOriginalGraph( row, column ){
-    return ( 
-      get(graph[row][column]).explored && !get(key).vertex 
-      || get(graph[row][column]).explored && get(key).vertex && get(key).found
-    )
-  }
-
-  function hasVisitedInCloneGraph( row, column ){
-    return get(cloneGraph[row][column]).visited && get(key).vertex && !get(key).found
-  }
-  function hasExploredInCloneGraph( row, column ){
-    return get(cloneGraph[row][column]).explored && get(key).vertex && !get(key).found
   }
 }
 
@@ -269,6 +239,8 @@ export async function aStar( start, target ){
   }
 }
 
+//  HELPERS
+
 async function buildShortestPath( row, column, isCloneGraph = false ){
   const pathStack = [];
   let vertex;
@@ -287,4 +259,36 @@ async function buildShortestPath( row, column, isCloneGraph = false ){
 
     if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
+}
+
+function hasKeyAndKeyNotFound(){
+  return get(key).vertex && !get(key).found;
+}
+
+function isTargetAndDontHaveKey( row, column ){
+  return get(graph[row][column]).isTarget && !get(key).vertex;
+}
+
+function isTargetAndKeyFound( row, column ){
+  return get(graph[row][column]).isTarget && get(key).vertex && get(key).found;
+}
+
+function hasVisitedInOriginalGraph( row, column ){
+  return ( 
+    get(graph[row][column]).visited && !get(key).vertex 
+    || get(graph[row][column]).visited && get(key).vertex && get(key).found
+  )
+}
+function hasExploredInOriginalGraph( row, column ){
+  return ( 
+    get(graph[row][column]).explored && !get(key).vertex 
+    || get(graph[row][column]).explored && get(key).vertex && get(key).found
+  )
+}
+
+function hasVisitedInCloneGraph( row, column ){
+  return get(cloneGraph[row][column]).visited && get(key).vertex && !get(key).found
+}
+function hasExploredInCloneGraph( row, column ){
+  return get(cloneGraph[row][column]).explored && get(key).vertex && !get(key).found
 }
