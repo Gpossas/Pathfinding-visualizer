@@ -8,7 +8,7 @@ export async function randomizedPrims( start ){
 
   makeGridFullOfWalls();
 
-  const walls = new Set([start]);
+  const walls = new Set( [get(start)] );
   while ( walls.size > 0 ){
     const cell = getRandomKey( walls );
     walls.delete( cell );
@@ -29,10 +29,10 @@ export async function randomizedPrims( start ){
     
     const neighbors = new Set();
     const [row, column] = cell.coordinates;
-    const left = isPassage( row, column - 2 ) ? get(graph)[row][column - 2] : null;
-    const right =  isPassage( row, column + 2 ) ? get(graph)[row][column + 2] : null;
-    const up =  isPassage( row - 2, column ) ? get(graph)[row - 2][column] : null;
-    const down =  isPassage( row + 2, column ) ? get(graph)[row + 2][column] : null;
+    const left = isPassage( row, column - 2 ) ? get(graph[row][column - 2]) : null;
+    const right =  isPassage( row, column + 2 ) ? get(graph[row][column + 2]) : null;
+    const up =  isPassage( row - 2, column ) ? get(graph[row - 2][column]) : null;
+    const down =  isPassage( row + 2, column ) ? get(graph[row + 2][column]) : null;
     
     if ( left )
       neighbors.add( left );
@@ -50,10 +50,10 @@ export async function randomizedPrims( start ){
     
     const neighbors = new Set();
     const [row, column] = cell.coordinates;
-    const left = isFrontier( row, column - 2 ) ? get(graph)[row][column - 2] : null;
-    const right =  isFrontier( row, column + 2 ) ? get(graph)[row][column + 2] : null;
-    const up =  isFrontier( row - 2, column ) ? get(graph)[row - 2][column] : null;
-    const down =  isFrontier( row + 2, column ) ? get(graph)[row + 2][column] : null;
+    const left = isFrontier( row, column - 2 ) ? get(graph[row][column - 2]) : null;
+    const right =  isFrontier( row, column + 2 ) ? get(graph[row][column + 2]) : null;
+    const up =  isFrontier( row - 2, column ) ? get(graph[row - 2][column]) : null;
+    const down =  isFrontier( row + 2, column ) ? get(graph[row + 2][column]) : null;
 
     if ( left )
       neighbors.add( left );
@@ -72,16 +72,16 @@ export async function randomizedPrims( start ){
     const x = Math.floor( ( wallX + passageX ) / 2 );
     const y = Math.floor( ( wallY + passageY ) / 2 );
 
-    graph.compute( wallX, wallY, 'isWall', false );
-    graph.compute( x, y, 'isWall', false );
+    graph[wallX][wallY].compute( 'isWall', false );
+    graph[x][y].compute( 'isWall', false );
   }
 
   function isPassage( row, column ){
-    return !( isOutOfBounds( row, column ) || get(graph)[row][column].isWall || get(graph)[row][column].isTarget );
+    return !( isOutOfBounds( row, column ) || get(graph[row][column]).isWall || get(graph[row][column]).isTarget );
   }
 
   function isFrontier( row, column ){
-    return !isOutOfBounds( row, column ) && ( get(graph)[row][column].isWall || get(graph)[row][column].isTarget );
+    return !isOutOfBounds( row, column ) && ( get(graph[row][column]).isWall || get(graph[row][column]).isTarget );
   }
 
   function getRandomKey( collection ) {
