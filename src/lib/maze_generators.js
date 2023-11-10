@@ -78,11 +78,19 @@ export async function randomizedPrims( start ){
   }
 
   function isPassage( row, column ){
-    return !( isOutOfBounds( row, column ) || get(graph[row][column]).isWall || get(graph[row][column]).isTarget );
+    let cell;
+    return !( 
+      isOutOfBounds( row, column ) 
+      || (cell = get(graph[row][column])).isWall || cell.isTarget || cell.isKey
+    );
   }
-
+  
   function isFrontier( row, column ){
-    return !isOutOfBounds( row, column ) && ( get(graph[row][column]).isWall || get(graph[row][column]).isTarget );
+    let cell;
+    return (
+      !isOutOfBounds( row, column ) 
+      && ( (cell = get(graph[row][column])).isWall || cell.isTarget || cell.isKey )
+    );
   }
 
   function getRandomKey( collection ) {
