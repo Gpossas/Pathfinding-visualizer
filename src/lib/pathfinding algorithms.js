@@ -136,34 +136,39 @@ export async function bfs( start ){
   }
 }
 
-/** @param { Vertex } start start vertex */
 export async function dijkstra( start ){
   const shortestDistance = new Map();
-  shortestDistance.set( start, 0 );
-  const priorityQueue = [ [ 0, start ] ];
+  shortestDistance.set( get(start), 0 );
+  const priorityQueue = [ [ 0, get(start) ] ];
 
   while ( priorityQueue.length > 0 ){
-    const vertex = heapPop( priorityQueue );
+    let vertex = heapPop( priorityQueue );
+    const [row, column] = vertex.coordinates;
+    vertex = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
     
-    if ( vertex.isTarget ){
-      await buildShortestPath( vertex );
-      break;
-    }
-    if ( vertex.visited ){
+    if ( get(vertex).visited ){
       continue;
     }
+    if ( isTargetAndDontHaveKey( row, column ) || isTargetAndKeyFound( row, column ) ){
+      await buildShortestPath( row, column );   
+      break;
+    }
+    if ( get(graph[row][column]).isKey && hasKeyAndKeyNotFound() ){
+      await buildShortestPath( row, column, true );
+      key.found();
+      return dijkstra( graph[row][column] );
+    }
 
-    const [row, column] = vertex.coordinates;
     const left = [row, column - 1];
     const right = [row, column + 1];
     const up = [row - 1, column];
     const down = [row + 1, column];
-    explore( ...left, vertex, shortestDistance, priorityQueue );
-    explore( ...right, vertex, shortestDistance, priorityQueue );
-    explore( ...up, vertex, shortestDistance, priorityQueue );
-    explore( ...down, vertex, shortestDistance, priorityQueue );
+    explore( ...left, get(vertex), shortestDistance, priorityQueue );
+    explore( ...right, get(vertex), shortestDistance, priorityQueue );
+    explore( ...up, get(vertex), shortestDistance, priorityQueue );
+    explore( ...down, get(vertex), shortestDistance, priorityQueue );
 
-    graph.compute( row, column, 'visited' );
+    vertex.compute( 'visited' );
     if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
@@ -172,17 +177,20 @@ export async function dijkstra( start ){
   function explore( row, column, vertex, shortestDistance, priorityQueue ){
     if ( 
       isOutOfBounds( row, column ) 
-      || get(graph)[row][column].isWall
-      || get(graph)[row][column].visited
+      || get(graph[row][column]).isWall 
+      || hasVisitedInOriginalGraph( row, column )
+      || hasVisitedInCloneGraph( row, column )
     ) return;
     
-    graph.compute( row, column, 'explored' );
-    const neighbor = get(graph)[row][column];
-    const distance = neighbor.value + ( shortestDistance.get( vertex ) || 0 );
-    if ( !shortestDistance.has( neighbor ) || distance < shortestDistance.get( neighbor ) ){
-      shortestDistance.set( neighbor, distance );
-      neighbor.previous = vertex;
-      heapPush( priorityQueue, [ distance, neighbor ] );
+    const neighbor = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
+    neighbor.compute( 'explored' );
+
+    const distance = get(graph[row][column]).value + ( shortestDistance.get( vertex ) || 0 );
+    debugger
+    if ( !shortestDistance.has( get(neighbor) ) || distance < shortestDistance.get( get(neighbor) ) ){
+      neighbor.compute( 'previous', vertex );
+      shortestDistance.set( get(neighbor), distance );
+      heapPush( priorityQueue, [ distance, get(neighbor) ] );
     }
   }
 }
