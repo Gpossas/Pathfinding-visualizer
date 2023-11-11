@@ -75,7 +75,7 @@
   <nav>
     <ul class="action_buttons">
       <li class="select">
-        <button>Algorithms ⠀⠀⠀▼</button>
+        <button>Algorithms ⠀▼</button>
         <ul class="dropdown">
           <li>
             <button on:click={ () => algorithm = 'dfs' }>Depth-first search</button>
@@ -93,7 +93,7 @@
       </li>
       
       <li class="select">
-        <button>Generate Maze ⠀⠀⠀▼</button>
+        <button>Generate Maze ⠀▼</button>
         <ul class="dropdown">
           <li> <button on:click={ () => generateMaze() } type="submit">Randomized Prims</button> </li>
         </ul>
@@ -157,9 +157,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
     height: 100%;
     padding: 20px;
-    gap: 20px 40px;
+    padding-right: 40px;
+    gap: 20px 0;
   }
 
   h1{
@@ -168,7 +170,7 @@
 
   ul{
     display: flex;
-    gap: 20px;
+    gap: 18px;
     padding: 0;
   }
 
@@ -223,7 +225,7 @@
   /* ===== BUTTONS ===== */
 
   button{
-    padding: 10px 20px;
+    padding: 10px 15px;
     color: white;
     font-weight: 600;
     font-size: 12px;
