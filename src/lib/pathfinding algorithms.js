@@ -1,5 +1,4 @@
-import Vertex from './helpers/vertex.js';
-import { columns, isOutOfBounds } from './helpers/board.js';
+import { isOutOfBounds } from './helpers/board.js';
 import Queue from './helpers/queue.js';
 import { heapPush, heapPop } from './helpers/heap.js';
 import { graph, visualizedAlgorithm, speed, key, cloneGraph } from './helpers/store.js';
@@ -75,6 +74,7 @@ export async function dfs( start ){
   visualizedAlgorithm.set( 'dfs' );
 }
 
+
 export async function bfs( start ){
   const queue = new Queue();
   queue.enqueue( get(start).coordinates );
@@ -136,6 +136,7 @@ export async function bfs( start ){
   }
 }
 
+
 export async function dijkstra( start ){
   const shortestDistance = new Map();
   shortestDistance.set( get(start), 0 );
@@ -181,12 +182,11 @@ export async function dijkstra( start ){
       || hasVisitedInOriginalGraph( row, column )
       || hasVisitedInCloneGraph( row, column )
     ) return;
-    
+
     const neighbor = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
     neighbor.compute( 'explored' );
 
     const distance = get(graph[row][column]).value + ( shortestDistance.get( vertex ) || 0 );
-    debugger
     if ( !shortestDistance.has( get(neighbor) ) || distance < shortestDistance.get( get(neighbor) ) ){
       neighbor.compute( 'previous', vertex );
       shortestDistance.set( get(neighbor), distance );
@@ -195,29 +195,34 @@ export async function dijkstra( start ){
   }
 }
 
-/**
- * @param { Vertex } start 
- * @param { Vertex } target 
- */
+
 export async function aStar( start, target ){
+  debugger
+  // target = hasKeyAndKeyNotFound() ? get(key).vertex : target
   start.g = 0;
   start.f = getHeuristic( ...start.coordinates, ...target.coordinates );
-
+  
   const priorityQueue = [ [ start.f, start.f, start ] ];
   while ( priorityQueue.length > 0 ){
-    const vertex = heapPop( priorityQueue );
+    let vertex = heapPop( priorityQueue );
+    const [row, column] = vertex.coordinates;
+    vertex = hasKeyAndKeyNotFound() ? get(cloneGraph[row][column]) : get(graph[row][column]);
     
-    if ( vertex.isTarget ){
-      await buildShortestPath( vertex );
-      break;
-    }
     if ( vertex.visited ){
       continue;
     }
+    if ( isTargetAndDontHaveKey( row, column ) || isTargetAndKeyFound( row, column ) ){
+      await buildShortestPath( row, column );   
+      break;
+    }
+    if ( get(graph[row][column]).isKey && hasKeyAndKeyNotFound() ){
+      await buildShortestPath( row, column, true );
+      key.found();
+      return aStar( get(graph[row][column]), target );
+    }
 
-    graph.compute( ...vertex.coordinates, 'visited' );
-
-    const [row, column] = vertex.coordinates;
+    graph[row][column].compute( 'visited' );
+    
     const left = [row, column - 1];
     const right = [row, column + 1];
     const up = [row - 1, column];
@@ -226,8 +231,8 @@ export async function aStar( start, target ){
     explore( ...up, vertex, target, priorityQueue );
     explore( ...right, vertex, target, priorityQueue );
     explore( ...down, vertex, target, priorityQueue );
-    if ( ! get(visualizedAlgorithm) ) 
-      await sleep( get(speed) );
+
+    if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
   }
 
   visualizedAlgorithm.set( 'a*' );
@@ -235,13 +240,16 @@ export async function aStar( start, target ){
   function explore( row, column, vertex, target, priorityQueue ){
     if (
       isOutOfBounds( row, column )
-      || get(graph)[row][column].isWall 
-      || get(graph)[row][column].visited
+      || get(graph[row][column]).isWall 
+      || hasVisitedInOriginalGraph( row, column )
+      || hasVisitedInCloneGraph( row, column )
     ) return;
 
-    graph.compute( row, column, 'explored' );
-    const neighbor = get(graph)[row][column];
-    const g_cost = neighbor.value + vertex.g;
+    let neighbor = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
+    neighbor.compute( 'explored' );
+    neighbor = get(neighbor);
+
+    const g_cost = get(graph[row][column]).value + vertex.g;
     const h_cost = getHeuristic( ...neighbor.coordinates, ...target.coordinates );
     const f_cost = g_cost + h_cost;
 
@@ -249,8 +257,8 @@ export async function aStar( start, target ){
       neighbor.f = f_cost;
       neighbor.g = g_cost;
 
-      heapPush( priorityQueue, [ f_cost, h_cost, neighbor ] );
       neighbor.previous = vertex;
+      heapPush( priorityQueue, [ f_cost, h_cost, neighbor ] );
     }
   }
 
