@@ -70,7 +70,11 @@
       case 'dfs': return dfs( startVertex );
       case 'bfs': return bfs( startVertex );
       case 'dijkstra': return dijkstra( startVertex );
-      case 'a*': return aStar( startVertex, targetVertex );  
+      case 'a*': 
+        get(key).vertex 
+          ? aStar( get(startVertex), get(key).vertex )
+          : aStar( get(startVertex), get(targetVertex) ); 
+        break;
     }
   }
 
