@@ -11,9 +11,9 @@ export async function dfs( start ){
 
   while ( stack ){
     const [row, column] = stack.pop();
-    graph[row][column].compute( 'visited' );
-    const vertex = hasKeyAndKeyNotFound() ? get(cloneGraph[row][column]) : get(graph[row][column]);
-
+    const vertex = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
+    vertex.compute( 'visited' );
+    
     const left = [row, column - 1];
     const right = [row, column + 1];
     const up = [row - 1, column];
@@ -21,14 +21,20 @@ export async function dfs( start ){
 
     const flag = new Object();
     flag['isTargetFound'] = false;
-    explore( ...left, vertex, flag );
-    explore( ...down, vertex, flag );
-    explore( ...right, vertex, flag );
-    explore( ...up, vertex, flag );
+    flag['isKeyFound'] = false;
+    explore( ...left, get(vertex), flag );
+    explore( ...down, get(vertex), flag );
+    explore( ...right, get(vertex), flag );
+    explore( ...up, get(vertex), flag );
     
     if ( flag['isTargetFound'] ){
       await buildShortestPath( ...flag['target'].coordinates );
       break;
+    }
+    if ( flag['isKeyFound'] ){
+      await buildShortestPath( ...get(key).vertex.coordinates, true );
+      key.found();
+      return dfs( flag['key'] );
     }
 
     if ( ! get(visualizedAlgorithm) ) await sleep( get(speed) );
@@ -46,9 +52,16 @@ export async function dfs( start ){
     
     const neighbor = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
 
-    if ( get(neighbor).isTarget ){
+    if ( isTargetAndDontHaveKey( ...get(neighbor).coordinates ) || isTargetAndKeyFound( ...get(neighbor).coordinates ) ){
       flag['target'] = get(neighbor);
       flag['isTargetFound'] = true;
+      neighbor.compute( 'visited' );
+      neighbor.compute( 'previous', vertex );
+      return;
+    }
+    if ( get(graph[row][column]).isKey && hasKeyAndKeyNotFound() ){
+      flag['key'] = neighbor;
+      flag['isKeyFound'] = true;
       neighbor.compute( 'visited' );
       neighbor.compute( 'previous', vertex );
       return;
