@@ -225,7 +225,7 @@
   /* ===== BUTTONS ===== */
 
   button{
-    padding: 10px 15px;
+    padding: 10px 17px;
     color: white;
     font-weight: 600;
     font-size: 12px;
