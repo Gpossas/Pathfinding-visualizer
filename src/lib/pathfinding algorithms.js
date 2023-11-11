@@ -197,16 +197,22 @@ export async function dijkstra( start ){
 
 
 export async function aStar( start, target ){
-  debugger
-  // target = hasKeyAndKeyNotFound() ? get(key).vertex : target
+  let targetTemporary;
+  if ( get(key).vertex ){
+    targetTemporary = target;
+    target = get(key).vertex;
+  }
+
+  let [row, column] = start.coordinates;
+  start = hasKeyAndKeyNotFound() ? get(cloneGraph[row][column]) : get(graph[row][column]);
   start.g = 0;
   start.f = getHeuristic( ...start.coordinates, ...target.coordinates );
   
-  const priorityQueue = [ [ start.f, start.f, start ] ];
+  let priorityQueue = [ [ start.f, start.f, start ] ];
   while ( priorityQueue.length > 0 ){
     let vertex = heapPop( priorityQueue );
-    const [row, column] = vertex.coordinates;
-    vertex = hasKeyAndKeyNotFound() ? get(cloneGraph[row][column]) : get(graph[row][column]);
+    [row, column] = vertex.coordinates;
+    vertex = hasKeyAndKeyNotFound() ? cloneGraph[row][column] : graph[row][column];
     
     if ( vertex.visited ){
       continue;
@@ -217,11 +223,13 @@ export async function aStar( start, target ){
     }
     if ( get(graph[row][column]).isKey && hasKeyAndKeyNotFound() ){
       await buildShortestPath( row, column, true );
+      target = targetTemporary;
       key.found();
-      return aStar( get(graph[row][column]), target );
+      priorityQueue = [ [ 0, 0, get(graph[row][column])] ]
     }
 
-    graph[row][column].compute( 'visited' );
+    vertex.compute( 'visited' );
+    vertex = get(vertex);
     
     const left = [row, column - 1];
     const right = [row, column + 1];
@@ -256,7 +264,6 @@ export async function aStar( start, target ){
     if ( neighbor.f === undefined || f_cost < neighbor.f ){
       neighbor.f = f_cost;
       neighbor.g = g_cost;
-
       neighbor.previous = vertex;
       heapPush( priorityQueue, [ f_cost, h_cost, neighbor ] );
     }
