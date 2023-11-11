@@ -22,11 +22,7 @@
       case 'dfs': await dfs( startVertex ); break;
       case 'bfs': await bfs( startVertex ); break;
       case 'dijkstra': await dijkstra( startVertex ); break;
-      case 'a*': 
-        get(key).vertex 
-          ? await aStar( get(startVertex), get(key).vertex )
-          : await aStar( get(startVertex), get(targetVertex) ); 
-        break;
+      case 'a*': await aStar( get(startVertex), get(targetVertex) ); break;
     }  
 
     isAlgorithmRunning.set( false );
